@@ -1,0 +1,22 @@
+@startuml Inventory
+left to right direction
+
+:Director: as d
+
+:Inventory manager: as im
+:Inventory specialist: as is
+is <|-- im
+
+rectangle System {
+    is -- (View stock)
+    is -- (Update stock)
+
+    is -- (Check Purchase Order delivery)
+    (Check Purchase Order delivery) <|-- (Warehouse receive)
+    is -- (Warehouse issue)
+    im -- (Manage warehouse list)
+
+    im -- (Generate Inventory Report)
+    d -- (Generate Inventory Report)
+}
+@enduml

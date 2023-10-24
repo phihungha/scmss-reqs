@@ -1,0 +1,34 @@
+@startuml Procurement
+left to right direction
+
+:Director: as d
+:Accountant: as a
+
+:Purchase requester: as pr
+:Procurement manager: as pm
+:Procurement specialist: as ps
+ps <|-- pm
+
+rectangle System {
+    pm -- (Manage vendor list)
+    pm -- (Manage procurement item list)
+
+    a -- (View Purchase Requisition)
+    pr -- (Create Purchase Requisition)
+    pr -- (Update Purchase Requisition)
+    (Update Purchase Requisition) <|-- (Cancel Purchase Requisition)
+    a -- (Approve Purchase Requisition)
+
+    ps -- (View Purchase Requisition)
+    ps -- (View Purchase Order)
+    ps -- (Create Purchase Order)
+    ps -- (Update Purchase Order)
+    (Update Purchase Order) <|-- (Update Purchase Order status)
+    (Update Purchase Order) <|-- (Attach Invoice to Purchase Order)
+    (Update Purchase Order) <|-- (Confirm payment of Purchase Order)
+    (Update Purchase Order) <|-- (Cancel Purchase Order)
+
+    pm -- (Generate Procurement Report)
+    d -- (Generate Procurement Report)
+}
+@enduml
