@@ -1,0 +1,10 @@
+@startuml Admin
+:Admin: as ad
+
+rectangle System {
+    ad -- (Manage users)
+    (Manage users) <|-- (Deactivate user)
+    ad -- (Manage departments)
+}
+
+@enduml

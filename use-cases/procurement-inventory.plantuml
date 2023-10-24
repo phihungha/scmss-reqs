@@ -1,0 +1,27 @@
+@startuml Procurement and Inventory
+
+:Accountant: as a
+:Purchase requester: as pr
+:Procurement manager: as pm
+:Procurement specialist: as ps
+
+:Inventory manager: as im
+:Inventory specialist: as is
+
+rectangle System {
+    pm -- (Manage vendors)
+
+    pr -- (Create Purchase Requisition)
+    a -- (Approve Purchase Requisition)
+    ps -- (Create Purchase Order)
+    ps -- (Update Purchase Order)
+    (Update Purchase Order) <|-- (Update Purchase Order status)
+    is -- (Finalize Purchase Order)
+
+    (Finalize Purchase Order) <|-- (Stock in)
+    is -- (Stock out)
+    is -- (Update stock)
+    im -- (Manage warehouse info)
+}
+
+@enduml
