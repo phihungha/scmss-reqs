@@ -1,27 +1,45 @@
 @startuml Procurement and Inventory
+left to right direction
 
+:Director: as d
 :Accountant: as a
+
 :Purchase requester: as pr
 :Procurement manager: as pm
 :Procurement specialist: as ps
+ps <|-- pm
 
 :Inventory manager: as im
 :Inventory specialist: as is
+is <|-- im
 
 rectangle System {
     pm -- (Manage vendors)
 
     pr -- (Create Purchase Requisition)
+    pr -- (Update Purchase Requisition)
+    a -- (View Purchase Requisitions)
     a -- (Approve Purchase Requisition)
+
+    ps -- (View Purchase Requisitions)
+    ps -- (View Purchase Orders)
     ps -- (Create Purchase Order)
     ps -- (Update Purchase Order)
     (Update Purchase Order) <|-- (Update Purchase Order status)
-    is -- (Finalize Purchase Order)
+    is -- (Check Purchase Order)
+    pm -- (Procurement Report)
+    d -- (Procurement Report)
 
-    (Finalize Purchase Order) <|-- (Stock in)
+    is -- (View stock)
+    (Check Purchase Order) <|-- (Stock in)
     is -- (Stock out)
     is -- (Update stock)
     im -- (Manage warehouse info)
+    im -- (Inventory Report)
+    d -- (Inventory Report)
+
+    (Print) <|-- (Procurement Report)
+    (Print) <|-- (Inventory Report)
 }
 
 @enduml
