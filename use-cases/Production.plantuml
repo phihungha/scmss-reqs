@@ -1,0 +1,32 @@
+@startuml sample
+
+left to right direction
+scale 1000 width
+scale 1000 height
+
+actor "production planner" as pm
+actor "production manager" as pm
+actor "director" as di
+
+rectangle Production {
+  usecase "Track PO status" as UC0
+  usecase "Manage PO" as UC1
+  usecase "Manage supplier" as UC2
+  usecase "Check PO" as UC3
+  usecase "Create PO" as UC4
+  usecase "Confirm PO" as UC5
+  usecase "Receive stock in material and product" as UC6
+  usecase "Check and update stock material and product" as UC7
+  }
+di -- UC0
+di -- UC1
+di -- UC5
+pm -- UC1
+pm -- UC2
+pm -- UC3
+pm -- UC4
+pm -- UC6
+pm -- UC7
+
+
+@enduml
