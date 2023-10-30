@@ -10,17 +10,22 @@ actor "inventory manager" as im
 
 
 rectangle Order {
-  usecase "Manage order" as UC0
-  usecase "Check and update order status" as UC10
-  usecase "Create order" as UC1
-  usecase "Check and update stock product" as UC4
-  usecase "Check order" as UC5
-  usecase "Stock out depend on order" as UC5
+  usecase "Manage Order" as UC0
+  usecase "Check Order status" as UC1
+  usecase "Update Order status" as UC2
+  usecase "Create Order" as UC3
+  usecase "Check stock product" as UC4
+  usecase "Update stock product" as UC5
+  usecase "Check Order" as UC6
+  usecase "Stock out depend on Order" as UC7
   }
 
 sales -- UC0
-sales -- UC10
 sales -- UC1
-im -- UC5
+sales -- UC2
+sales -- UC3
 im -- UC4
+im -- UC5
+im -- UC6
+im -- UC7
 @enduml
