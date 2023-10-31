@@ -14,27 +14,26 @@ s <|-- sm
 :Logistics specialist: as ls
 
 rectangle System {
-    is -- (View stock)
-    is -- (Update stock)
-    is -- (Check Purchase Order delivery)
-    (Check Purchase Order delivery) <|-- (Warehouse receive)
+    s -- (Create Sales Order)
+    s -- (View Sales Order)
+    (View Sales Order) <|-- (Update Sales Order)
+    (View Sales Order) <|-- (Update Sales Order status)
+    (View Sales Order) <|-- (Cancel Sales Order)
+    ls -- (Update Sales Order status)
+    (View Sales Order) <|-- (Complete Sales Order)
+    (View Sales Order) <|-- (Confirm Payment and Generate Receipt)
+
+    sm -- (Generate Sales Report)
+    d -- (Generate Sales Report)
+    sm -- (Manage product list)
+    sm -- (Manage retailer list)
+
+    is -- (Manage stock)
     is -- (Warehouse issue)
+    (Warehouse issue) --> (View Sales Order)
+
     im -- (Manage warehouse list)
     im -- (Generate Inventory Report)
     d -- (Generate Inventory Report)
-
-    s -- (View Sales Order)
-    s -- (Create Sales Order)
-    s -- (Update Sales Order)
-    (Update Sales Order) <|-- (Update Sales Order status)
-    (Update Sales Order) <|-- (Cancel Sales Order)
-    ls -- (Update Sales Order status)
-    (Update Sales Order) <|-- (Complete Sales Order)
-    (Complete Sales Order) --> (Generate receipt)
-    sm -- (Generate Sales Report)
-    d -- (Generate Sales Report)
-
-    sm -- (Manage product list)
-    sm -- (Manage retailer list)
 }
 @enduml

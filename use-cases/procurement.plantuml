@@ -9,6 +9,8 @@ left to right direction
 :Procurement specialist: as ps
 ps <|-- pm
 
+:Inventory specialist: as is
+
 rectangle System {
     pr -- (Create Purchase Requisition)
     pr -- (View my Purchase Requisition)
@@ -25,6 +27,9 @@ rectangle System {
     (View Purchase Order) <|-- (Attach Invoice to Purchase Order)
     (View Purchase Order) <|-- (Complete Purchase Order)
     (View Purchase Order) <|-- (Cancel Purchase Order)
+
+    is -- (Warehouse receive)
+    (Warehouse receive) --> (View Purchase Order)
 
     pm -- (Manage vendor list)
     pm -- (Manage procurement item list)
