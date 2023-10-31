@@ -10,23 +10,24 @@ left to right direction
 ps <|-- pm
 
 rectangle System {
+    pr -- (Create Purchase Requisition)
+    pr -- (View my Purchase Requisition)
+    (View my Purchase Requisition) <|-- (Update my Purchase Requisition)
+    (View my Purchase Requisition) <|-- (Cancel my Purchase Requisition)
+    a -- (Approve Purchase Requisition)
+    (Approve Purchase Requisition) --> (View Purchase Requisition)
+
+    ps -- (Create Purchase Order)
+    (Create Purchase Order) --> (View Purchase Requisition)
+    ps -- (View Purchase Order)
+    (View Purchase Order) <|-- (Update Purchase Order)
+    (View Purchase Order) <|-- (Update Purchase Order status)
+    (View Purchase Order) <|-- (Attach Invoice to Purchase Order)
+    (View Purchase Order) <|-- (Complete Purchase Order)
+    (View Purchase Order) <|-- (Cancel Purchase Order)
+
     pm -- (Manage vendor list)
     pm -- (Manage procurement item list)
-
-    a -- (View Purchase Requisition)
-    pr -- (Create Purchase Requisition)
-    pr -- (Update Purchase Requisition)
-    (Update Purchase Requisition) <|-- (Cancel Purchase Requisition)
-    a -- (Approve Purchase Requisition)
-
-    ps -- (View Purchase Requisition)
-    ps -- (View Purchase Order)
-    ps -- (Create Purchase Order)
-    ps -- (Update Purchase Order)
-    (Update Purchase Order) <|-- (Update Purchase Order status)
-    (Update Purchase Order) <|-- (Attach Invoice to Purchase Order)
-    (Update Purchase Order) <|-- (Confirm payment of Purchase Order)
-    (Update Purchase Order) <|-- (Cancel Purchase Order)
 
     pm -- (Generate Procurement Report)
     d -- (Generate Procurement Report)
