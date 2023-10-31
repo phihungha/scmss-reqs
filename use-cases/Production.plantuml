@@ -1,34 +1,22 @@
 @startuml sample
-
 left to right direction
-scale 1000 width
-scale 1000 height
 
-actor "production planner" as pm
-actor "production manager" as pm
-actor "director" as di
+:Production planner: as pp
+:Production manager: as pm
+pp <|-- pm
+
+:Director: as d
 
 rectangle Production {
-  usecase "Track Production Order status" as UC0
-  usecase "Manage Production Order" as UC1
-  usecase "Manage supplier" as UC2
-  usecase "Check Production Order" as UC3
-  usecase "Create Production Order" as UC4
-  usecase "Confirm Production Order" as UC5
-  usecase "Receive stock in material and product" as UC6
-  usecase "Check stock material and product" as UC7
-  usecase "Update stock material and product" as UC8
-  }
-di -- UC0
-di -- UC1
-di -- UC5
-pm -- UC1
-pm -- UC2
-pm -- UC3
-pm -- UC4
-pm -- UC6
-pm -- UC7
-pm -- UC8
+  pp -- (View Production Order)
+  pp -- (Create Production Order)
+  (View Production Order) <|-- (Update Production Order)
+  (View Production Order) <|-- (Update Production Order status)
+  (View Production Order) <|-- (Complete Production Order)
+  (View Production Order) <|-- (Cancel Production Order)
 
-
+  pm -- (Manage Manufacturing Facility list)
+  pm -- (Generate Production Report)
+  d -- (Generate Production Report)
+}
 @enduml

@@ -2,21 +2,23 @@
 left to right direction
 
 :Director: as d
-:Accountant: as a
+:Finance: as f
 
-:Purchase requester: as pr
+:Production planner: as pp
+:Production manager: as prm
+pp <|-- prm
+
 :Procurement manager: as pm
 :Procurement specialist: as ps
 ps <|-- pm
 
-:Inventory specialist: as is
-
-rectangle System {
-    pr -- (Create Purchase Requisition)
-    pr -- (View my Purchase Requisition)
-    (View my Purchase Requisition) <|-- (Update my Purchase Requisition)
-    (View my Purchase Requisition) <|-- (Cancel my Purchase Requisition)
-    a -- (Approve Purchase Requisition)
+rectangle Procurement {
+    pp -- (Create Purchase Requisition)
+    pp -- (View Purchase Requisition)
+    (View Purchase Requisition) <|-- (Update Purchase Requisition)
+    (View Purchase Requisition) <|-- (Cancel Purchase Requisition)
+    f -- (Approve Purchase Requisition)
+    prm -- (Approve Purchase Requisition)
     (Approve Purchase Requisition) --> (View Purchase Requisition)
 
     ps -- (Create Purchase Order)
@@ -24,15 +26,13 @@ rectangle System {
     ps -- (View Purchase Order)
     (View Purchase Order) <|-- (Update Purchase Order)
     (View Purchase Order) <|-- (Update Purchase Order status)
-    (View Purchase Order) <|-- (Attach Invoice to Purchase Order)
-    (View Purchase Order) <|-- (Complete Purchase Order)
+    (View Purchase Order) <|-- (Attach Purchase Invoice)
     (View Purchase Order) <|-- (Cancel Purchase Order)
+    f -- (Complete Purchase Order payment)
+    (Complete Purchase Order payment) --> (View Purchase Order)
 
-    is -- (Warehouse receive)
-    (Warehouse receive) --> (View Purchase Order)
-
-    pm -- (Manage vendor list)
-    pm -- (Manage procurement item list)
+    pm -- (Manage Vendor list)
+    pm -- (Manage Procurement Item list)
 
     pm -- (Generate Procurement Report)
     d -- (Generate Procurement Report)

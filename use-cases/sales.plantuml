@@ -1,11 +1,9 @@
-@startuml Inventory and Sales
+@startuml Sales
 left to right direction
 
 :Director: as d
 
-:Inventory manager: as im
-:Inventory specialist: as is
-is <|-- im
+:Production manager: as pm
 
 :Sales specialist: as s
 :Sales manager: as sm
@@ -13,27 +11,20 @@ s <|-- sm
 
 :Logistics specialist: as ls
 
-rectangle System {
+rectangle Sales {
     s -- (Create Sales Order)
     s -- (View Sales Order)
     (View Sales Order) <|-- (Update Sales Order)
     (View Sales Order) <|-- (Update Sales Order status)
     (View Sales Order) <|-- (Cancel Sales Order)
     ls -- (Update Sales Order status)
+    (View Sales Order) <|-- (Generate Sales Invoice)
     (View Sales Order) <|-- (Complete Sales Order)
-    (View Sales Order) <|-- (Confirm Payment and Generate Receipt)
 
     sm -- (Generate Sales Report)
     d -- (Generate Sales Report)
-    sm -- (Manage product list)
-    sm -- (Manage retailer list)
-
-    is -- (Manage stock)
-    is -- (Warehouse issue)
-    (Warehouse issue) --> (View Sales Order)
-
-    im -- (Manage warehouse list)
-    im -- (Generate Inventory Report)
-    d -- (Generate Inventory Report)
+    pm -- (Manage Product list)
+    sm -- (Manage Product list)
+    sm -- (Manage Retailer list)
 }
 @enduml
