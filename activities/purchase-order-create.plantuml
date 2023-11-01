@@ -1,0 +1,19 @@
+@startuml purchase-order-create
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Generate Purchase Order";
+
+|s|
+:(2) Load corresponding screen;
+
+|u|
+:(3) Review information;
+:(4) Click "Generate";
+
+|s|
+:(5) Save new Purchase Order;
+stop
+@enduml

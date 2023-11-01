@@ -14,12 +14,10 @@ repeat
     :(3) Set search and filters;
 
     |s|
-    :(4) Load list with search
-    and filter result;
+    :(4) Load search and filter result;
+|u|
 repeat while (Set again?) is (yes)
 ->no;
-
-|u|
 :(5) Select Purchase Requisition item;
 
 |s|
