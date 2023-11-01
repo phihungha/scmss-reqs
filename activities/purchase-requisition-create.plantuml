@@ -1,11 +1,9 @@
-@startuml create-purchase-requisition
+@startuml purchase-requisition-create
 |u|User
 |s|System
 
 |u|
 start
-
-|u|
 :(1) Click "Create";
 
 |s|
