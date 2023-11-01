@@ -1,47 +1,9 @@
 @startuml classes
+left to right direction
+
 enum Gender
 
 class User
-
-class PurchaseRequisition
-
-enum OrderStatus
-
-abstract Order
-
-abstract OrderItem
-
-class OrderStatusUpdate
-Order *-- OrderStatusUpdate
-
-class PurchaseOrder
-Order <|-- PurchaseOrder
-
-class PurchaseOrderItem
-OrderItem <|-- PurchaseOrderItem
-PurchaseOrder *-- PurchaseOrderItem
-
-class SalesOrder
-Order <|-- SalesOrder
-
-class SalesOrderItem
-OrderItem <|-- SalesOrderItem
-SalesOrder *-- SalesOrderItem
-
-class ProductionOrder
-Order <|-- ProductionOrder
-
-class ProductionOrderItem
-OrderItem <|-- ProductionOrderItem
-ProductionOrder *-- ProductionOrderItem
-
-abstract GoodsItem
-
-class ProcurementItem
-GoodsItem <|-- ProcurementItem
-
-class Product
-GoodsItem <|-- Product
 
 abstract Company
 
@@ -53,7 +15,74 @@ Company <|-- Retailer
 
 class Warehouse
 
-class WarehouseItem
-Warehouse *-- WarehouseItem
-WarehouseItem --> GoodsItem
+abstract Goods
+
+class Supply
+Goods <|-- Supply
+Vendor "0..*" o-- "1..1" Supply
+
+class Product
+Goods <|-- Product
+
+enum OrderStatus
+
+abstract Order
+
+abstract OrderItem
+
+class PurchaseRequisition
+Order <|-- PurchaseOrder
+Vendor "1..1" o-- "0..*" PurchaseRequisition
+User "0..*" o-- "1..1" PurchaseRequisition : Create
+User "0..*" o-- "1..1" PurchaseRequisition : Approve
+
+class PurchaseRequisitionItem
+OrderItem <|-- PurchaseRequisitionItem
+PurchaseRequisition "1..1" *-- "1..*" PurchaseRequisitionItem
+Supply "1..1" o-- "0..*" PurchaseRequisitionItem
+
+class OrderStatusUpdate
+Order "1..1" *-- "1..n" OrderStatusUpdate
+
+class PurchaseOrder
+Order <|-- PurchaseOrder
+Vendor "1..1" o-- "0..*" PurchaseOrder
+PurchaseOrder "1..1" --> "1..1" PurchaseRequisition
+User "0..*" o-- "1..1" PurchaseOrder : Create
+
+class PurchaseOrderItem
+OrderItem <|-- PurchaseOrderItem
+PurchaseOrder "1..1" *-- "1..*" PurchaseOrderItem
+Supply "1..1" o-- "0..*" PurchaseOrderItem
+
+class SalesOrder
+Order <|-- SalesOrder
+Retailer "1..1" o-- "0..*" SalesOrder
+User "0..*" o-- "1..1" SalesOrder : Create
+
+class SalesOrderItem
+OrderItem <|-- SalesOrderItem
+SalesOrder "1..1" *-- "1..*" SalesOrderItem
+Product "1..1" o-- "0..*" SalesOrderItem
+
+class ProductionOrder
+Order <|-- ProductionOrder
+User "0..*" o-- "1..1" ProductionOrder : Create
+User "0..*" o-- "1..1" ProductionOrder : Approve
+
+class ProductionOrderItem
+OrderItem <|-- ProductionOrderItem
+ProductionOrder "1..1" *-- "1..*" ProductionOrderItem
+Product "1..1" o-- "0..*" ProductionOrderItem
+
+abstract WarehouseItem
+Warehouse "1..1" *-- "0..*" WarehouseItem
+
+class WarehouseSupplyItem
+WarehouseItem <|-- WarehouseSupplyItem
+Supply "1..1" o-- "0..*" WarehouseSupplyItem
+
+class WarehouseProductItem
+WarehouseItem <|-- WarehouseProductItem
+Product "1..1" o-- "0..*" WarehouseProductItem
 @enduml
