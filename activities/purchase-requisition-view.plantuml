@@ -1,0 +1,28 @@
+@startuml purchase-requisition-view
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Purchase Requisitions";
+
+|s|
+:(2) Load corresponding list screen;
+
+|u|
+repeat
+    :(4) Set search and filters;
+
+    |s|
+    :(4.1) Load list with search
+    and filter result;
+repeat while (Set again?) is (yes)
+->no;
+
+|u|
+:(5) Select Purchase Requisition item;
+
+|s|
+:(6) Load corresponding details screen;
+stop
+@enduml
