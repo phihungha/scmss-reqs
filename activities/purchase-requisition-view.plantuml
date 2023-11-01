@@ -10,14 +10,12 @@ start
 :(2) Load corresponding list screen;
 
 |u|
-repeat
-    :(3) Set search and filters;
+:(3) Set search and filters;
 
-    |s|
-    :(4) Load search and filter result;
+|s|
+:(4) Load search and filter result;
+
 |u|
-repeat while (Set again?) is (yes)
-->no;
 :(5) Select Purchase Requisition item;
 
 |s|
