@@ -11,10 +11,10 @@ start
 
 |u|
 repeat
-    :(4) Set search and filters;
+    :(3) Set search and filters;
 
     |s|
-    :(4.1) Load list with search
+    :(4) Load list with search
     and filter result;
 repeat while (Set again?) is (yes)
 ->no;
