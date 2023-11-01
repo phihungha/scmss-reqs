@@ -1,0 +1,59 @@
+@startuml classes
+enum Gender
+
+class User
+
+class PurchaseRequisition
+
+enum OrderStatus
+
+abstract Order
+
+abstract OrderItem
+
+class OrderStatusUpdate
+Order *-- OrderStatusUpdate
+
+class PurchaseOrder
+Order <|-- PurchaseOrder
+
+class PurchaseOrderItem
+OrderItem <|-- PurchaseOrderItem
+PurchaseOrder *-- PurchaseOrderItem
+
+class SalesOrder
+Order <|-- SalesOrder
+
+class SalesOrderItem
+OrderItem <|-- SalesOrderItem
+SalesOrder *-- SalesOrderItem
+
+class ProductionOrder
+Order <|-- ProductionOrder
+
+class ProductionOrderItem
+OrderItem <|-- ProductionOrderItem
+ProductionOrder *-- ProductionOrderItem
+
+abstract GoodsItem
+
+class ProcurementItem
+GoodsItem <|-- ProcurementItem
+
+class Product
+GoodsItem <|-- Product
+
+abstract Company
+
+class Vendor
+Company <|-- Vendor
+
+class Retailer
+Company <|-- Retailer
+
+class Warehouse
+
+class WarehouseItem
+Warehouse *-- WarehouseItem
+WarehouseItem --> GoodsItem
+@enduml
