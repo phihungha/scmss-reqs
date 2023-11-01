@@ -1,34 +1,119 @@
 @startuml classes
 left to right direction
 
-enum Gender
+enum Gender {
+    Male
+    Female
+    Other
+}
 
-class User
+enum UserRole {
+    Admin
+    Director
+    ProcurementManager
+    ProcurementSpecialist
+    ProductionManager
+    ProductionSpecialist
+    SalesManager
+    SalesSpecialist
+    InventoryManager
+    InventorySpecialist
+}
 
-abstract Company
+class User {
+    id: str
+    userName: str
+    name: str
+    gender: Gender
+    email: str
+    phoneNumber: str
+    description: str
+    role: UserRole
+    createdPurchaseOrders: PurchaseOrder[]
+    createdPurchaseRequisitions: PurchaseRequisition[]
+    approvedPurchaseRequisitions: PurchaseRequisition[]
+    createdSalesOrders: SalesOrder[]
+    createdProductionOrders: ProductionOrder[]
+    approvedProductionOrders: ProductionOrder[]
+}
 
-class Vendor
+abstract Company {
+    id: str
+    name: str
+    address: str
+    description: str
+    email: str
+    phoneNumber: str
+}
+
+class Vendor {
+    supplies: Supply[]
+    purchaseOrders: PurchaseOrder[]
+    purchaseRequisition: PurchaseRequisition[]
+
+}
 Company <|-- Vendor
 
-class Retailer
+class Retailer {
+    products: Product[]
+    salesOrders: SalesOrder[]
+}
 Company <|-- Retailer
 
-class Warehouse
+class Warehouse {
+    id: str
+    name: str
+    description: str
+}
 
-abstract Goods
+abstract Goods {
+    id: str
+    name: str
+    description: str
+    price: str
+}
 
-class Supply
+class Supply {
+    purchaseOrderItems: PurchaseOrderItem[]
+    purchaseRequisitionItems: PurchaseRequisitionItem[]
+}
 Goods <|-- Supply
 Vendor "0..*" o-- "1..1" Supply
 
-class Product
+class Product {
+    productionCost: money
+    productionOrders: ProductionOrder[]
+    salesOrders: SalesOrder[]
+}
 Goods <|-- Product
 
-enum OrderStatus
+enum OrderStatus {
+    Processing
+    Delivering
+    Delivered
+    Canceled
+    Returned
+}
 
-abstract Order
+abstract Order {
+    id: int
+    subTotal: money
+    taxAmount: money
+    totalAmount: money
+    creationTime: datetime
+    finishTime: datetime
+    createUser: User
+    finishUser: User?
+}
 
-abstract OrderItem
+abstract OrderItem {
+    quantity: int
+    unitPrice: money
+    totalPrice: money
+}
+
+class OrderStatusUpdate
+Order "1..1" *-- "1..n" OrderStatusUpdate
 
 class PurchaseRequisition
 Order <|-- PurchaseOrder
@@ -40,9 +125,6 @@ class PurchaseRequisitionItem
 OrderItem <|-- PurchaseRequisitionItem
 PurchaseRequisition "1..1" *-- "1..*" PurchaseRequisitionItem
 Supply "1..1" o-- "0..*" PurchaseRequisitionItem
-
-class OrderStatusUpdate
-Order "1..1" *-- "1..n" OrderStatusUpdate
 
 class PurchaseOrder
 Order <|-- PurchaseOrder
