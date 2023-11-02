@@ -1,21 +1,16 @@
 @startuml my-notification-view
-|u|User
-|s|System
+autonumber
 
-|u|
-start
-:(1) Click "Notifications";
+actor "User" as a
+participant Screen as f
+participant Backend as b
 
-|s|
-:(2) Load corresponding screen;
-
-|u|
-:(3) Read notifications;
-:(4) Mark notifications
-as read;
-
-|s|
-:(5) Save notification
-read states;
-stop
+activate f
+a -> f : Click "Notifications"
+f -> b : Get notifications
+activate b
+return Notifications
+f --> a : Notifications
+a -> f : Click "Read"\non notifications
+f -> b : Set notifications as read
 @enduml

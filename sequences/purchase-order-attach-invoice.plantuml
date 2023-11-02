@@ -5,12 +5,13 @@ actor "Procurement\nspecialist" as a
 participant Screen as f
 participant Backend as b
 
-a -> f : Click "Attach invoice"
+a -> f : Click "Attach Invoice"
 activate f
-f --> f : Display Invoice Upload dialog
+f -> f : Display Invoice Upload dialog
 a -> f : Invoice
-f -> b : Save Invoice and\nset payment as pending
+f -> b : Save Invoice
 activate b
+b -> b : Set payment as pending
 return Invoice saved and\npayment pending
 return Invoice saved and\npayment pending
 @enduml

@@ -1,4 +1,4 @@
-@startuml my-account-manage
+@startuml my-account-login
 autonumber
 
 actor "User" as a
@@ -14,7 +14,7 @@ activate b
 alt authentication succeeds
     b --> f : User info
     f --> a : Login succeeds
-    f --> f : Load homepage screen
+    f -> f : Load homepage screen
 else authentication fails
     return Authentication failure
     f --> a : Authentication failure

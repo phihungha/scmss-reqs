@@ -19,7 +19,7 @@ f --> a : Search and filter result
 
 alt add
     a -> f : Click "Add"
-    f --> f : Change screen
+    f -> f : Change screen
     a -> f : Enter data and\nClick "Save"
     f -> b : Add item
     activate b
@@ -27,7 +27,7 @@ else update
     a -> f : Select item
     f -> b : Get item
     b --> f : Item
-    f --> f : Change screen
+    f -> f : Change screen
     f --> a : Item
     a -> f : Enter data and\nClick "Save"
     f -> b : Update item
