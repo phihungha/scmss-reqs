@@ -1,37 +1,46 @@
 @startuml procurement-vendor-list-manage
-|u|User
-|s|System
+autonumber
 
-|u|
-start
-:(1) Click "Vendors";
+actor "Procurement\nmanager" as a
+participant Screen as f
+participant Backend as b
 
-|s|
-:(2) Load corresponding list screen;
+a -> f : Click "Vendors"
+activate f
+f -> b : Get items
+activate b
+return Items
+f --> a : Screen with items
+a -> f : Set search and filters
+f -> b : Search and filter options
+activate b
+b -> b : Generate search\nand filter result
+return Search and filter result
+f --> a : Search and filter result
 
-|u|
-:(3) Set search and filters;
+alt add
+    a -> f : Click "Add"
+    f --> a : Add screen
+    a -> f : Enter data and\nClick "Save"
+    f -> b : Add item
+    activate b
+else update
+    a -> f : Select item
+    f -> b : Get item
+    b --> f : Item
+    f --> a : Screen with item
+    a -> f : Enter data and\nClick "Save"
+    f -> b : Update item
+end
 
-|s|
-:(4) Load search and filter result;
+b -> b : Validate item
 
-|u|
-:(5) Click "Add" or Select an item;
-
-|s|
-:(6) Load corresponding add/details screen;
-
-|u|
-repeat
-    :(7) Enter data;
-    :(8) Click "Save";
-
-    |s|
-    :(9) Validate entered data;
-    backward:(9.1) Show validation
-    error messages;
-repeat while (Valid?) is (no)
-->yes;
-:(9.2) Save Vendor;
-stop
+alt validation succeeds
+    b -> b : Add/Update item
+    b --> f : New/Updated item
+    f --> a : New/Updated item
+else validation fails
+    return Validation failures
+    return Validation failures
+end
 @enduml

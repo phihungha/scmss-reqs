@@ -1,22 +1,28 @@
 @startuml my-account-manage
-|u|User
-|s|System
+autonumber
 
-|u|
-start
-:(1) Click "My Account";
+actor "User" as a
+participant Screen as f
+participant Backend as b
 
-|u|
-repeat
-    :(2) Enter data;
-    :(3) Click "Save";
+a -> f : Click "My account"
+activate f
+f -> b : Get account info
+activate b
+return Account info
+f --> a : Account info
+a -> f : Enter data and\nClick "Save"
+f -> b : Update account info
+activate b
+b -> b : Validate info
 
-    |s|
-    :(4) Validate entered data;
-    backward:(4.1) Show validation
-    error messages;
-repeat while (Valid?) is (no)
-->yes;
-:(4.2) Save updated data;
-stop
+alt validation succeeds
+    b -> b : Update account info
+    b --> f : Updated account info
+    f --> a : Updated account info
+else validation fails
+    return Validation failures
+    f --> a : Validation failures
+    deactivate f
+end
 @enduml

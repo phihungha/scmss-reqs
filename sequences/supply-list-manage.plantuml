@@ -1,11 +1,11 @@
-@startuml user-manage
+@startuml supply-list-manage
 autonumber
 
-actor "Admin" as a
+actor "Procurement\nmanager" as a
 participant Screen as f
 participant Backend as b
 
-a -> f : Click "Users"
+a -> f : Click "Supplies"
 activate f
 f -> b : Get items
 activate b

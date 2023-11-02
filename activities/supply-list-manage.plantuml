@@ -1,10 +1,10 @@
-@startuml procurement-item-list-manage
+@startuml supply-list-manage
 |u|User
 |s|System
 
 |u|
 start
-:(1) Click "Procurement Items";
+:(1) Click "Supplies";
 
 |s|
 :(2) Load corresponding list screen;
@@ -32,6 +32,6 @@ repeat
     error messages;
 repeat while (Valid?) is (no)
 ->yes;
-:(9.2) Save Procurement Item;
+:(9.2) Save Supply item;
 stop
 @enduml
