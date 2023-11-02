@@ -1,0 +1,22 @@
+@startuml my-account-manage
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "My Account";
+
+|u|
+repeat
+    :(2) Enter data;
+    :(3) Click "Save";
+
+    |s|
+    :(4) Validate entered data;
+    backward:(4.1) Show validation
+    error messages;
+repeat while (Valid?) is (no)
+->yes;
+:(4.2) Save updated data;
+stop
+@enduml
