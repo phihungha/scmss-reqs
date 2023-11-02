@@ -1,4 +1,4 @@
-@startuml my-account-manage
+@startuml my-account-login
 |u|User
 |s|System
 

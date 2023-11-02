@@ -1,4 +1,4 @@
-@startuml procurement-vendor-list-manage
+@startuml procurement-vendor-manage
 autonumber
 
 actor "Procurement\nmanager" as a

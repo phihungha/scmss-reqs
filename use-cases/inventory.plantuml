@@ -17,7 +17,7 @@ rectangle Inventory {
     is -- (Goods issue)
     (Goods issue) --> (View Sales Order)
 
-    im -- (Manage Warehouse list)
+    im -- (Manage Warehouses)
     im -- (Generate Inventory Report)
     d -- (Generate Inventory Report)
 }

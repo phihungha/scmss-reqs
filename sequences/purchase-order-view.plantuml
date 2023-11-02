@@ -1,4 +1,4 @@
-@startuml purchase-requisition-view
+@startuml purchase-order-view
 autonumber
 
 actor "Procurement\specialist" as a

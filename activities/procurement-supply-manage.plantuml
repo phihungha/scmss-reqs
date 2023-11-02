@@ -1,10 +1,10 @@
-@startuml procurement-vendor-list-manage
+@startuml procurement-supply-manage
 |u|User
 |s|System
 
 |u|
 start
-:(1) Click "Vendors";
+:(1) Click "Supplies";
 
 |s|
 :(2) Load corresponding list screen;
@@ -32,6 +32,6 @@ repeat
     error messages;
 repeat while (Valid?) is (no)
 ->yes;
-:(9.2) Save Vendor;
+:(9.2) Save Supply item;
 stop
 @enduml

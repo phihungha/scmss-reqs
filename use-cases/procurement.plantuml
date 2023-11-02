@@ -31,8 +31,8 @@ rectangle Procurement {
     f -- (Complete Purchase Order payment)
     (Complete Purchase Order payment) --> (View Purchase Order)
 
-    pm -- (Manage Vendor list)
-    pm -- (Manage Supply list)
+    pm -- (Manage Vendors)
+    pm -- (Manage Supplys)
 
     pm -- (Generate Procurement Report)
     d -- (Generate Procurement Report)

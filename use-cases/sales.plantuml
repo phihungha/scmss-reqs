@@ -23,8 +23,8 @@ rectangle Sales {
 
     sm -- (Generate Sales Report)
     d -- (Generate Sales Report)
-    pm -- (Manage Product list)
-    sm -- (Manage Product list)
-    sm -- (Manage Retailer list)
+    pm -- (Manage Products)
+    sm -- (Manage Products)
+    sm -- (Manage Retailers)
 }
 @enduml
