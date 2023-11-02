@@ -12,7 +12,6 @@ activate b
 b -> b : Validate Status updates
 
 alt validation succeeds
-    b -> b : Create/Edit/Delete\nStatus updates
     b --> f : New/Edited\nStatus updates
     f --> a : New/Edited\nStatus updates
 else validation fails

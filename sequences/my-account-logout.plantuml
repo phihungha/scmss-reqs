@@ -1,13 +1,15 @@
-@startuml my-account-logout
-|u|User
-|s|System
+@startuml my-account-manage
+autonumber
 
-|u|
-start
-:(1) Click "Logout";
+actor "User" as a
+participant Screen as f
+participant Backend as b
 
-|s|
-:(2) Log current user out;
-:(3) Load login screen;
-stop
+activate f
+a -> f : Click "Logout"
+f -> b : Logout
+activate b
+return Logout succeeds
+f --> a : Logout succeeds
+f -> f : Load Login screen
 @enduml

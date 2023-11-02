@@ -1,18 +1,23 @@
 @startuml my-account-manage
-|u|User
-|s|System
+autonumber
 
-|u|
-start
-repeat
-    :(1) Enter username/email
-    and password;
-    :(2) Click "Login";
-    |s|
-    :(3) Check login credential;
-    backward:(3.1) Show error messages;
-repeat while (Correct?) is (no)
-->yes;
-:(3.2) Load home screen;
-stop
+actor "User" as a
+participant Screen as f
+participant Backend as b
+
+a -> f : Click "Login"
+activate f
+a -> f : Enter login credential and\nClick "Save"
+f -> b : Authenticate
+activate b
+
+alt authentication succeeds
+    b --> f : User info
+    f --> a : Login succeeds
+    f --> f : Load homepage screen
+else authentication fails
+    return Authentication failure
+    f --> a : Authentication failure
+    deactivate f
+end
 @enduml

@@ -9,9 +9,7 @@ activate f
 a -> f : Click "Approve"
 f -> b : Approve item
 activate b
-b -> b : Approve item
-b -> b : Notify Procurement specialists
-return Approve succeeds
-f --> a : Approve succeeds
+return Approval succeeds
+f --> a : Approval succeeds
 deactivate f
 @enduml

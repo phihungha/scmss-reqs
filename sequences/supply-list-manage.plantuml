@@ -1,4 +1,4 @@
-@startuml supply-list-manage
+@startuml procurement-vendor-list-manage
 autonumber
 
 actor "Procurement\nmanager" as a
@@ -10,17 +10,16 @@ activate f
 f -> b : Get items
 activate b
 return Items
-f --> a : Screen with items
+f --> a : Items
 a -> f : Set search and filters
-f -> b : Search and filter options
+f -> b : Search and filters
 activate b
-b -> b : Generate search\nand filter result
 return Search and filter result
 f --> a : Search and filter result
 
 alt add
     a -> f : Click "Add"
-    f --> a : Add screen
+    f --> f : Change screen
     a -> f : Enter data and\nClick "Save"
     f -> b : Add item
     activate b
@@ -28,7 +27,8 @@ else update
     a -> f : Select item
     f -> b : Get item
     b --> f : Item
-    f --> a : Screen with item
+    f --> f : Change screen
+    f --> a : Item
     a -> f : Enter data and\nClick "Save"
     f -> b : Update item
 end
@@ -36,7 +36,6 @@ end
 b -> b : Validate item
 
 alt validation succeeds
-    b -> b : Add/Update item
     b --> f : New/Updated item
     f --> a : New/Updated item
 else validation fails

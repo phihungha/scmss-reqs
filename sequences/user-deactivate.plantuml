@@ -1,20 +1,15 @@
 @startuml user-deactivate
-|u|User
-|s|System
+autonumber
 
-|u|
-start
-:(1) Click "Deactivate";
+actor "Admin" as a
+participant Screen as f
+participant Backend as b
 
-|s|
-:(2) Display confirmation dialog;
-
-|u|
-:(3) Confirm;
-|s|
-if (Confirm?) then (yes)
-    :(3.1) Deactivate user;
-else (no)
-endif
-stop
+activate f
+a -> f : Click "Deactivate"
+f -> b : Deactivate user
+activate b
+return Deactivation succeeds
+f --> a : Deactivation succeeds
+deactivate f
 @enduml

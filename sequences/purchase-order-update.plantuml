@@ -12,7 +12,6 @@ activate b
 b -> b : Validate item
 
 alt validation succeeds
-    b -> b : Update item
     b --> f : Updated item
     f --> a : Updated item
 else validation fails

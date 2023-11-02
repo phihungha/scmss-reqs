@@ -7,11 +7,10 @@ participant Backend as b
 
 a -> f : Click "Complete payment"
 activate f
-f --> a : Receipt Upload dialog
+f --> f : Display Receipt Upload dialog
 a -> f : Receipt
-f -> b : Receipt and\ncomplete payment
+f -> b : Save Receipt and\nmark payment as completed
 activate b
-b -> b : Save Receipt and\nmark payment\nas completed
-return Payment completed
-return Payment completed
+return Receipt saved\nand Payment completed
+return Receipt saved\nand Payment completed
 @enduml

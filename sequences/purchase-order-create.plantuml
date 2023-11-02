@@ -7,11 +7,9 @@ participant Backend as b
 
 a -> f : Click "Generate\nPurchase Order"
 activate f
-f --> a : Screen with\nPurchase Order info
 a -> f : Click "Generate"
 f -> b : Generate item
 activate b
-b -> b : Generate item
 return New item
 return New item
 @enduml

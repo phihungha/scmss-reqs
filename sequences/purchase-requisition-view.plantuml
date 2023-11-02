@@ -10,16 +10,15 @@ activate f
 f -> b : Get items
 activate b
 return Items
-f --> a : Screen with items
+f --> a : Items
 a -> f : Set search and filters
 f -> b : Search and filter options
 activate b
-b -> b : Generate search\nand filter result
 return Search and filter result
 f --> a : Search and filter result
 a -> f : Select item
 f -> b : Get item
 activate b
 return Item
-return Item details
+return Item
 @enduml

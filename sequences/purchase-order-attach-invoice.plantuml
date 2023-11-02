@@ -7,11 +7,10 @@ participant Backend as b
 
 a -> f : Click "Attach invoice"
 activate f
-f --> a : Invoice Upload dialog
+f --> f : Display Invoice Upload dialog
 a -> f : Invoice
-f -> b : Invoice
+f -> b : Save Invoice and\nset payment as pending
 activate b
-b -> b : Save Invoice and\nmark payment\nas pending
-return Invoice saved
-return Invoice saved
+return Invoice saved and\npayment pending
+return Invoice saved and\npayment pending
 @enduml

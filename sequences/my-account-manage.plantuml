@@ -17,7 +17,6 @@ activate b
 b -> b : Validate info
 
 alt validation succeeds
-    b -> b : Update account info
     b --> f : Updated account info
     f --> a : Updated account info
 else validation fails

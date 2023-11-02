@@ -9,7 +9,6 @@ activate f
 a -> f : Click "Cancel"
 f -> b : Cancel item
 activate b
-b -> b : Cancel item
 return Cancel succeeds
 f --> a : Cancel succeeds
 deactivate f

@@ -5,8 +5,7 @@
 |u|
 start
 repeat
-    :(1) Enter username/email
-    and password;
+    :(1) Enter login credential;
     :(2) Click "Login";
     |s|
     :(3) Check login credential;
