@@ -1,20 +1,17 @@
 @startuml purchase-order-complete-payment
-|u|User
-|s|System
+autonumber
 
-|u|
-start
-:(1) Click "Complete Payment";
+actor "Procurement\nspecialist" as a
+participant Screen as f
+participant Backend as b
 
-|s|
-:(2) Load Receipt Upload dialog;
-
-|u|
-:(3) Upload Receipt;
-
-|s|
-:(4) Save Receipt and mark
-Purchase Order's payment
-as completed;
-stop
+a -> f : Click "Complete payment"
+activate f
+f --> a : Receipt Upload dialog
+a -> f : Receipt
+f -> b : Receipt and\ncomplete payment
+activate b
+b -> b : Save Receipt and\nmark payment\nas completed
+return Payment completed
+return Payment completed
 @enduml

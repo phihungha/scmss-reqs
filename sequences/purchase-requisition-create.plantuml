@@ -1,26 +1,25 @@
 @startuml purchase-requisition-create
-|u|User
-|s|System
+autonumber
 
-|u|
-start
-:(1) Click "Create";
+actor "Production\nplanner" as a
+participant Screen as f
+participant Backend as b
 
-|s|
-:(2) Load corresponding screen;
+a -> f : Click "Create"
+activate f
+f --> a : Screen
+a -> f : Enter data and\nClick "Save"
+f -> b : Create item
+activate b
+b -> b : Validate item
 
-|u|
-repeat
-    :(3) Enter data;
-    :(4) Click "Save";
-    |s|
-    :(5) Validate entered data;
-    backward:(5.1) Show validation
-    error messages;
-repeat while (Valid?) is (no)
-->yes;
-:(5.2) Save new Purchase Requisition;
-:(6) Notify Finance and Production Manager
-for approval;
-stop
+alt validation succeeds
+    b -> b : Create item
+    b -> b : Notify Production manager\nand Finance for Approval
+    b --> f : New item
+    f --> a : New item
+else validation fails
+    return Validation failures
+    return Validation failures
+end
 @enduml

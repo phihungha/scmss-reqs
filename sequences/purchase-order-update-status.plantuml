@@ -1,20 +1,23 @@
 @startuml purchase-order-update-status
-|u|User
-|s|System
+autonumber
 
-|u|
-start
-repeat
-    :(1) Add/Edit/Delete status updates;
-    :(2) Click "Save";
+actor "Procurement\nspecialist" as a
+participant Screen as f
+participant Backend as b
 
-    |s|
-    :(3) Validate entered data;
-    backward:(3.1) Show validation
-    error messages;
-repeat while (Valid?) is (no)
-->yes;
-:(3.2) Save status updates;
-:(4) Notify Procurement Manager;
-stop
+activate f
+a -> f : Add/Edit/Delete status updates\nand Click "Save"
+f -> b : Status updates to\ncreate/edit/delete
+activate b
+b -> b : Validate Status updates
+
+alt validation succeeds
+    b -> b : Create/Edit/Delete\nStatus updates
+    b --> f : New/Edited\nStatus updates
+    f --> a : New/Edited\nStatus updates
+else validation fails
+    return Validation failures
+    f --> a : Validation failures
+    deactivate f
+end
 @enduml

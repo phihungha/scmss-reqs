@@ -1,19 +1,17 @@
 @startuml purchase-order-create
-|u|User
-|s|System
+autonumber
 
-|u|
-start
-:(1) Click "Generate Purchase Order";
+actor "Finance" as a
+participant Screen as f
+participant Backend as b
 
-|s|
-:(2) Load corresponding screen;
-
-|u|
-:(3) Review information;
-:(4) Click "Generate";
-
-|s|
-:(5) Save new Purchase Order;
-stop
+a -> f : Click "Generate\nPurchase Order"
+activate f
+f --> a : Screen with\nPurchase Order info
+a -> f : Click "Generate"
+f -> b : Generate item
+activate b
+b -> b : Generate item
+return New item
+return New item
 @enduml

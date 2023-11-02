@@ -1,24 +1,22 @@
 @startuml purchase-order-view
-|u|User
-|s|System
+autonumber
 
-|u|
-start
-:(1) Click "Purchase Orders";
+actor "Procurement\nspecialist" as a
+participant Screen as f
+participant Backend as b
 
-|s|
-:(2) Load corresponding list screen;
-
-|u|
-:(3) Set search and filters;
-
-|s|
-:(4) Load search and filter result;
-
-|u|
-:(5) Select Purchase Order item;
-
-|s|
-:(6) Load corresponding details screen;
-stop
+a -> f : Click "Purchase Orders"
+activate f
+f --> a : Screen
+a -> f : Set search and filters
+f -> b : Search and filter options
+activate b
+b -> b : Generate search\nand filter result
+return Search and filter result
+f --> a : Search and filter result
+a -> f : Select item
+f -> b : Get item
+activate b
+return Item
+return Item
 @enduml

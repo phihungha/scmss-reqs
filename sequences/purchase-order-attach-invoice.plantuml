@@ -1,20 +1,17 @@
 @startuml purchase-order-attach-invoice
-|u|User
-|s|System
+autonumber
 
-|u|
-start
-:(1) Click "Attach Invoice";
+actor "Procurement\nspecialist" as a
+participant Screen as f
+participant Backend as b
 
-|s|
-:(2) Load Invoice Upload dialog;
-
-|u|
-:(3) Upload Invoice;
-
-|s|
-:(4) Save Invoice and mark
-Purchase Order's payment
-as pending;
-stop
+a -> f : Click "Attach invoice"
+activate f
+f --> a : Invoice Upload dialog
+a -> f : Invoice
+f -> b : Invoice
+activate b
+b -> b : Save Invoice and\nmark payment\nas pending
+return Invoice saved
+return Invoice saved
 @enduml

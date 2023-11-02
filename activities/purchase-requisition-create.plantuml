@@ -20,7 +20,7 @@ repeat
 repeat while (Valid?) is (no)
 ->yes;
 :(5.2) Save new Purchase Requisition;
-:(6) Notify Finance and Production Manager
+:(6) Notify Finance and Production manager
 for approval;
 stop
 @enduml

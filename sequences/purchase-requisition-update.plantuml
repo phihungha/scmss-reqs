@@ -1,21 +1,23 @@
 @startuml purchase-requisition-update
-|u|User
-|s|System
+autonumber
 
-|u|
-start
-repeat
-    :(1) Edit data;
-    :(2) Click "Save";
+actor "Production\nplanner" as a
+participant Screen as f
+participant Backend as b
 
-    |s|
-    :(3) Validate entered data;
-    backward:(3.1) Show validation
-    error messages;
-repeat while (Valid?) is (no)
-->yes;
-:(3.2) Save updated Purchase Requisition;
-:(4) Notify Finance and Production Manager
-for approval;
-stop
+activate f
+a -> f : Enter data and\nClick "Save"
+f -> b : Update item
+activate b
+b -> b : Validate item
+
+alt validation succeeds
+    b -> b : Update item
+    b --> f : Updated item
+    f --> a : Updated item
+else validation fails
+    return Validation failures
+    f --> a : Validation failures
+    deactivate f
+end
 @enduml

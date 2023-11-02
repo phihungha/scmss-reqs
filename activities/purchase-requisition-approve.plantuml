@@ -8,6 +8,6 @@ start
 
 |s|
 :(2) Approve Purchase Requisition;
-:(3) Notify Procurement Specialists and Managers;
+:(3) Notify Procurement specialists;
 stop
 @enduml
