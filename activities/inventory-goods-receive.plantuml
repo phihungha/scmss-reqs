@@ -19,6 +19,6 @@ repeat
     error messages;
 repeat while (Valid?) is (no)
 ->yes;
-:(5.2) Save new Goods Received in Order;
+:(5.2) Save new Goods Received Order;
 stop
 @enduml

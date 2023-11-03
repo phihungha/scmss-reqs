@@ -5,7 +5,7 @@ actor "Inventory\nmanager" as a
 participant Screen as f
 participant Backend as b
 
-a -> f : Click "Sales Report"
+a -> f : Click "Inventory Report"
 activate f
 a -> f : Select time range
 f -> b : Generate report
