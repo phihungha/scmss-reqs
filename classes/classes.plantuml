@@ -70,7 +70,7 @@ abstract Goods {
     id: str
     name: str
     description: str
-    price: str
+    price: money
 }
 
 class Supply {
@@ -105,6 +105,8 @@ abstract Order {
     createUser: User
     finishUser: User?
 }
+User "1..1" o-- "0..*" Order : Create
+User "1..1" o-- "0..*" Order : Finish
 
 abstract OrderItem {
     quantity: int
@@ -112,59 +114,105 @@ abstract OrderItem {
     totalPrice: money
 }
 
-class OrderStatusUpdate
+class OrderStatusUpdate {
+    id: int
+    status: OrderStatus
+    note: str
+    Order: order
+}
 Order "1..1" *-- "1..n" OrderStatusUpdate
 
-class PurchaseRequisition
-Order <|-- PurchaseOrder
+class PurchaseRequisition {
+    items: PurchaseRequisitionItem[]
+    approveProductionManager: User?
+    approveFinance: User?
+    order: PurchaseOrder?
+}
+Order <|-- PurchaseRequisition
 Vendor "1..1" o-- "0..*" PurchaseRequisition
-User "0..*" o-- "1..1" PurchaseRequisition : Create
 User "0..*" o-- "1..1" PurchaseRequisition : Approve
 
-class PurchaseRequisitionItem
+class PurchaseRequisitionItem {
+    requisitionId: int
+    requisition: Requisition
+    supplyId: int
+    supply: Supply
+}
 OrderItem <|-- PurchaseRequisitionItem
 PurchaseRequisition "1..1" *-- "1..*" PurchaseRequisitionItem
 Supply "1..1" o-- "0..*" PurchaseRequisitionItem
 
-class PurchaseOrder
+class PurchaseOrder {
+    items: PurchaseOrderItem[]
+    requisition: PurchaseRequisition
+}
 Order <|-- PurchaseOrder
 Vendor "1..1" o-- "0..*" PurchaseOrder
-PurchaseOrder "1..1" --> "1..1" PurchaseRequisition
-User "0..*" o-- "1..1" PurchaseOrder : Create
+PurchaseOrder "0..1" --> "1..1" PurchaseRequisition
 
-class PurchaseOrderItem
+class PurchaseOrderItem {
+    orderId: int
+    order: Requisition
+    supplyId: int
+    supply: Supply
+}
 OrderItem <|-- PurchaseOrderItem
 PurchaseOrder "1..1" *-- "1..*" PurchaseOrderItem
 Supply "1..1" o-- "0..*" PurchaseOrderItem
 
-class SalesOrder
+class SalesOrder {
+    items: SalesOrderItem[]
+}
 Order <|-- SalesOrder
 Retailer "1..1" o-- "0..*" SalesOrder
-User "0..*" o-- "1..1" SalesOrder : Create
 
-class SalesOrderItem
+class SalesOrderItem {
+    orderId: int
+    order: SalesOrder
+    productId: int
+    product: Product
+}
 OrderItem <|-- SalesOrderItem
 SalesOrder "1..1" *-- "1..*" SalesOrderItem
 Product "1..1" o-- "0..*" SalesOrderItem
 
-class ProductionOrder
+class ProductionOrder {
+    items: ProductionOrderItem[]
+    approveProductionManager: User?
+}
 Order <|-- ProductionOrder
-User "0..*" o-- "1..1" ProductionOrder : Create
 User "0..*" o-- "1..1" ProductionOrder : Approve
 
-class ProductionOrderItem
+class ProductionOrderItem {
+    orderId: int
+    order: ProductionOrder
+    productId: int
+    product: Product
+}
 OrderItem <|-- ProductionOrderItem
 ProductionOrder "1..1" *-- "1..*" ProductionOrderItem
 Product "1..1" o-- "0..*" ProductionOrderItem
 
-abstract WarehouseItem
+abstract WarehouseItem {
+    id: int
+    description: str
+    warehouseId: int
+    Warehouse: Warehouse
+    quantity: double
+}
 Warehouse "1..1" *-- "0..*" WarehouseItem
 
-class WarehouseSupplyItem
+class WarehouseSupplyItem {
+    supplyId: int
+    supply: Supply
+}
 WarehouseItem <|-- WarehouseSupplyItem
 Supply "1..1" o-- "0..*" WarehouseSupplyItem
 
-class WarehouseProductItem
+class WarehouseProductItem {
+    productId: int
+    Product: Product
+}
 WarehouseItem <|-- WarehouseProductItem
 Product "1..1" o-- "0..*" WarehouseProductItem
 @enduml
