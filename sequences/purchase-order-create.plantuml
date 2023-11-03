@@ -5,11 +5,20 @@ actor "Finance" as a
 participant Screen as f
 participant Backend as b
 
-a -> f : Click "Generate\nPurchase Order"
+a -> f : Click "Create\nPurchase Order"
 activate f
-a -> f : Click "Generate"
-f -> b : Generate item
+a -> a : Review information
+a -> f : Enter data and\nClick "Create"
+f -> b : Create item
 activate b
-return New item
-return New item
+b -> b : Validate item
+
+alt validation succeeds
+    b -> b : Notify Production manager\nand Finance for Approval
+    b --> f : New item
+    f --> a : New item
+else validation fails
+    return Validation failures
+    return Validation failures
+end
 @enduml

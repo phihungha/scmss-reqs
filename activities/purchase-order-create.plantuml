@@ -4,16 +4,23 @@
 
 |u|
 start
-:(1) Click "Generate Purchase Order";
+:(1) Click "Create Purchase Order";
 
 |s|
 :(2) Load corresponding screen;
 
 |u|
 :(3) Review information;
-:(4) Click "Generate";
+repeat
+    :(4) Edit data;
+    :(5) Click "Create";
 
-|s|
-:(5) Save new Purchase Order;
+    |s|
+    :(6) Validate entered data;
+    backward:(6.1) Show validation
+    error messages;
+repeat while (Valid?) is (no)
+->yes;
+:(6.2) Save new Purchase Order;
 stop
 @enduml
