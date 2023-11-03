@@ -1,0 +1,20 @@
+@startuml sales-order-update
+|u|User
+|s|System
+
+|u|
+start
+repeat
+    :(1) Edit data;
+    :(2) Click "Save";
+
+    |s|
+    :(3) Validate entered data;
+    backward:(3.1) Show validation
+    error messages;
+repeat while (Valid?) is (no)
+->yes;
+:(3.2) Save updated Sales Order;
+:(4) Notify Inventory and Logistics specialist;
+stop
+@enduml

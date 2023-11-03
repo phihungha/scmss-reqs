@@ -1,0 +1,12 @@
+@startuml sales-order-cancel
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Cancel";
+
+|s|
+:(2) Cancel Sales Order;
+stop
+@enduml

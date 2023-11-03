@@ -1,0 +1,22 @@
+@startuml sales-order-update-status
+autonumber
+
+actor "Logistic\nspecialist" as a
+participant Screen as f
+participant Backend as b
+
+activate f
+a -> f : Add/Edit/Delete status updates\nand Click "Save"
+f -> b : Add/Edit/Delete\nStatus updates
+activate b
+b -> b : Validate Status updates
+
+alt validation succeeds
+    b --> f : New/Edited\nStatus updates
+    f --> a : New/Edited\nStatus updates
+else validation fails
+    return Validation failures
+    f --> a : Validation failures
+    deactivate f
+end
+@enduml
