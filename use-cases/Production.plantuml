@@ -11,7 +11,7 @@ rectangle Production {
   pp -- (View Production Order)
   pp -- (Create Production Order)
   (View Production Order) <|-- (Update Production Order)
-  (View Production Order) <|-- (Update Production Order status)
+  (View Production Order) <|-- (Start Production Order)
   (View Production Order) <|-- (Complete Production Order)
   (View Production Order) <|-- (Cancel Production Order)
 
