@@ -37,6 +37,11 @@ class User {
     approvedProductionOrders: ProductionOrder[]
 }
 
+class Notification {
+    id: int
+    createTime: datetime
+}
+
 abstract Company {
     id: str
     name: str
@@ -70,6 +75,7 @@ abstract Goods {
     id: str
     name: str
     description: str
+    unit: str
     price: money
 }
 
@@ -90,9 +96,16 @@ Goods <|-- Product
 enum OrderStatus {
     Processing
     Delivering
+    Interrupted
     Delivered
     Canceled
     Returned
+}
+
+enum OrderPaymentStatus {
+    Pending
+    Due
+    Completed
 }
 
 abstract Order {
@@ -100,10 +113,14 @@ abstract Order {
     subTotal: money
     taxAmount: money
     totalAmount: money
-    creationTime: datetime
+    status: OrderStatus
+    paymentStatus: OrderPaymentStatus
+    invoice: url?
+    receipt: url?
+    createTime: datetime
     finishTime: datetime
-    createUser: User
-    finishUser: User?
+    creatingUser: User
+    finishingUser: User?
 }
 User "1..1" o-- "0..*" Order : Create
 User "1..1" o-- "0..*" Order : Finish
@@ -112,20 +129,41 @@ abstract OrderItem {
     quantity: int
     unitPrice: money
     totalPrice: money
+    netPrice: money
 }
 
-class OrderStatusUpdate {
+enum OrderProgressUpdateType {
+    Processing
+    Leave
+    Arrive
+    PaymentDue
+    Delivered
+    PaymentCompleted
+    Canceled
+    Returned
+    Interrupted
+}
+
+class OrderProgressUpdate {
     id: int
-    status: OrderStatus
-    note: str
+    type: OrderProgressUpdateType
+    location: str
+    note: str?
     Order: order
 }
-Order "1..1" *-- "1..n" OrderStatusUpdate
+Order "1..1" *-- "1..n" OrderProgressUpdate
+
+abstract ProcurementItem {
+    supplyId: int
+    supply: Supply
+    discount: money
+}
+OrderItem <|-- ProcurementItem
 
 class PurchaseRequisition {
     items: PurchaseRequisitionItem[]
-    approveProductionManager: User?
-    approveFinance: User?
+    approvingProductionManager: User?
+    approvingFinance: User?
     order: PurchaseOrder?
 }
 Order <|-- PurchaseRequisition
@@ -135,10 +173,8 @@ User "0..*" o-- "1..1" PurchaseRequisition : Approve
 class PurchaseRequisitionItem {
     requisitionId: int
     requisition: Requisition
-    supplyId: int
-    supply: Supply
 }
-OrderItem <|-- PurchaseRequisitionItem
+ProcurementItem <|-- PurchaseRequisitionItem
 PurchaseRequisition "1..1" *-- "1..*" PurchaseRequisitionItem
 Supply "1..1" o-- "0..*" PurchaseRequisitionItem
 
@@ -152,11 +188,9 @@ PurchaseOrder "0..1" --> "1..1" PurchaseRequisition
 
 class PurchaseOrderItem {
     orderId: int
-    order: Requisition
-    supplyId: int
-    supply: Supply
+    order: PurchaseOrder
 }
-OrderItem <|-- PurchaseOrderItem
+ProcurementItem <|-- PurchaseOrderItem
 PurchaseOrder "1..1" *-- "1..*" PurchaseOrderItem
 Supply "1..1" o-- "0..*" PurchaseOrderItem
 
@@ -178,7 +212,7 @@ Product "1..1" o-- "0..*" SalesOrderItem
 
 class ProductionOrder {
     items: ProductionOrderItem[]
-    approveProductionManager: User?
+    approvingProductionManager: User?
 }
 Order <|-- ProductionOrder
 User "0..*" o-- "1..1" ProductionOrder : Approve
