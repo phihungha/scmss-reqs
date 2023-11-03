@@ -1,0 +1,22 @@
+@startuml purchase-order-update
+autonumber
+
+actor "Procurement\nspecialist" as a
+participant Screen as f
+participant Backend as b
+
+activate f
+a -> f : Enter data and\nClick "Save"
+f -> b : Update item
+activate b
+b -> b : Validate item
+
+alt validation succeeds
+    b --> f : Updated item
+    f --> a : Updated item
+else validation fails
+    return Validation failures
+    f --> a : Validation failures
+    deactivate f
+end
+@enduml

@@ -1,0 +1,17 @@
+@startuml purchase-order-complete-payment
+autonumber
+
+actor "Procurement\nspecialist" as a
+participant Screen as f
+participant Backend as b
+
+a -> f : Click "Complete payment"
+activate f
+f -> f : Display Receipt Upload dialog
+a -> f : Receipt
+f -> b : Save Receipt
+activate b
+b -> b : Set payment\nas completed
+return Receipt saved\nand payment completed
+return Receipt saved\nand payment completed
+@enduml

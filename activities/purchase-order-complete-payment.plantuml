@@ -1,0 +1,20 @@
+@startuml purchase-order-complete-payment
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Complete Payment";
+
+|s|
+:(2) Load Receipt Upload dialog;
+
+|u|
+:(3) Upload Receipt;
+
+|s|
+:(4) Save Receipt and mark
+Purchase Order's payment
+as completed;
+stop
+@enduml

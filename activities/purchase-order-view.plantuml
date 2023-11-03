@@ -1,0 +1,24 @@
+@startuml purchase-order-view
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Purchase Orders";
+
+|s|
+:(2) Load corresponding list screen;
+
+|u|
+:(3) Set search and filters;
+
+|s|
+:(4) Load search and filter result;
+
+|u|
+:(5) Select Purchase Order item;
+
+|s|
+:(6) Load corresponding details screen;
+stop
+@enduml

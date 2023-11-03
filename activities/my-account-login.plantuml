@@ -1,0 +1,17 @@
+@startuml my-account-login
+|u|User
+|s|System
+
+|u|
+start
+repeat
+    :(1) Enter login credential;
+    :(2) Click "Login";
+    |s|
+    :(3) Check login credential;
+    backward:(3.1) Show error messages;
+repeat while (Correct?) is (no)
+->yes;
+:(3.2) Load home screen;
+stop
+@enduml

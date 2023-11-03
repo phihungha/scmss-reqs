@@ -1,0 +1,13 @@
+@startuml my-account-logout
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Logout";
+
+|s|
+:(2) Log current user out;
+:(3) Load login screen;
+stop
+@enduml

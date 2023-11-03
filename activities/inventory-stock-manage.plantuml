@@ -1,0 +1,37 @@
+@startuml stock-list-manage
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Stocks";
+
+|s|
+:(2) Load corresponding list screen;
+
+|u|
+:(3) Set search and filters;
+
+|s|
+:(4) Load search and filter result;
+
+|u|
+:(5) Click "Add" or Select an item;
+
+|s|
+:(6) Load corresponding add/details screen;
+
+|u|
+repeat
+    :(7) Enter data;
+    :(8) Click "Save";
+
+    |s|
+    :(9) Validate entered data;
+    backward:(9.1) Show validation
+    error messages;
+repeat while (Valid?) is (no)
+->yes;
+:(9.2) Save Stock;
+stop
+@enduml

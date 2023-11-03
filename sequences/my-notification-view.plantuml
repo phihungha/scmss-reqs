@@ -1,0 +1,16 @@
+@startuml my-notification-view
+autonumber
+
+actor "User" as a
+participant Screen as f
+participant Backend as b
+
+activate f
+a -> f : Click "Notifications"
+f -> b : Get notifications
+activate b
+return Notifications
+f --> a : Notifications
+a -> f : Click "Read"\non notifications
+f -> b : Set notifications as read
+@enduml

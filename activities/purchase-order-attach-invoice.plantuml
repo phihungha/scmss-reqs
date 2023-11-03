@@ -1,0 +1,20 @@
+@startuml purchase-order-attach-invoice
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Attach Invoice";
+
+|s|
+:(2) Load Invoice Upload dialog;
+
+|u|
+:(3) Upload Invoice;
+
+|s|
+:(4) Save Invoice and set
+Purchase Order's payment
+as pending;
+stop
+@enduml

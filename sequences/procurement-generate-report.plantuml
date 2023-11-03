@@ -1,0 +1,15 @@
+@startuml procurement-generate-report
+autonumber
+
+actor "Procurement\nmanager" as a
+participant Screen as f
+participant Backend as b
+
+a -> f : Click "Procurement Report"
+activate f
+a -> f : Select time range
+f -> b : Generate report
+activate b
+return Report
+return Report
+@enduml

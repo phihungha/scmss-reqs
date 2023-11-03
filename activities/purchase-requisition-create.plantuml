@@ -1,0 +1,26 @@
+@startuml purchase-requisition-create
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Create";
+
+|s|
+:(2) Load corresponding screen;
+
+|u|
+repeat
+    :(3) Enter data;
+    :(4) Click "Save";
+    |s|
+    :(5) Validate entered data;
+    backward:(5.1) Show validation
+    error messages;
+repeat while (Valid?) is (no)
+->yes;
+:(5.2) Save new Purchase Requisition;
+:(6) Notify Finance and Production manager
+for approval;
+stop
+@enduml

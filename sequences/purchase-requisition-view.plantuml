@@ -1,0 +1,24 @@
+@startuml purchase-requisition-view
+autonumber
+
+actor "Production\nplanner" as a
+participant Screen as f
+participant Backend as b
+
+a -> f : Click "Purchase Requisitions"
+activate f
+f -> b : Get items
+activate b
+return Items
+f --> a : Items
+a -> f : Set search and filters
+f -> b : Search and filter options
+activate b
+return Search and filter result
+f --> a : Search and filter result
+a -> f : Select item
+f -> b : Get item
+activate b
+return Item
+return Item
+@enduml
