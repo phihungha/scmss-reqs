@@ -52,12 +52,13 @@ abstract Company {
     description: str
     email: str
     phoneNumber: str
+    contactPerson: str
 }
 
 class Vendor {
     supplies: Supply[]
     purchaseOrders: PurchaseOrder[]
-    purchaseRequisition: PurchaseRequisition[]
+    purchaseRequisitions: PurchaseRequisition[]
 
 }
 Company <|-- Vendor
@@ -126,9 +127,9 @@ abstract Order {
     taxAmount: money
     totalAmount: money
     status: OrderStatus
+    paymentStatus: OrderPaymentStatus
     invoice: url?
     receipt: url?
-    paymentStatus: OrderPaymentStatus
     createTime: datetime
     finishTime: datetime
     creatingUser: User
@@ -166,13 +167,6 @@ class OrderProgressUpdate {
 }
 Order "1..1" *-- "1..*" OrderProgressUpdate
 
-abstract ProcurementItem {
-    supplyId: int
-    supply: Supply
-    discount: money
-}
-OrderItem <|-- ProcurementItem
-
 enum PurchaseRequisitionStatus {
     PendingApproval
     Approved
@@ -200,10 +194,12 @@ Vendor "1..1" o-- "0..*" PurchaseRequisition
 User "0..*" o-- "1..1" PurchaseRequisition : Approve
 
 class PurchaseRequisitionItem {
+    supplyId: int
+    supply: Supply
     requisitionId: int
     requisition: Requisition
 }
-ProcurementItem <|-- PurchaseRequisitionItem
+OrderItem <|-- PurchaseRequisitionItem
 PurchaseRequisition "1..1" *-- "1..*" PurchaseRequisitionItem
 Supply "1..1" o-- "0..*" PurchaseRequisitionItem
 
@@ -214,14 +210,17 @@ class PurchaseOrder {
 }
 Order <|-- PurchaseOrder
 Vendor "1..1" o-- "0..*" PurchaseOrder
-PurchaseOrder "0..1" --> "1..1" PurchaseRequisition
+PurchaseRequisition "1..1" o-- "0..1" PurchaseOrder
 
 class PurchaseOrderItem {
+    supplyId: int
+    supply: Supply
     orderId: int
     order: PurchaseOrder
+    discount: money
     netPrice: money
 }
-ProcurementItem <|-- PurchaseOrderItem
+OrderItem <|-- PurchaseOrderItem
 PurchaseOrder "1..1" *-- "1..*" PurchaseOrderItem
 Supply "1..1" o-- "0..*" PurchaseOrderItem
 
@@ -291,6 +290,8 @@ class Warehouse {
     description: str
     supplyItems: SupplyItem[]
     productItems: ProductItem[]
+    issues: WarehouseIssue[]
+    receipts: WarehouseReceipt[]
 }
 
 abstract WarehouseItem {
@@ -317,6 +318,8 @@ Product "1..1" o-- "0..*" WarehouseProductItem
 
 abstract WarehouseForm {
     int: id
+    warehouseId: int
+    warehouse: Warehouse
     createTime: datetime
     totalValue: money
 }
@@ -327,12 +330,11 @@ InventoryItem <|-- WarehouseFormItem
 class WarehouseIssue {
     salesOrderId: int
     salesOrder: SalesOrder
-    warehouseId: int
-    warehouse: Warehouse
     items: WarehouseFormItem[]
 }
 WarehouseForm <|-- WarehouseIssue
 SalesOrder "1..1" o-- "1..1" WarehouseIssue
+Warehouse "1..1" o-- "0..*" WarehouseIssue
 
 class WarehouseIssueItem {
     issueId: int
@@ -347,12 +349,11 @@ Product "1..1" o-- "0..*" WarehouseIssueItem
 class WarehouseReceipt {
     purchaseOrderId: int
     purchaseOrder: PurchaseOrder
-    warehouseId: int
-    warehouse: Warehouse
     items: WarehouseFormItem[]
 }
 WarehouseForm <|-- WarehouseReceipt
 PurchaseOrder "1..1" o-- "1..1" WarehouseReceipt
+Warehouse "1..1" o-- "0..*" WarehouseReceipt
 
 class WarehouseReceiptItem {
     receiptId: int
