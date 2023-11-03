@@ -1,0 +1,13 @@
+@startuml production-order-approve
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Approve";
+
+|s|
+:(2) Approve Production Order;
+:(3) Notify Production planner;
+stop
+@enduml

@@ -1,0 +1,23 @@
+@startuml sales-order-create
+autonumber
+
+actor "Sales\nspecialist" as a
+participant Screen as f
+participant Backend as b
+
+a -> f : Click "Create"
+activate f
+a -> f : Enter data and\nClick "Save"
+f -> b : Create item
+activate b
+b -> b : Validate item
+
+alt validation succeeds
+    b -> b : Notify Production manager\nand Logistic specialist
+    b --> f : New item
+    f --> a : New item
+else validation fails
+    return Validation failures
+    return Validation failures
+end
+@enduml

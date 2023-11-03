@@ -1,0 +1,15 @@
+@startuml sales-order-complete
+autonumber
+
+actor "Sales\nspecialist" as a
+participant Screen as f
+participant Backend as b
+
+activate f
+a -> f : Click "Complete"
+f -> b : Complete item
+activate b
+return Complete succeeds
+f --> a : Complete succeeds
+deactivate f
+@enduml
