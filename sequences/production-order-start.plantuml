@@ -1,0 +1,15 @@
+@startuml production-order-start
+autonumber
+
+actor "Production\nspecialist" as a
+participant Screen as f
+participant Backend as b
+
+activate f
+a -> f : Click "Start"
+f -> b : Start order
+activate b
+return Start succeeds
+f --> a : Start succeeds
+deactivate f
+@enduml

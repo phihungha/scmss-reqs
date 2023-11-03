@@ -1,0 +1,12 @@
+@startuml production-order-start
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Start";
+
+|s|
+:(2) Start Production Order;
+stop
+@enduml
