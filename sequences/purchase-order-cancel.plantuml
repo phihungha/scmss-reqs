@@ -9,6 +9,7 @@ activate f
 a -> f : Click "Cancel"
 f -> b : Cancel item
 activate b
+b -> b : Cancel associated\nPurchase Requisition
 return Cancellation succeeds
 f --> a : Cancellation succeeds
 deactivate f

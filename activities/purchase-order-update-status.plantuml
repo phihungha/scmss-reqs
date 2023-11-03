@@ -15,6 +15,6 @@ repeat
 repeat while (Valid?) is (no)
 ->yes;
 :(3.2) Save status updates;
-:(4) Notify Procurement Manager;
+:(4) Update status of associated\nPurchase Requisition;
 stop
 @enduml

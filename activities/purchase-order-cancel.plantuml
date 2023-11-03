@@ -8,5 +8,6 @@ start
 
 |s|
 :(2) Cancel Purchase Order;
+:(3) Cancel associated\nPurchase Requisition;
 stop
 @enduml
