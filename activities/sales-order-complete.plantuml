@@ -1,4 +1,4 @@
-@startuml sales-order-cancel
+@startuml sales-order-complete
 |u|User
 |s|System
 

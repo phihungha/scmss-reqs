@@ -1,4 +1,4 @@
-@startuml retailer-list-manage
+@startuml sales-retailer-manage
 |u|User
 |s|System
 

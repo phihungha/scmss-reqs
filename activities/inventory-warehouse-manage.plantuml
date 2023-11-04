@@ -1,4 +1,4 @@
-@startuml warehouse-list-manage
+@startuml inventory-warehouse-manage
 |u|User
 |s|System
 

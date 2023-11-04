@@ -1,4 +1,4 @@
-@startuml product-list-manage
+@startuml sales-product-manage
 |u|User
 |s|System
 

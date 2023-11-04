@@ -1,4 +1,4 @@
-@startuml manufacturing-facility-list-manage
+@startuml production-manufacturing-facility-manage
 |u|User
 |s|System
 

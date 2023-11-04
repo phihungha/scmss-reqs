@@ -1,4 +1,4 @@
-@startuml warehouses-manage
+@startuml inventory-warehouse-manage
 autonumber
 
 actor "Inventory\nmanager" as a

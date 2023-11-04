@@ -1,4 +1,4 @@
-@startuml production-order-cancel
+@startuml production-order-start
 autonumber
 
 actor "Production\nplanner" as a
@@ -6,10 +6,10 @@ participant Screen as f
 participant Backend as b
 
 activate f
-a -> f : Click "Cancel"
-f -> b : Cancel item
+a -> f : Click "Start"
+f -> b : Start order
 activate b
-return Cancel succeeds
-f --> a : Cancel succeeds
+return Start succeeds
+f --> a : Start succeeds
 deactivate f
 @enduml
