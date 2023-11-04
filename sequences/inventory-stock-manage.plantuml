@@ -1,4 +1,4 @@
-@startuml stock-manage
+@startuml inventory-stock-manage
 autonumber
 
 actor "Inventory\nmanager" as a

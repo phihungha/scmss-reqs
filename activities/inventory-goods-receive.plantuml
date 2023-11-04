@@ -1,4 +1,4 @@
-@startuml receive-order-create
+@startuml inventory-goods-receive
 |u|User
 |s|System
 

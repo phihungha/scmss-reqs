@@ -1,4 +1,4 @@
-@startuml products-manage
+@startuml sales-product-manage
 autonumber
 
 actor "Sales\nmanager" as a

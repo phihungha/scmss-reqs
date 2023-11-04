@@ -1,4 +1,4 @@
-@startuml production-order-cancel
+@startuml production-order-complete
 |u|User
 |s|System
 

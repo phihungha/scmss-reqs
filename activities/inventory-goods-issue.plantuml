@@ -1,4 +1,4 @@
-@startuml issue-form-create
+@startuml inventory-goods-issue
 |u|User
 |s|System
 

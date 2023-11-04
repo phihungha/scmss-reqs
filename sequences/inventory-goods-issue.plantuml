@@ -1,4 +1,4 @@
-@startuml goods-issue-create
+@startuml inventory-goods-issue
 autonumber
 
 actor "Inventory\nspecialist" as a

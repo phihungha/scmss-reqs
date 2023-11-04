@@ -1,4 +1,4 @@
-@startuml manufacturing-facility-manage
+@startuml production-manufacturing-facility-manage
 autonumber
 
 actor "Production\nmanager" as a
