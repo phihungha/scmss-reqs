@@ -1,4 +1,4 @@
-@startuml Inventory
+@startuml inventory
 left to right direction
 
 :Director: as d

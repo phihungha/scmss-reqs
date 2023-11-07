@@ -1,4 +1,4 @@
-@startuml Production
+@startuml production
 left to right direction
 
 :Production Planner: as pp

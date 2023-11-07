@@ -1,4 +1,4 @@
-@startuml Sales
+@startuml sales
 left to right direction
 
 :Director: as d
