@@ -12,6 +12,6 @@ rectangle System {
     u -- (Manage my account)
 
     ad -- (Manage users)
-    (Manage users) <|-- (Deactivate user)
+    (Manage users) <|.. (Deactivate user)
 }
 @enduml

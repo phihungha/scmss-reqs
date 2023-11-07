@@ -9,15 +9,17 @@ is <|-- im
 
 rectangle Inventory {
     is -- (Manage stock)
+    (Manage stock) <|.. (Import stock)
 
     is -- (Goods receive)
-    (Goods receive) --> (View Purchase Order)
-    (Goods receive) --> (View Production Order)
+    (Goods receive) ..> (View Purchase Order)
+    (Goods receive) ..> (View Production Order)
 
     is -- (Goods issue)
-    (Goods issue) --> (View Sales Order)
+    (Goods issue) ..> (View Sales Order)
 
     im -- (Manage Warehouses)
+    (Manage Warehouses) <|.. (Import Warehouses)
     im -- (Generate Inventory Report)
     d -- (Generate Inventory Report)
 }

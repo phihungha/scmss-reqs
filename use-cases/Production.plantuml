@@ -10,15 +10,16 @@ pp <|-- pm
 rectangle Production {
   pp -- (View Production Order)
   pp -- (Create Production Order)
-  (View Production Order) <|-- (Update Production Order)
-  (View Production Order) <|-- (Start Production Order)
-  (View Production Order) <|-- (Complete Production Order)
-  (View Production Order) <|-- (Cancel Production Order)
+  (View Production Order) <|.. (Update Production Order)
+  (View Production Order) <|.. (Update Production Order progress)
+  (View Production Order) <|.. (Complete Production Order)
+  (View Production Order) <|.. (Cancel Production Order)
 
   pm -- (Approve Production Order)
-  (Approve Production Order) --> (View Production Order)
+  (Approve Production Order) ..> (View Production Order)
 
-  pm -- (Manage Manufacturing Facility list)
+  pm -- (Manage Manufacturing Facilities)
+  (Manage Manufacturing Facilities) <|.. (Import Manufacturing Facilities)
   pm -- (Generate Production Report)
   d -- (Generate Production Report)
 }
