@@ -29,24 +29,27 @@ class User {
     phoneNumber: str
     description: str
     role: UserRole
-    createdPurchaseOrders: PurchaseOrder[]
+    notifications: Notification[]
+    warehouse: Warehouse?
     createdPurchaseRequisitions: PurchaseRequisition[]
     approvedPurchaseRequisitions: PurchaseRequisition[]
+    createdPurchaseOrders: PurchaseOrder[]
     createdSalesOrders: SalesOrder[]
     createdProductionOrders: ProductionOrder[]
     approvedProductionOrders: ProductionOrder[]
 }
+Warehouse "0..1" o-- "0..*" User
 
 class Notification {
     id: int
-    createTime: datetime
+    time: datetime
     hasRead: bool
     content: str
 }
 User "1..1" *-- "0..*" Notification
 
 abstract Company {
-    id: str
+    id: int
     name: str
     location: str
     description: str
@@ -82,28 +85,28 @@ class Supply {
     purchaseRequisitionItems: PurchaseRequisitionItem[]
 }
 Goods <|-- Supply
-Vendor "0..*" o-- "1..1" Supply
-
+Vendor "1..1" o-- "0..*" Supply
 
 class Product {
     productionCostItems: ProductionCostItem[]
     productionCost: money
-    productionOrders: ProductionOrder[]
-    salesOrders: SalesOrder[]
+    productionOrderItems: ProductionOrderItem[]
+    salesOrderItems: SalesOrderItem[]
 }
 Goods <|-- Product
+note top: productionCost = sum of totalCost of all productionCostItems
 
 class ProductionCostItem {
-    productId: int
     product: Product
-    supplyId: int
     supply: Supply
     quantity: double
+    --Calculated--
     unitCost: money
     totalCost: money
 }
 Product "1..1" *-- "0..*" ProductionCostItem
 Supply "1..1" o-- "0..*" ProductionCostItem
+note top: unitCost is supply's price"
 
 enum OrderStatus {
     Processing
@@ -123,8 +126,8 @@ enum OrderPaymentStatus {
 abstract Order {
     id: int
     subTotal: money
-    taxRate: double
-    taxAmount: money
+    vatRate: double
+    vatAmount: money
     totalAmount: money
     status: OrderStatus
     paymentStatus: OrderPaymentStatus
@@ -137,6 +140,13 @@ abstract Order {
 }
 User "1..1" o-- "0..*" Order : Create
 User "1..1" o-- "0..*" Order : Finish
+note top
+    subTotal is sum of totalPrice of all items
+    vatAmount = subTotal * vatRate
+    totalAmount = subTotal + vatAmount
+    <b>This abstract class is for sales and purchase orders,
+    <b>not production orders
+endnote
 
 abstract OrderItem {
     quantity: double
@@ -144,13 +154,18 @@ abstract OrderItem {
     unitPrice: money
     totalPrice: money
 }
+note top
+    totalPrice = unitPrice * quantity
+    <b>This abstract class is for sales
+    <b>and purchase orders/requisitions, not production orders
+endnote
 
 enum OrderProgressUpdateType {
     Processing
-    Leave
-    Arrive
-    PaymentDue
+    Left
+    Arrived
     Delivered
+    PaymentDue
     PaymentCompleted
     Canceled
     Returned
@@ -178,10 +193,11 @@ enum PurchaseRequisitionStatus {
 class PurchaseRequisition {
     id: int
     subTotal: money
-    taxRate: double
-    taxAmount: money
+    vatRate: double
+    vatAmount: money
     totalAmount: money
     items: PurchaseRequisitionItem[]
+    vendor: Vendor
     status: PurchaseRequisitionStatus
     createTime: datetime
     finishTime: datetime
@@ -192,11 +208,14 @@ class PurchaseRequisition {
 }
 Vendor "1..1" o-- "0..*" PurchaseRequisition
 User "0..*" o-- "1..1" PurchaseRequisition : Approve
+note top
+    subTotal = sum of total price of all items
+    vatAmount = subTotal * vatRate
+    totalAmount = subTotal + vatAmount
+endnote
 
 class PurchaseRequisitionItem {
-    supplyId: int
     supply: Supply
-    requisitionId: int
     requisition: Requisition
 }
 OrderItem <|-- PurchaseRequisitionItem
@@ -206,16 +225,22 @@ Supply "1..1" o-- "0..*" PurchaseRequisitionItem
 class PurchaseOrder {
     items: PurchaseOrderItem[]
     discountAmount: money
+    vendor: Vendor
+    fromLocation: str
+    toWarehouse: Warehouse
     requisition: PurchaseRequisition
 }
 Order <|-- PurchaseOrder
 Vendor "1..1" o-- "0..*" PurchaseOrder
+Warehouse "1..1" o-- "0..*" PurchaseOrder
 PurchaseRequisition "1..1" o-- "0..1" PurchaseOrder
+note top
+    discountAmount is entered manually
+    totalAmount = subTotal - discountAmount + vatAmount
+endnote
 
 class PurchaseOrderItem {
-    supplyId: int
     supply: Supply
-    orderId: int
     order: PurchaseOrder
     discount: money
     netPrice: money
@@ -223,17 +248,20 @@ class PurchaseOrderItem {
 OrderItem <|-- PurchaseOrderItem
 PurchaseOrder "1..1" *-- "1..*" PurchaseOrderItem
 Supply "1..1" o-- "0..*" PurchaseOrderItem
+note top: discount is entered manually
 
 class SalesOrder {
     items: SalesOrderItem[]
+    retailer: Retailer
+    fromWarehouse: Warehouse
+    toLocation: str
 }
 Order <|-- SalesOrder
 Retailer "1..1" o-- "0..*" SalesOrder
+Warehouse "1..1" o-- "0..*" SalesOrder
 
 class SalesOrderItem {
-    orderId: int
     order: SalesOrder
-    productId: int
     product: Product
 }
 OrderItem <|-- SalesOrderItem
@@ -249,7 +277,7 @@ enum ProductionOrderStatus {
 
 class ProductionOrder {
     id: int
-    productItems: ProductionOrderItem[]
+    items: ProductionOrderItem[]
     totalValue: money
     totalCost: money
     profit: money
@@ -261,28 +289,42 @@ class ProductionOrder {
     approvingProductionManager: User?
 }
 User "0..*" o-- "1..1" ProductionOrder : Approve
+note top
+    totalValue = sum of totalValue of all items
+    totalCost = sum of totalCost of all items
+endnote
 
 class ProductionOrderItem {
-    orderId: int
     order: ProductionOrder
-    productId: int
     product: Product
     quantity: double
     unit: str
     unitPrice: money
+    unitCost: money
     totalValue: money
     totalCost: money
 }
 ProductionOrder "1..1" *-- "1..*" ProductionOrderItem
 Product "1..1" o-- "0..*" ProductionOrderItem
+note top
+    unitPrice = product's price
+    unitCost = product's productionCost
+    totalValue = unitPrice * quantity
+    totalCost = unitCost * quantity
+endnote
 
 abstract InventoryItem {
     quantity: double
+    note: str?
+    --Calculated--
     unit: str
-    unitPrice: money
-    totalPrice: money
-    note: str
+    unitValue: money
+    totalValue: money
 }
+note top
+    unitValue = item's price
+    totalValue = unitValue * quantity
+endnote
 
 class Warehouse {
     id: str
@@ -292,16 +334,15 @@ class Warehouse {
     productItems: ProductItem[]
     issues: WarehouseIssue[]
     receipts: WarehouseReceipt[]
+    users: User[]
 }
 
 abstract WarehouseItem {
-    warehouseId: int
-    Warehouse: Warehouse
+    warehouse: Warehouse
 }
 InventoryItem <|-- WarehouseItem
 
 class WarehouseSupplyItem {
-    supplyId: int
     supply: Supply
 }
 WarehouseItem <|-- WarehouseSupplyItem
@@ -309,7 +350,6 @@ Warehouse "1..1" *-- "0..*" WarehouseSupplyItem
 Supply "1..1" o-- "0..*" WarehouseSupplyItem
 
 class WarehouseProductItem {
-    productId: int
     Product: Product
 }
 WarehouseItem <|-- WarehouseProductItem
@@ -318,11 +358,13 @@ Product "1..1" o-- "0..*" WarehouseProductItem
 
 abstract WarehouseForm {
     int: id
-    warehouseId: int
     warehouse: Warehouse
     createTime: datetime
     totalValue: money
 }
+note top
+    totalValue = sum of totalPrice of all items
+endnote
 
 abstract WarehouseFormItem
 InventoryItem <|-- WarehouseFormItem
@@ -330,16 +372,14 @@ InventoryItem <|-- WarehouseFormItem
 class WarehouseIssue {
     salesOrderId: int
     salesOrder: SalesOrder
-    items: WarehouseFormItem[]
+    items: WarehouseIssueItem[]
 }
 WarehouseForm <|-- WarehouseIssue
 SalesOrder "1..1" o-- "1..1" WarehouseIssue
 Warehouse "1..1" o-- "0..*" WarehouseIssue
 
 class WarehouseIssueItem {
-    issueId: int
     issue: WarehouseIssue
-    productId: int
     product: Product
 }
 WarehouseFormItem <|-- WarehouseIssueItem
@@ -348,20 +388,24 @@ Product "1..1" o-- "0..*" WarehouseIssueItem
 
 class WarehouseReceipt {
     purchaseOrderId: int
-    purchaseOrder: PurchaseOrder
-    items: WarehouseFormItem[]
+    purchaseOrder: PurchaseOrder?
+    productionOrder: ProductionOrder?
+    items: WarehouseReceiptItem[]
 }
 WarehouseForm <|-- WarehouseReceipt
-PurchaseOrder "1..1" o-- "1..1" WarehouseReceipt
+PurchaseOrder "0..1" o-- "0..1" WarehouseReceipt
+ProductionOrder "0..1" o-- "0..1" WarehouseReceipt
 Warehouse "1..1" o-- "0..*" WarehouseReceipt
+note top: Either purchaseOrder or productionOrder must not be empty
 
 class WarehouseReceiptItem {
-    receiptId: int
     receipt: WarehouseReceipt
-    supplyId: int
-    supply: Supply
+    supply: Supply?
+    product: Product?
 }
 WarehouseFormItem <|-- WarehouseReceiptItem
 WarehouseReceipt "1..1" *-- "1..*" WarehouseReceiptItem
-Supply "1..1" o-- "0..*" WarehouseReceiptItem
+Supply "0..1" o-- "0..*" WarehouseReceiptItem
+Product "0..1" o-- "0..*" WarehouseReceiptItem
+note top: Either supply or product must not be empty
 @enduml
