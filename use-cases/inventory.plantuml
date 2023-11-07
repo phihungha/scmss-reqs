@@ -3,8 +3,8 @@ left to right direction
 
 :Director: as d
 
-:Inventory manager: as im
-:Inventory specialist: as is
+:Inventory Manager: as im
+:Inventory Specialist: as is
 is <|-- im
 
 rectangle Inventory {

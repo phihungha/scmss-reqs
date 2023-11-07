@@ -15,6 +15,6 @@ repeat
 repeat while (Valid?) is (no)
 ->yes;
 :(3.2) Save updated Production Order;
-:(4) Notify Director and Production manager;
+:(4) Notify Director and Production Manager;
 stop
 @enduml

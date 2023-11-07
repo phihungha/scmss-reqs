@@ -1,7 +1,7 @@
 @startuml purchase-order-attach-invoice
 autonumber
 
-actor "Procurement\nspecialist" as a
+actor "Procurement\nSpecialist" as a
 participant Screen as f
 participant Backend as b
 

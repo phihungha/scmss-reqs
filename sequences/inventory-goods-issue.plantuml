@@ -1,7 +1,7 @@
 @startuml inventory-goods-issue
 autonumber
 
-actor "Inventory\nspecialist" as a
+actor "Inventory\nSpecialist" as a
 participant Screen as f
 participant Backend as b
 

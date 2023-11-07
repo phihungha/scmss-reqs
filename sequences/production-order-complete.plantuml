@@ -1,7 +1,7 @@
 @startuml production-order-complete
 autonumber
 
-actor "Production\nplanner" as a
+actor "Production\nPlanner" as a
 participant Screen as f
 participant Backend as b
 

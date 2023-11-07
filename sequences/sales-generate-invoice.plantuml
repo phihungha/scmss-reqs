@@ -1,7 +1,7 @@
 @startuml sales-generate-invoice
 autonumber
 
-actor "Sales\nspecialist" as a
+actor "Sales\nSpecialist" as a
 participant Screen as f
 participant Backend as b
 

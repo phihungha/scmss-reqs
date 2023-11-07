@@ -1,7 +1,7 @@
 @startuml sales-order-create
 autonumber
 
-actor "Sales\nspecialist" as a
+actor "Sales\nSpecialist" as a
 participant Screen as f
 participant Backend as b
 
@@ -13,7 +13,7 @@ activate b
 b -> b : Validate item
 
 alt validation succeeds
-    b -> b : Notify Production manager\nand Logistic specialist
+    b -> b : Notify Production Manager\nand Logistic Specialist
     b --> f : New item
     f --> a : New item
 else validation fails

@@ -8,6 +8,6 @@ start
 
 |s|
 :(2) Approve Production Order;
-:(3) Notify Production planner;
+:(3) Notify Production Planner;
 stop
 @enduml

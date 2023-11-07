@@ -1,7 +1,7 @@
 @startuml production-order-create
 autonumber
 
-actor "Production\nplanner" as a
+actor "Production\nPlanner" as a
 participant Screen as f
 participant Backend as b
 
@@ -13,7 +13,7 @@ activate b
 b -> b : Validate item
 
 alt validation succeeds
-    b -> b : Notify Production manager \nfor approval
+    b -> b : Notify Production Manager \nfor approval
     b --> f : New item
     f --> a : New item
 else validation fails

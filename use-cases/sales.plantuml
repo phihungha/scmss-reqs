@@ -3,13 +3,13 @@ left to right direction
 
 :Director: as d
 
-:Production manager: as pm
+:Production Manager: as pm
 
-:Sales specialist: as s
-:Sales manager: as sm
+:Sales Specialist: as s
+:Sales Manager: as sm
 s <|-- sm
 
-:Logistics specialist: as ls
+:Logistics Specialist: as ls
 
 rectangle Sales {
     s -- (Create Sales Order)

@@ -1,7 +1,7 @@
 @startuml inventory-generate-report
 autonumber
 
-actor "Inventory\nmanager" as a
+actor "Inventory\nManager" as a
 participant Screen as f
 participant Backend as b
 

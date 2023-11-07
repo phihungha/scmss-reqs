@@ -1,7 +1,7 @@
 @startuml procurement-supply-manage
 autonumber
 
-actor "Procurement\nmanager" as a
+actor "Procurement\nManager" as a
 participant Screen as f
 participant Backend as b
 

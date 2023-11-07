@@ -1,8 +1,8 @@
 @startuml Production
 left to right direction
 
-:Production planner: as pp
-:Production manager: as pm
+:Production Planner: as pp
+:Production Manager: as pm
 pp <|-- pm
 
 :Director: as d

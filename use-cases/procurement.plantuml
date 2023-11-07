@@ -4,12 +4,12 @@ left to right direction
 :Director: as d
 :Finance: as f
 
-:Production planner: as pp
-:Production manager: as prm
+:Production Planner: as pp
+:Production Manager: as prm
 pp <|-- prm
 
-:Procurement manager: as pm
-:Procurement specialist: as ps
+:Procurement Manager: as pm
+:Procurement Specialist: as ps
 ps <|-- pm
 
 rectangle Procurement {
@@ -25,14 +25,14 @@ rectangle Procurement {
     (Create Purchase Order) --> (View Purchase Requisition)
     ps -- (View Purchase Order)
     (View Purchase Order) <|-- (Update Purchase Order)
-    (View Purchase Order) <|-- (Update Purchase Order status)
+    (View Purchase Order) <|-- (Update Purchase Order progress)
     (View Purchase Order) <|-- (Attach Purchase Invoice)
     (View Purchase Order) <|-- (Cancel Purchase Order)
     f -- (Complete Purchase Order payment)
     (Complete Purchase Order payment) --> (View Purchase Order)
 
     pm -- (Manage Vendors)
-    pm -- (Manage Supplys)
+    pm -- (Manage Supplies)
 
     pm -- (Generate Procurement Report)
     d -- (Generate Procurement Report)

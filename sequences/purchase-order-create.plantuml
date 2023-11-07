@@ -14,7 +14,7 @@ activate b
 b -> b : Validate item
 
 alt validation succeeds
-    b -> b : Notify Production manager\nand Finance for approval
+    b -> b : Notify Production Manager\nand Finance for approval
     b -> b : Update associated\nPurchase Requisition
     b --> f : New item
     f --> a : New item

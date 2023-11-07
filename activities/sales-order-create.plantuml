@@ -20,6 +20,6 @@ repeat
 repeat while (Valid?) is (no)
 ->yes;
 :(5.2) Save new Sales Order;
-:(6) Notify Inventory and Logistics specialist;
+:(6) Notify Inventory and Logistics Specialist;
 stop
 @enduml

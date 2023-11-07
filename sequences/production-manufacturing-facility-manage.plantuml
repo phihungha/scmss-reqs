@@ -1,7 +1,7 @@
 @startuml production-manufacturing-facility-manage
 autonumber
 
-actor "Production\nmanager" as a
+actor "Production\nManager" as a
 participant Screen as f
 participant Backend as b
 

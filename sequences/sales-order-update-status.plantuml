@@ -1,7 +1,7 @@
 @startuml sales-order-update-status
 autonumber
 
-actor "Logistic\nspecialist" as a
+actor "Logistic\nSpecialist" as a
 participant Screen as f
 participant Backend as b
 

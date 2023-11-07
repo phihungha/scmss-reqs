@@ -1,7 +1,7 @@
 @startuml production-order-approve
 autonumber
 
-actor "Production manager" as a
+actor "Production Manager" as a
 participant Screen as f
 participant Backend as b
 

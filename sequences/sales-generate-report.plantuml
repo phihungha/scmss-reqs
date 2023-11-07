@@ -1,7 +1,7 @@
 @startuml sales-generate-report
 autonumber
 
-actor "Sales\nmanager" as a
+actor "Sales\nManager" as a
 participant Screen as f
 participant Backend as b
 
