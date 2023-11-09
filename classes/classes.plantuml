@@ -39,6 +39,7 @@ class User {
     approvedProductionOrders: ProductionOrder[]
 }
 Warehouse "0..1" o-- "0..*" User
+note top: Inventory users are assigned to a Warehouse
 
 class Notification {
     id: int
@@ -332,8 +333,10 @@ class Warehouse {
     description: str
     supplyItems: WarehouseSupplyItem[]
     productItems: WarehouseProductItem[]
-    issues: WarehouseIssue[]
-    receipts: WarehouseReceipt[]
+    productIssues: WarehouseProductIssue[]
+    productReceipts: WarehouseProductReceipt[]
+    supplyIssues: WarehouseSupplyIssue[]
+    supplyReceipts: WarehouseSupplyReceipt[]
     users: User[]
 }
 
@@ -369,43 +372,67 @@ endnote
 abstract WarehouseFormItem
 InventoryItem <|-- WarehouseFormItem
 
-class WarehouseIssue {
-    salesOrderId: int
+class WarehouseProductIssue {
     salesOrder: SalesOrder
-    items: WarehouseIssueItem[]
+    items: WarehouseProductIssueItem[]
 }
-WarehouseForm <|-- WarehouseIssue
-SalesOrder "1..1" o-- "1..1" WarehouseIssue
-Warehouse "1..1" o-- "0..*" WarehouseIssue
+WarehouseForm <|-- WarehouseProductIssue
+SalesOrder "1..1" o-- "1..1" WarehouseProductIssue
+Warehouse "1..1" o-- "0..*" WarehouseProductIssue
 
-class WarehouseIssueItem {
-    issue: WarehouseIssue
+class WarehouseProductIssueItem {
+    issue: WarehouseProductIssue
     product: Product
 }
 WarehouseFormItem <|-- WarehouseIssueItem
-WarehouseIssue "1..1" *-- "1..*" WarehouseIssueItem
-Product "1..1" o-- "0..*" WarehouseIssueItem
+WarehouseProductIssue "1..1" *-- "1..*" WarehouseProductIssueItem
+Product "1..1" o-- "0..*" WarehouseProductIssueItem
 
-class WarehouseReceipt {
-    purchaseOrderId: int
-    purchaseOrder: PurchaseOrder?
-    productionOrder: ProductionOrder?
-    items: WarehouseReceiptItem[]
+class WarehouseSupplyIssue {
+    productionOrder: ProductionOrder
+    items: WarehouseSupplyIssueItem[]
 }
-WarehouseForm <|-- WarehouseReceipt
-PurchaseOrder "0..1" o-- "0..1" WarehouseReceipt
-ProductionOrder "0..1" o-- "0..1" WarehouseReceipt
-Warehouse "1..1" o-- "0..*" WarehouseReceipt
-note top: Either purchaseOrder or productionOrder must not be empty
+WarehouseForm <|-- WarehouseSupplyIssue
+ProductionOrder "1..1" o-- "1..1" WarehouseSupplyIssue
+Warehouse "1..1" o-- "0..*" WarehouseSupplyIssue
 
-class WarehouseReceiptItem {
-    receipt: WarehouseReceipt
-    supply: Supply?
-    product: Product?
+class WarehouseSupplyIssueItem {
+    issue: WarehouseSupplyIssue
+    supply: Supply
 }
-WarehouseFormItem <|-- WarehouseReceiptItem
-WarehouseReceipt "1..1" *-- "1..*" WarehouseReceiptItem
-Supply "0..1" o-- "0..*" WarehouseReceiptItem
-Product "0..1" o-- "0..*" WarehouseReceiptItem
-note top: Either supply or product must not be empty
+WarehouseFormItem <|-- WarehouseSupplyIssueItem
+WarehouseSupplyIssue "1..1" *-- "1..*" WarehouseSupplyIssueItem
+Supply "1..1" o-- "0..*" WarehouseSupplyIssueItem
+
+class WarehouseSupplyReceipt {
+    purchaseOrder: PurchaseOrder
+    items: WarehouseSupplyReceiptItem[]
+}
+WarehouseForm <|-- WarehouseSupplyReceipt
+PurchaseOrder "0..1" o-- "0..1" WarehouseSupplyReceipt
+Warehouse "1..1" o-- "0..*" WarehouseSupplyReceipt
+
+class WarehouseSupplyReceiptItem {
+    receipt: WarehouseSupplyReceipt
+    supply: Supply
+}
+WarehouseFormItem <|-- WarehouseSupplyReceiptItem
+WarehouseSupplyReceipt "1..1" *-- "1..*" WarehouseSupplyReceiptItem
+Supply "1..1" o-- "0..*" WarehouseSupplyReceiptItem
+
+class WarehouseProductReceipt {
+    productionOrder: ProductionOrder
+    items: WarehouseSupplyReceiptItem[]
+}
+WarehouseForm <|-- WarehouseProductReceipt
+ProductionOrder "0..1" o-- "0..1" WarehouseProductReceipt
+Warehouse "1..1" o-- "0..*" WarehouseProductReceipt
+
+class WarehouseProductReceiptItem {
+    receipt: WarehouseProductReceipt
+    supply: Supply
+}
+WarehouseFormItem <|-- WarehouseProductReceiptItem
+WarehouseProductReceipt "1..1" *-- "1..*" WarehouseProductReceiptItem
+Product "1..1" o-- "0..*" WarehouseProductReceiptItem
 @enduml
