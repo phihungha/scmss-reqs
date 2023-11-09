@@ -14,19 +14,19 @@ s <|-- sm
 rectangle Sales {
     s -- (Create Sales Order)
     s -- (View Sales Order)
-    (View Sales Order) <|.. (Update Sales Order)
-    (View Sales Order) <|.. (Update Sales Order progress)
-    (View Sales Order) <|.. (Cancel Sales Order)
+    (View Sales Order) <|.. (Update Sales Order) : <<extends>>
+    (View Sales Order) <|.. (Update Sales Order progress) : <<extends>>
+    (View Sales Order) <|.. (Cancel Sales Order) : <<extends>>
     ls -- (Update Sales Order progress)
-    (View Sales Order) <|.. (Generate Sales Invoice)
-    (View Sales Order) <|.. (Complete Sales Order)
+    (View Sales Order) <|.. (Generate Sales Invoice) : <<extends>>
+    (View Sales Order) <|.. (Complete Sales Order) : <<extends>>
 
     sm -- (Generate Sales Report)
     d -- (Generate Sales Report)
     pm -- (Manage Products)
     sm -- (Manage Products)
-    (Manage Products) <|.. (Import Products)
+    (Manage Products) <|.. (Import Products) : <<extends>>
     sm -- (Manage Retailers)
-    (Manage Retailers) <|.. (Import Retailers)
+    (Manage Retailers) <|.. (Import Retailers) : <<extends>>
 }
 @enduml
