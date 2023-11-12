@@ -1,0 +1,49 @@
+@startuml admin
+left to right direction
+
+enum Gender {
+    Male
+    Female
+    Other
+}
+
+enum UserRole {
+    Admin
+    Director
+    ProcurementManager
+    ProcurementSpecialist
+    ProductionManager
+    ProductionSpecialist
+    SalesManager
+    SalesSpecialist
+    InventoryManager
+    InventorySpecialist
+}
+
+class User {
+    id: str
+    userName: str
+    name: str
+    gender: Gender
+    email: str
+    phoneNumber: str
+    description: str
+    role: UserRole
+    notifications: Notification[]
+    warehouse: Warehouse?
+    createdPurchaseRequisitions: PurchaseRequisition[]
+    approvedPurchaseRequisitions: PurchaseRequisition[]
+    createdPurchaseOrders: PurchaseOrder[]
+    createdSalesOrders: SalesOrder[]
+    createdProductionOrders: ProductionOrder[]
+    approvedProductionOrders: ProductionOrder[]
+}
+
+class Notification {
+    id: int
+    time: datetime
+    hasRead: bool
+    content: str
+}
+User "1..1" *-- "0..*" Notification
+@enduml

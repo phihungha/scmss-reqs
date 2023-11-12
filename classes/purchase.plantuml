@@ -1,0 +1,215 @@
+@startuml purchase
+left to right direction
+
+class User {
+    id: str
+    userName: str
+    name: str
+    gender: Gender
+    email: str
+    phoneNumber: str
+    description: str
+    role: UserRole
+    notifications: Notification[]
+    warehouse: Warehouse?
+    createdPurchaseRequisitions: PurchaseRequisition[]
+    approvedPurchaseRequisitions: PurchaseRequisition[]
+    createdPurchaseOrders: PurchaseOrder[]
+    createdSalesOrders: SalesOrder[]
+    createdProductionOrders: ProductionOrder[]
+    approvedProductionOrders: ProductionOrder[]
+}
+
+abstract Company {
+    id: int
+    name: str
+    location: str
+    description: str
+    email: str
+    phoneNumber: str
+    contactPerson: str
+}
+
+class Vendor {
+    supplies: Supply[]
+    purchaseOrders: PurchaseOrder[]
+    purchaseRequisitions: PurchaseRequisition[]
+
+}
+Company <|-- Vendor
+
+class Warehouse {
+    id: str
+    name: str
+    description: str
+    supplyItems: WarehouseSupplyItem[]
+    productItems: WarehouseProductItem[]
+    productIssues: WarehouseProductIssue[]
+    productReceipts: WarehouseProductReceipt[]
+    supplyIssues: WarehouseSupplyIssue[]
+    supplyReceipts: WarehouseSupplyReceipt[]
+    users: User[]
+}
+
+abstract Goods {
+    id: int
+    name: str
+    description: str
+    unit: str
+    price: money
+}
+
+class Supply {
+    vendor: Vendor
+    purchaseOrderItems: PurchaseOrderItem[]
+    purchaseRequisitionItems: PurchaseRequisitionItem[]
+}
+Goods <|-- Supply
+Vendor "1..1" o-- "0..*" Supply
+
+enum OrderStatus {
+    Processing
+    Delivering
+    Interrupted
+    Delivered
+    Canceled
+    Returned
+}
+
+enum OrderPaymentStatus {
+    Pending
+    Due
+    Completed
+}
+
+abstract Order {
+    id: int
+    subTotal: money
+    vatRate: double
+    vatAmount: money
+    totalAmount: money
+    status: OrderStatus
+    paymentStatus: OrderPaymentStatus
+    invoice: url?
+    receipt: url?
+    createTime: datetime
+    deliverTime: datetime
+    finishTime: datetime
+    creatingUser: User
+    finishingUser: User?
+}
+User "1..1" o-- "0..*" Order : Create
+User "1..1" o-- "0..*" Order : Finish
+note bottom
+    subTotal = sum of totalPrice of all items
+    vatAmount = subTotal * vatRate
+    totalAmount = subTotal + vatAmount
+    deliverTime = time the status changed to Delivered
+    <b>This abstract class is for sales and purchase orders,
+    <b>not production orders
+endnote
+
+abstract OrderItem {
+    quantity: double
+    unit: str
+    unitPrice: money
+    totalPrice: money
+}
+note top
+    totalPrice = unitPrice * quantity
+    <b>This abstract class is for sales
+    <b>and purchase orders/requisitions, not production orders
+endnote
+
+enum OrderProgressUpdateType {
+    Processing
+    Left
+    Arrived
+    Delivered
+    PaymentDue
+    PaymentCompleted
+    Canceled
+    Returned
+    Interrupted
+}
+
+class OrderProgressUpdate {
+    id: int
+    type: OrderProgressUpdateType
+    time: datetime
+    location: str
+    note: str?
+    Order: order
+}
+Order "1..1" *-- "1..*" OrderProgressUpdate
+
+enum PurchaseRequisitionStatus {
+    PendingApproval
+    Approved
+    Purchasing
+    Completed
+    Canceled
+}
+
+class PurchaseRequisition {
+    id: int
+    subTotal: money
+    vatRate: double
+    vatAmount: money
+    totalAmount: money
+    items: PurchaseRequisitionItem[]
+    vendor: Vendor
+    toWarehouse: Warehouse
+    status: PurchaseRequisitionStatus
+    createTime: datetime
+    finishTime: datetime
+    creatingUser: User
+    approvingProductionManager: User?
+    approvingFinance: User?
+    order: PurchaseOrder?
+}
+Vendor "1..1" o-- "0..*" PurchaseRequisition
+User "0..*" o-- "1..1" PurchaseRequisition : Approve
+Warehouse "1..1" o-- "0..*" PurchaseRequisition
+note right
+    subTotal = sum of total price of all items
+    vatAmount = subTotal * vatRate
+    totalAmount = subTotal + vatAmount
+endnote
+
+class PurchaseRequisitionItem {
+    supply: Supply
+    requisition: Requisition
+}
+OrderItem <|-- PurchaseRequisitionItem
+PurchaseRequisition "1..1" *-- "1..*" PurchaseRequisitionItem
+Supply "1..1" o-- "0..*" PurchaseRequisitionItem
+
+class PurchaseOrder {
+    items: PurchaseOrderItem[]
+    discountAmount: money
+    vendor: Vendor
+    fromLocation: str
+    toWarehouse: Warehouse
+    requisition: PurchaseRequisition
+}
+Order <|-- PurchaseOrder
+Vendor "1..1" o-- "0..*" PurchaseOrder
+Warehouse "1..1" o-- "0..*" PurchaseOrder
+PurchaseRequisition "1..1" o-- "0..1" PurchaseOrder
+note right
+    discountAmount is entered manually
+    totalAmount = subTotal - discountAmount + vatAmount
+endnote
+
+class PurchaseOrderItem {
+    supply: Supply
+    order: PurchaseOrder
+    discount: money
+    netPrice: money
+}
+OrderItem <|-- PurchaseOrderItem
+PurchaseOrder "1..1" *-- "1..*" PurchaseOrderItem
+Supply "1..1" o-- "0..*" PurchaseOrderItem
+note top: discount is entered manually
+@enduml

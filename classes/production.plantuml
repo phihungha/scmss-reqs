@@ -1,0 +1,106 @@
+@startuml production
+left to right direction
+
+class User {
+    id: str
+    userName: str
+    name: str
+    gender: Gender
+    email: str
+    phoneNumber: str
+    description: str
+    role: UserRole
+    notifications: Notification[]
+    warehouse: Warehouse?
+    createdPurchaseRequisitions: PurchaseRequisition[]
+    approvedPurchaseRequisitions: PurchaseRequisition[]
+    createdPurchaseOrders: PurchaseOrder[]
+    createdSalesOrders: SalesOrder[]
+    createdProductionOrders: ProductionOrder[]
+    approvedProductionOrders: ProductionOrder[]
+}
+
+abstract Goods {
+    id: int
+    name: str
+    description: str
+    unit: str
+    price: money
+}
+
+class Supply {
+    vendor: Vendor
+    purchaseOrderItems: PurchaseOrderItem[]
+    purchaseRequisitionItems: PurchaseRequisitionItem[]
+}
+Goods <|-- Supply
+
+class Product {
+    productionCostItems: ProductionCostItem[]
+    productionCost: money
+    productionOrderItems: ProductionOrderItem[]
+    salesOrderItems: SalesOrderItem[]
+}
+Goods <|-- Product
+note top: productionCost = sum of totalCost of all productionCostItems
+
+class ProductionCostItem {
+    product: Product
+    supply: Supply
+    quantity: double
+    --Calculated--
+    unitCost: money
+    totalCost: money
+}
+Product "1..1" *-- "0..*" ProductionCostItem
+Supply "1..1" o-- "0..*" ProductionCostItem
+note top: unitCost is supply's price"
+
+enum ProductionOrderStatus {
+    PendingApproval
+    Approved
+    Started
+    Produced
+    Completed
+    Returned
+}
+
+class ProductionOrder {
+    id: int
+    items: ProductionOrderItem[]
+    totalValue: money
+    totalCost: money
+    profit: money
+    status: ProductionOrderStatus
+    createTime: datetime
+    startTime: datetime
+    finishTime: datetime
+    creatingUser: User
+    finishingUser: User?
+    approvingProductionManager: User?
+}
+User "1..1" o-- "0..*" ProductionOrder : Approve
+note top
+    totalValue = sum of totalValue of all items
+    totalCost = sum of totalCost of all items
+endnote
+
+class ProductionOrderItem {
+    order: ProductionOrder
+    product: Product
+    quantity: double
+    unit: str
+    unitPrice: money
+    unitCost: money
+    totalValue: money
+    totalCost: money
+}
+ProductionOrder "1..1" *-- "1..*" ProductionOrderItem
+Product "1..1" o-- "0..*" ProductionOrderItem
+note top
+    unitPrice = product's price
+    unitCost = product's productionCost
+    totalValue = unitPrice * quantity
+    totalCost = unitCost * quantity
+endnote
+@enduml
