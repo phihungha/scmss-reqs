@@ -1,4 +1,4 @@
-@startuml purchase
+@startuml procurement
 left to right direction
 
 class User {
