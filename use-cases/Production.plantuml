@@ -12,8 +12,6 @@ rectangle Production {
   pp -- (Create Production Order)
   (View Production Order) <|.. (Update Production Order) : <<extends>>
   (View Production Order) <|.. (Update Production Order progress) : <<extends>>
-  (View Production Order) <|.. (Complete Production Order) : <<extends>>
-  (View Production Order) <|.. (Cancel Production Order) : <<extends>>
 
   pm -- (Approve Production Order)
   (Approve Production Order) ..> (View Production Order) : <<includes>>

@@ -21,8 +21,6 @@ rectangle Inventory {
     is -- (Products issue)
     (Products issue) ..> (View Sales Order) : <<includes>>
 
-    im -- (Manage Warehouses)
-    (Manage Warehouses) <|.. (Import Warehouses) : <<extends>>
     im -- (Generate Inventory Report)
     d -- (Generate Inventory Report)
 }

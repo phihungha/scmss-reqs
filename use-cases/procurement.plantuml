@@ -16,7 +16,6 @@ rectangle Procurement {
     pp -- (Create Purchase Requisition)
     pp -- (View Purchase Requisition)
     (View Purchase Requisition) <|.. (Update Purchase Requisition) : <<extends>>
-    (View Purchase Requisition) <|.. (Cancel Purchase Requisition) : <<extends>>
     f -- (Approve Purchase Requisition)
     prm -- (Approve Purchase Requisition)
     (Approve Purchase Requisition) ..> (View Purchase Requisition) : <<includes>>
@@ -27,7 +26,6 @@ rectangle Procurement {
     (View Purchase Order) <|.. (Update Purchase Order) : <<extends>>
     (View Purchase Order) <|.. (Update Purchase Order progress) : <<extends>>
     (View Purchase Order) <|.. (Attach Purchase Invoice) : <<extends>>
-    (View Purchase Order) <|.. (Cancel Purchase Order) : <<extends>>
     f -- (Complete Purchase Order payment)
     (Complete Purchase Order payment) ..> (View Purchase Order) : <<includes>>
 
