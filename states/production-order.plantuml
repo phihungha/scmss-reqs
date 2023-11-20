@@ -9,13 +9,13 @@ Rejected --> [*]
 approval --> Approved : Approves
 
 Approved --> Canceled : Cancels
-Approved --> Started : Starts
+Approved --> Started : Issues supplies
 
 Started --> Canceled : Cancels
-Started --> PendingReceive : Updates progress
+Started --> ProductionDone : Updates progress
 
 state check <<choice>>
-PendingReceive --> check
+ProductionDone --> check
 check --> Completed : Receives products
 Completed --> [*]
 check --> Defected : Rejects due to problems
