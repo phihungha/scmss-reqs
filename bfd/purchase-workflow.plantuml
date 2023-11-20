@@ -1,0 +1,50 @@
+@startuml purchase-workflow
+|prod_planner|Production Planner
+|prod_manager|Production Manager
+|fin|Finance
+|pur_spec|Procurement Specialist
+|inv_spec|Inventory Specialist
+
+|prod_planner|
+start
+:Create Purchase Requisition;
+
+|prod_manager|
+if (Approved?) then (no)
+    stop
+else (yes)
+endif
+
+|fin|
+if (Approved?) then (no)
+    stop
+else (yes)
+endif
+
+|pur_spec|
+:Create Purchase Order;
+:Update delivery progress;
+if (Canceled?) then (yes)
+    stop
+else (no)
+endif
+
+|inv_spec|
+:Check received supplies;
+if (Problems found?) then (yes)
+    :Report to Procurement;
+
+    |pur_spec|
+    :Return order;
+    stop
+else (no)
+endif
+
+|inv_spec|
+:Receive supplies;
+
+|fin|
+:Complete payment;
+
+stop
+@enduml
