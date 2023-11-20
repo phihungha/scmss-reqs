@@ -1,4 +1,4 @@
-@startuml production-order-start
+@startuml inventory-supplies-issue
 autonumber
 
 actor "Production\nPlanner" as a
