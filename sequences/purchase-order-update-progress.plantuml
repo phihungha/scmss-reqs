@@ -1,4 +1,4 @@
-@startuml purchase-order-update-status
+@startuml purchase-order-update-progress
 autonumber
 
 actor "Procurement\nSpecialist" as a

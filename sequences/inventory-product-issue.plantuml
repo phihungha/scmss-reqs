@@ -1,11 +1,11 @@
-@startuml inventory-products-receive
+@startuml inventory-product-issue
 autonumber
 
 actor "Inventory\nSpecialist" as a
 participant Screen as f
 participant Backend as b
 
-a -> f : Click "Create Goods Received Order"
+a -> f : Click "Create Goods issue note"
 activate f
 a -> f : Enter data and\nClick "Save"
 f -> b : Create item

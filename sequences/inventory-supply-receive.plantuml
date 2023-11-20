@@ -1,4 +1,4 @@
-@startuml inventory-supplies-receive
+@startuml inventory-supply-receive
 autonumber
 
 actor "Inventory\nSpecialist" as a
