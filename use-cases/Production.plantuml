@@ -17,7 +17,7 @@ rectangle Production {
   (Approve Production Order) ..> (View Production Order) : <<includes>>
 
   pm -- (Manage Manufacturing Facilities)
-  (Manage Manufacturing Facilities) <|.. (Import Manufacturing Facilities) : <<extends>>
+  (Manage Production Facilities) <|.. (Import Production Facilities) : <<extends>>
   pm -- (Generate Production Report)
   d -- (Generate Production Report)
 }
