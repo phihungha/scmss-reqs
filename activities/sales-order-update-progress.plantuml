@@ -1,4 +1,4 @@
-@startuml purchase-order-update-status
+@startuml sales-order-update-progress
 |u|User
 |s|System
 
@@ -15,6 +15,6 @@ repeat
 repeat while (Valid?) is (no)
 ->yes;
 :(3.2) Save status updates;
-:(4) Update status of associated\nPurchase Requisition;
+:(4) Notify Sales Manager;
 stop
 @enduml

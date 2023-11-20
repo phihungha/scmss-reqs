@@ -1,4 +1,4 @@
-@startuml inventory-goods-issue
+@startuml inventory-product-issue
 |u|User
 |s|System
 

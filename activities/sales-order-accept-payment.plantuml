@@ -1,4 +1,4 @@
-@startuml production-order-complete
+@startuml sales-order-accept-payment
 |u|User
 |s|System
 
@@ -7,6 +7,6 @@ start
 :(1) Click "Complete";
 
 |s|
-:(2) Complete Production Order;
+:(2) Complete Sales Order;
 stop
 @enduml
