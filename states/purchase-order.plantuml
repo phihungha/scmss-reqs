@@ -1,0 +1,20 @@
+@startuml purchase-order
+
+[*] --> Processing : Creates
+Processing --> Canceled : Cancels
+Processing --> Delivering : Updates progress
+Delivering --> Delivered : Updates progress
+Delivering --> Canceled : Cancels
+
+state check <<choice>>
+Delivered --> check
+check --> Completed : Receives supplies
+check --> Returned : Returns due to problems
+Returned --> [*]
+
+Completed --> PaymentDue : Attaches invoice\nfrom vendor
+PaymentDue --> PaymentCompleted : Completes payment\nto vendor
+PaymentCompleted --> [*]
+
+Canceled --> [*]
+@enduml

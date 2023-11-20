@@ -1,0 +1,18 @@
+@startuml production-order
+
+[*] --> Processing : Creates
+Processing --> Canceled : Cancels
+Processing --> Started : Starts
+
+Started --> Canceled : Cancels
+Started --> PendingReceive : Updates progress
+
+state check <<choice>>
+PendingReceive --> check
+check --> Completed : Receives products
+Completed --> [*]
+check --> Rejected : Rejects due to problems
+Rejected --> [*]
+
+Canceled --> [*]
+@enduml

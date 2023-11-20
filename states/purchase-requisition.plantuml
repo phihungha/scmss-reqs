@@ -1,0 +1,18 @@
+@startuml purchase-requisition
+
+[*] --> PendingApproval
+PendingApproval --> Canceled : Cancels
+
+state approval <<choice>>
+PendingApproval --> approval
+approval --> Rejected : Rejects
+Rejected --> [*]
+approval --> Approved : Approves
+
+Approved --> Purchasing : Create Purchase Order
+Purchasing --> Canceled : Cancel Purchase Order
+Purchasing --> Completed : Complete Purchase Order
+Completed --> [*]
+
+Canceled --> [*]
+@enduml
