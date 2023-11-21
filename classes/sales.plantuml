@@ -1,25 +1,6 @@
 @startuml sales
 left to right direction
 
-class User {
-    id: str
-    userName: str
-    name: str
-    gender: Gender
-    email: str
-    phoneNumber: str
-    description: str
-    role: UserRole
-    notifications: Notification[]
-    warehouse: Warehouse?
-    createdPurchaseRequisitions: PurchaseRequisition[]
-    approvedPurchaseRequisitions: PurchaseRequisition[]
-    createdPurchaseOrders: PurchaseOrder[]
-    createdSalesOrders: SalesOrder[]
-    createdProductionOrders: ProductionOrder[]
-    approvedProductionOrders: ProductionOrder[]
-}
-
 abstract Company {
     id: int
     name: str
@@ -34,19 +15,6 @@ class Retailer {
     salesOrders: SalesOrder[]
 }
 Company <|-- Retailer
-
-class Warehouse {
-    id: str
-    name: str
-    description: str
-    supplyItems: WarehouseSupplyItem[]
-    productItems: WarehouseProductItem[]
-    productIssues: WarehouseProductIssue[]
-    productReceipts: WarehouseProductReceipt[]
-    supplyIssues: WarehouseSupplyIssue[]
-    supplyReceipts: WarehouseSupplyReceipt[]
-    users: User[]
-}
 
 abstract Goods {
     id: int
@@ -86,15 +54,25 @@ abstract Order {
     vatRate: double
     vatAmount: money
     totalAmount: money
+    remainingAmount: money
+    fromLocation: str?
+    toLocation: str
     status: OrderStatus
     paymentStatus: OrderPaymentStatus
+    events: OrderEvent[]
+    problem: str?
     invoice: url?
     receipt: url?
     createTime: datetime
     deliverTime: datetime
     finishTime: datetime
-    creatingUser: User
-    finishingUser: User?
+    createUser: User
+    finishUser: User?
+    updateProgress(event: OrderEvent)
+    complete()
+    completePayment()
+    cancel(problem: str)
+    return(problem: str)
 }
 User "1..1" o-- "0..*" Order : Create
 User "1..1" o-- "0..*" Order : Finish
@@ -119,7 +97,7 @@ note top
     <b>and purchase orders/requisitions, not production orders
 endnote
 
-enum OrderProgressUpdateType {
+enum OrderEventType {
     Processing
     Left
     Arrived
@@ -131,25 +109,24 @@ enum OrderProgressUpdateType {
     Interrupted
 }
 
-class OrderProgressUpdate {
+class OrderEvent {
     id: int
-    type: OrderProgressUpdateType
+    type: OrderEventType
     time: datetime
     location: str
     note: str?
     Order: order
 }
-Order "1..1" *-- "1..*" OrderProgressUpdate
+Order "1..1" *-- "1..*" OrderEvent
 
 class SalesOrder {
     items: SalesOrderItem[]
-    retailer: Retailer
-    fromWarehouse: Warehouse
-    toLocation: str
+    fromFacility: ProductionFacility?
+    toRetailer: Retailer
 }
 Order <|-- SalesOrder
 Retailer "1..1" o-- "0..*" SalesOrder
-Warehouse "1..1" o-- "0..*" SalesOrder
+ProductionFacility "0..1" o-- "0..*" SalesOrder
 
 class SalesOrderItem {
     order: SalesOrder

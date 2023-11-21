@@ -1,71 +1,26 @@
 @startuml inventory
 left to right direction
 
-class User {
+class ProductionFacility {
     id: str
-    userName: str
     name: str
-    gender: Gender
-    email: str
-    phoneNumber: str
     description: str
-    role: UserRole
-    notifications: Notification[]
-    warehouse: Warehouse?
-    createdPurchaseRequisitions: PurchaseRequisition[]
-    approvedPurchaseRequisitions: PurchaseRequisition[]
-    createdPurchaseOrders: PurchaseOrder[]
-    createdSalesOrders: SalesOrder[]
-    createdProductionOrders: ProductionOrder[]
-    approvedProductionOrders: ProductionOrder[]
+    location: str
+    supplyItems: WarehouseSupplyItem[]
+    productItems: WarehouseProductItem[]
+    purchaseRequisitions: PurchaseRequisition[]
+    purchaseOrders: PurchaseOrder[]
+    productionOrders: ProductionOrder[]
+    salesOrders: SalesOrder[]
+    users: User[]
 }
-Warehouse "0..1" o-- "0..*" User
-note left: Inventory users are assigned to a Warehouse
+ProductionFacility "0..1" o-- "0..*" User
+note left: Inventory and production users\nare assigned to a ProductionFacility
 
-class Supply {
-    vendor: Vendor
-    purchaseOrderItems: PurchaseOrderItem[]
-    purchaseRequisitionItems: PurchaseRequisitionItem[]
-}
-
-class Product {
-    productionCostItems: ProductionCostItem[]
-    productionCost: money
-    productionOrderItems: ProductionOrderItem[]
-    salesOrderItems: SalesOrderItem[]
-}
-
-class PurchaseOrder {
-    items: PurchaseOrderItem[]
-    discountAmount: money
-    vendor: Vendor
-    fromLocation: str
-    toWarehouse: Warehouse
-    requisition: PurchaseRequisition
-}
-Warehouse "1..1" o-- "0..*" PurchaseOrder
-
-class SalesOrder {
-    items: SalesOrderItem[]
-    retailer: Retailer
-    fromWarehouse: Warehouse
-    toLocation: str
-}
-Warehouse "1..1" o-- "0..*" SalesOrder
-
-class ProductionOrder {
-    id: int
-    items: ProductionOrderItem[]
-    totalValue: money
-    totalCost: money
-    profit: money
-    status: ProductionOrderStatus
-    createTime: datetime
-    finishTime: datetime
-    creatingUser: User
-    finishingUser: User?
-    approvingProductionManager: User?
-}
+ProductionFacility "1..1" o-- "0..*" PurchaseRequisition
+ProductionFacility "1..1" o-- "0..*" PurchaseOrder
+ProductionFacility "0..1" o-- "0..*" SalesOrder
+ProductionFacility "1..1" o-- "0..*" ProductionOrder
 
 abstract InventoryItem {
     quantity: double
@@ -80,21 +35,9 @@ note top
     totalValue = unitValue * quantity
 endnote
 
-class Warehouse {
-    id: str
-    name: str
-    description: str
-    supplyItems: WarehouseSupplyItem[]
-    productItems: WarehouseProductItem[]
-    productIssues: WarehouseProductIssue[]
-    productReceipts: WarehouseProductReceipt[]
-    supplyIssues: WarehouseSupplyIssue[]
-    supplyReceipts: WarehouseSupplyReceipt[]
-    users: User[]
-}
 
 abstract WarehouseItem {
-    warehouse: Warehouse
+    warehouse: ProductionFacility
 }
 InventoryItem <|-- WarehouseItem
 
@@ -102,90 +45,13 @@ class WarehouseSupplyItem {
     supply: Supply
 }
 WarehouseItem <|-- WarehouseSupplyItem
-Warehouse "1..1" *-- "0..*" WarehouseSupplyItem
+ProductionFacility "1..1" *-- "0..*" WarehouseSupplyItem
 Supply "1..1" o-- "0..*" WarehouseSupplyItem
 
 class WarehouseProductItem {
     Product: Product
 }
 WarehouseItem <|-- WarehouseProductItem
-Warehouse "1..1" *-- "0..*" WarehouseProductItem
+ProductionFacility "1..1" *-- "0..*" WarehouseProductItem
 Product "1..1" o-- "0..*" WarehouseProductItem
-
-abstract WarehouseForm {
-    int: id
-    warehouse: Warehouse
-    createTime: datetime
-    totalValue: money
-}
-note top
-    totalValue = sum of totalPrice of all items
-endnote
-
-abstract WarehouseFormItem
-InventoryItem <|-- WarehouseFormItem
-
-class WarehouseProductIssue {
-    salesOrder: SalesOrder
-    items: WarehouseProductIssueItem[]
-}
-WarehouseForm <|-- WarehouseProductIssue
-SalesOrder "1..1" o-- "1..1" WarehouseProductIssue
-Warehouse "1..1" o-- "0..*" WarehouseProductIssue
-
-class WarehouseProductIssueItem {
-    issue: WarehouseProductIssue
-    product: Product
-}
-WarehouseFormItem <|-- WarehouseIssueItem
-WarehouseProductIssue "1..1" *-- "1..*" WarehouseProductIssueItem
-Product "1..1" o-- "0..*" WarehouseProductIssueItem
-
-class WarehouseSupplyIssue {
-    productionOrder: ProductionOrder
-    items: WarehouseSupplyIssueItem[]
-}
-WarehouseForm <|-- WarehouseSupplyIssue
-ProductionOrder "1..1" o-- "1..1" WarehouseSupplyIssue
-Warehouse "1..1" o-- "0..*" WarehouseSupplyIssue
-
-class WarehouseSupplyIssueItem {
-    issue: WarehouseSupplyIssue
-    supply: Supply
-}
-WarehouseFormItem <|-- WarehouseSupplyIssueItem
-WarehouseSupplyIssue "1..1" *-- "1..*" WarehouseSupplyIssueItem
-Supply "1..1" o-- "0..*" WarehouseSupplyIssueItem
-
-class WarehouseSupplyReceipt {
-    purchaseOrder: PurchaseOrder
-    items: WarehouseSupplyReceiptItem[]
-}
-WarehouseForm <|-- WarehouseSupplyReceipt
-PurchaseOrder "0..1" o-- "0..1" WarehouseSupplyReceipt
-Warehouse "1..1" o-- "0..*" WarehouseSupplyReceipt
-
-class WarehouseSupplyReceiptItem {
-    receipt: WarehouseSupplyReceipt
-    supply: Supply
-}
-WarehouseFormItem <|-- WarehouseSupplyReceiptItem
-WarehouseSupplyReceipt "1..1" *-- "1..*" WarehouseSupplyReceiptItem
-Supply "1..1" o-- "0..*" WarehouseSupplyReceiptItem
-
-class WarehouseProductReceipt {
-    productionOrder: ProductionOrder
-    items: WarehouseSupplyReceiptItem[]
-}
-WarehouseForm <|-- WarehouseProductReceipt
-ProductionOrder "0..1" o-- "0..1" WarehouseProductReceipt
-Warehouse "1..1" o-- "0..*" WarehouseProductReceipt
-
-class WarehouseProductReceiptItem {
-    receipt: WarehouseProductReceipt
-    supply: Supply
-}
-WarehouseFormItem <|-- WarehouseProductReceiptItem
-WarehouseProductReceipt "1..1" *-- "1..*" WarehouseProductReceiptItem
-Product "1..1" o-- "0..*" WarehouseProductReceiptItem
 @enduml

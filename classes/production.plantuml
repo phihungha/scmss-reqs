@@ -1,24 +1,21 @@
 @startuml production
 left to right direction
 
-class User {
+class ProductionFacility {
     id: str
-    userName: str
     name: str
-    gender: Gender
-    email: str
-    phoneNumber: str
     description: str
-    role: UserRole
-    notifications: Notification[]
-    warehouse: Warehouse?
-    createdPurchaseRequisitions: PurchaseRequisition[]
-    approvedPurchaseRequisitions: PurchaseRequisition[]
-    createdPurchaseOrders: PurchaseOrder[]
-    createdSalesOrders: SalesOrder[]
-    createdProductionOrders: ProductionOrder[]
-    approvedProductionOrders: ProductionOrder[]
+    location: str
+    supplyItems: WarehouseSupplyItem[]
+    productItems: WarehouseProductItem[]
+    purchaseRequisitions: PurchaseRequisition[]
+    purchaseOrders: PurchaseOrder[]
+    productionOrders: ProductionOrder[]
+    salesOrders: SalesOrder[]
+    users: User[]
 }
+ProductionFacility "0..1" o-- "0..*" User
+note left: Inventory and production users\nare assigned to a ProductionFacility
 
 abstract Goods {
     id: int
@@ -60,9 +57,10 @@ enum ProductionOrderStatus {
     PendingApproval
     Approved
     Started
-    Produced
+    ProductionDone
     Completed
-    Returned
+    Canceled
+    Defected
 }
 
 class ProductionOrder {
@@ -71,14 +69,24 @@ class ProductionOrder {
     totalValue: money
     totalCost: money
     profit: money
+    facility: ProductionFacility
     status: ProductionOrderStatus
+    events: OrderEvent[]
+    problem: str?
     createTime: datetime
     startTime: datetime
     finishTime: datetime
-    creatingUser: User
-    finishingUser: User?
-    approvingProductionManager: User?
+    createUser: User
+    finishUser: User?
+    approveProductionManager: User?
+    updateProgress(event: OrderEvent)
+    approve()
+    start()
+    complete()
+    cancel(problem: str)
+    reportDefect(problem: str)
 }
+ProductionFacility "1..1" o-- "0..*" ProductionOrder
 User "1..1" o-- "0..*" ProductionOrder : Approve
 note top
     totalValue = sum of totalValue of all items
@@ -103,4 +111,26 @@ note top
     totalValue = unitPrice * quantity
     totalCost = unitCost * quantity
 endnote
+
+enum OrderEventType {
+    Processing
+    Left
+    Arrived
+    Delivered
+    PaymentDue
+    PaymentCompleted
+    Canceled
+    Returned
+    Interrupted
+}
+
+class OrderEvent {
+    id: int
+    type: OrderEventType
+    time: datetime
+    location: str
+    note: str?
+    Order: order
+}
+ProductionOrder "1..1" *-- "1..*" OrderEvent
 @enduml
