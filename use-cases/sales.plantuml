@@ -21,8 +21,8 @@ rectangle Sales {
 
     pm -- (Manage Products)
     sm -- (Manage Products)
-    (Manage Products) <|.. (Import Products) : <<extends>>
+    (Manage Products) <|.. (Import) : <<extends>>
     sm -- (Manage Retailers)
-    (Manage Retailers) <|.. (Import Retailers) : <<extends>>
+    (Manage Retailers) <|.. (Import) : <<extends>>
 }
 @enduml

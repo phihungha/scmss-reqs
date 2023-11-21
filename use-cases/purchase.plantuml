@@ -28,8 +28,8 @@ rectangle Purchase {
     (Complete payment\nof Purchase Order) ..> (View Purchase Order) : <<includes>>
 
     pm -- (Manage Vendors)
-    (Manage Vendors) <|.. (Import Vendors) : <<extends>>
+    (Manage Vendors) <|.. (Import) : <<extends>>
     pm -- (Manage Supplies)
-    (Manage Supplies) <|.. (Import Supplies) : <<extends>>
+    (Manage Supplies) <|.. (Import) : <<extends>>
 }
 @enduml

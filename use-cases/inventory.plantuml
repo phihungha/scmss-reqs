@@ -7,7 +7,7 @@ is <|-- im
 
 rectangle Inventory {
     is -- (Manage stock)
-    (Manage stock) <|.. (Import stock) : <<extends>>
+    (Manage stock) <|.. (Import) : <<extends>>
 
     is -- (Supplies receive)
     (Supplies receive) ..> (View Purchase Order) : <<includes>>
