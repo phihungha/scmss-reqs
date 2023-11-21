@@ -21,8 +21,7 @@ repeat
 
     |s|
     :(6) Validate entered data;
-    backward:(6.1) Show validation
-    error messages;
+    backward: (6.1) Show validation\nerror messages;
 repeat while (Valid?) is (no)
 ->yes;
 :(6.2) Update stock data;

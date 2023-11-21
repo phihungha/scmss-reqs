@@ -1,0 +1,19 @@
+@startuml report-generate
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Reports";
+
+|s|
+:(2) Load "Reports" screen;
+
+|u|
+:(3) Select report type\nand time range;
+:(4) Click "Generate";
+
+|s|
+:(5) Generate report;
+stop
+@enduml
