@@ -1,5 +1,4 @@
 @startuml misc
-left to right direction
 
 :Admin: as ad
 :User: as u
