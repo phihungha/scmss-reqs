@@ -10,11 +10,10 @@ start
 :(2) Load Receipt Upload dialog;
 
 |u|
-:(3) Upload Receipt;
+:(3) Upload receipt;
 
 |s|
-:(4) Save Receipt and mark
-Purchase Order's payment
-as completed;
+:(4) Save receipt and mark\nPurchase Order's payment\nas completed;
+:(5) Notify relevant users;
 stop
 @enduml

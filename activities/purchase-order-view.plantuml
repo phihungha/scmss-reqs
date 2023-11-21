@@ -7,7 +7,7 @@ start
 :(1) Click "Purchase Orders";
 
 |s|
-:(2) Load corresponding list screen;
+:(2) Load "Purchase Orders" screen;
 
 |u|
 :(3) Set search and filters;
@@ -16,9 +16,9 @@ start
 :(4) Load search and filter result;
 
 |u|
-:(5) Select Purchase Order item;
+:(5) Select item;
 
 |s|
-:(6) Load corresponding details screen;
+:(6) Load "Purchase Order Details" screen;
 stop
 @enduml

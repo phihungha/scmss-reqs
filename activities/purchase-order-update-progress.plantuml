@@ -5,16 +5,13 @@
 |u|
 start
 repeat
-    :(1) Add/Edit/Delete status updates;
-    :(2) Click "Save";
-
+    :(1) Add/Edit progress updates;
     |s|
-    :(3) Validate entered data;
+    :(2) Validate entered data;
     backward:(3.1) Show validation
     error messages;
 repeat while (Valid?) is (no)
 ->yes;
-:(3.2) Save status updates;
-:(4) Update status of associated\nPurchase Requisition;
+:(3.2) Save progress updates;
 stop
 @enduml

@@ -7,21 +7,20 @@ start
 :(1) Click "Create Purchase Order";
 
 |s|
-:(2) Load corresponding screen;
+:(2) Load "Create Purchase Order"\nscreen;
 
 |u|
 :(3) Review information;
 repeat
-    :(4) Edit data;
+    :(4) Edit info;
     :(5) Click "Create";
 
     |s|
-    :(6) Validate entered data;
-    backward:(6.1) Show validation
-    error messages;
+    :(6) Validate entered info;
+    backward: (6.1.1) Show validation\nerror messages;
 repeat while (Valid?) is (no)
 ->yes;
-:(6.2) Save new Purchase Order;
-:(7) Update status of associated\nPurchase Requisition;
+:(6.2.1) Save item;
+:(6.2.2) Update status of\nassociated Purchase Requisition;
 stop
 @enduml
