@@ -9,9 +9,7 @@ rectangle System {
     u -- (Login)
     u -- (Logout)
     u -- (View my notifications)
-    u -- (Manage my account)
 
     ad -- (Manage users)
-    (Manage users) <|.. (Deactivate user) : <<extends>>
 }
 @enduml

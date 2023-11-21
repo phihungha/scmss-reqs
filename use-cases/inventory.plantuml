@@ -1,8 +1,6 @@
 @startuml inventory
 left to right direction
 
-:Director: as d
-
 :Inventory Manager: as im
 :Inventory Specialist: as is
 is <|-- im
@@ -20,8 +18,5 @@ rectangle Inventory {
     (Supplies issue) ..> (View Production Order) : <<includes>>
     is -- (Products issue)
     (Products issue) ..> (View Sales Order) : <<includes>>
-
-    im -- (Generate Inventory Report)
-    d -- (Generate Inventory Report)
 }
 @enduml

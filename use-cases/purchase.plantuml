@@ -1,0 +1,35 @@
+@startuml purchase
+left to right direction
+
+:Finance: as f
+
+:Production Planner: as pp
+:Production Manager: as prm
+pp <|-- prm
+
+:Purchase Manager: as pm
+:Purchase Specialist: as ps
+ps <|-- pm
+
+rectangle Purchase {
+    pp -- (Create Purchase\nRequisition)
+    pp -- (View Purchase\nRequisition)
+    (View Purchase\nRequisition) <|.. (Update Purchase\nRequisition) : <<extends>>
+    f -- (Approve Purchase\nRequisition)
+    prm -- (Approve Purchase\nRequisition)
+    (Approve Purchase\nRequisition) ..> (View Purchase\nRequisition) : <<includes>>
+
+    ps -- (Create Purchase Order)
+    (Create Purchase Order) ..> (View Purchase\nRequisition) : <<includes>>
+    ps -- (View Purchase Order)
+    (View Purchase Order) <|.. (Update Purchase Order) : <<extends>>
+    (View Purchase Order) <|.. (Update progress\nof Purchase Order) : <<extends>>
+    f -- (Complete payment\nof Purchase Order)
+    (Complete payment\nof Purchase Order) ..> (View Purchase Order) : <<includes>>
+
+    pm -- (Manage Vendors)
+    (Manage Vendors) <|.. (Import Vendors) : <<extends>>
+    pm -- (Manage Supplies)
+    (Manage Supplies) <|.. (Import Supplies) : <<extends>>
+}
+@enduml

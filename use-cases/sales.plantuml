@@ -1,7 +1,6 @@
 @startuml sales
 left to right direction
 
-:Director: as d
 
 :Production Manager: as pm
 
@@ -15,13 +14,11 @@ rectangle Sales {
     s -- (Create Sales Order)
     s -- (View Sales Order)
     (View Sales Order) <|.. (Update Sales Order) : <<extends>>
-    (View Sales Order) <|.. (Update Sales Order progress) : <<extends>>
-    ls -- (Update Sales Order progress)
+    (View Sales Order) <|.. (Update progress\nof Sales Order) : <<extends>>
+    ls -- (Update progress\nof Sales Order)
     (View Sales Order) <|.. (Generate Sales Invoice) : <<extends>>
-    (View Sales Order) <|.. (Accept Sales Order payment) : <<extends>>
+    (View Sales Order) <|.. (Accept payment\nof Sales Order) : <<extends>>
 
-    sm -- (Generate Sales Report)
-    d -- (Generate Sales Report)
     pm -- (Manage Products)
     sm -- (Manage Products)
     (Manage Products) <|.. (Import Products) : <<extends>>
