@@ -7,18 +7,28 @@ start
 :(1) Click "Create";
 
 |s|
-:(2) Load corresponding screen;
+:(2) Load "Select Production Order" screen;
 
 |u|
-repeat
-    :(3) Enter data;
-    :(4) Click "Save";
-    |s|
-    :(5) Validate entered data;
-    backward:(5.1) Show validation
-    error messages;
-repeat while (Valid?) is (no)
-->yes;
-:(5.2) Save new Goods Received Order;
+:(3) Select Production Order;
+
+|s|
+:(4) Load "Receive Produced Products" screen;
+
+|u|
+:(5) Check information;
+
+if (Ok?) then (no)
+    |u|
+    :(5.1.1) Click Report Problem;
+    :(5.1.2) Enter problem info\nand click Report;
+else (yes)
+    |u|
+    :(5.2) Click Receive;
+endif
+
+|s|
+:(6) Update Production Order and stock;
+:(7) Notify relevant users;
 stop
 @enduml
