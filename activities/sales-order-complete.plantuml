@@ -1,0 +1,13 @@
+@startuml sales-order-complete
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Complete";
+
+|s|
+:(2) Complete order;
+:(3) Generate and send\ninvoice to retailer;
+stop
+@enduml

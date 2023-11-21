@@ -7,19 +7,17 @@ start
 :(1) Click "Create";
 
 |s|
-:(2) Load corresponding screen;
+:(2) Load "Create Sales Order" screen;
 
 |u|
 repeat
-    :(3) Enter data;
-    :(4) Click "Save";
+    :(3) Enter info and click "Save";
     |s|
-    :(5) Validate entered data;
-    backward:(5.1) Show validation
-    error messages;
+    :(4) Validate entered info;
+    backward: (4.1.1) Show validation\nerror messages;
 repeat while (Valid?) is (no)
 ->yes;
-:(5.2) Save new Sales Order;
-:(6) Notify Inventory and Logistics Specialist;
+:(4.2.1) Save item;
+:(4.2.2) Notify relevant users;
 stop
 @enduml

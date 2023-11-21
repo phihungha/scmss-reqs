@@ -7,13 +7,13 @@ start
 :(1) Click "Create";
 
 |s|
-:(2) Load "Select Sales Order" screen;
+:(2) Load "Select Sales Order"\nscreen;
 
 |u|
 :(3) Select Sales Order;
 
 |s|
-:(4) Load "Issue Sales Products" screen;
+:(4) Load "Issue Sales Products"\nscreen;
 
 |u|
 :(5) Check information;
@@ -28,7 +28,7 @@ else (yes)
 endif
 
 |s|
-:(6) Update Sales Order and stock;
+:(6) Update stock and\nSales Order's status;
 :(7) Notify relevant users;
 stop
 @enduml

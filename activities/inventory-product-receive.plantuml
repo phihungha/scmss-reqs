@@ -28,7 +28,7 @@ else (yes)
 endif
 
 |s|
-:(6) Update Production Order and stock;
+:(6) Update stock and\nProduction Order's status;
 :(7) Notify relevant users;
 stop
 @enduml

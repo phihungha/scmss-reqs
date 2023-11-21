@@ -4,9 +4,16 @@
 
 |u|
 start
-:(1) Click "Complete";
+:(1) Click "Accept payment";
 
 |s|
-:(2) Complete Sales Order;
+:(2) Load "Accept Sales Payment"\ndialog;
+
+|u|
+:(3) Enter payment amount;
+
+|s|
+:(4) Accept payment;
+:(5) Generate receipt;
 stop
 @enduml
