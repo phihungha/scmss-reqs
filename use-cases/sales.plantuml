@@ -16,7 +16,7 @@ rectangle Sales {
     (View Sales Order) <|.. (Update Sales Order) : <<extends>>
     (View Sales Order) <|.. (Update progress\nof Sales Order) : <<extends>>
     ls -- (Update progress\nof Sales Order)
-    (View Sales Order) <|.. (Generate Sales Invoice) : <<extends>>
+    (View Sales Order) <|.. (Complete Sales Order) : <<extends>>
     (View Sales Order) <|.. (Accept payment\nof Sales Order) : <<extends>>
 
     pm -- (Manage Products)
