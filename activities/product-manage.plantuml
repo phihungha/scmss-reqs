@@ -1,13 +1,13 @@
-@startuml production-facility-manage
+@startuml product-manage
 |u|User
 |s|System
 
 |u|
 start
-:(1) Click "Production Facilities";
+:(1) Click "Products";
 
 |s|
-:(2) Load "Production Facilities"\nscreen;
+:(2) Load "Products" screen;
 
 |u|
 :(3) Set search\nand filters;
@@ -20,9 +20,9 @@ start
 
 if (Item selected?) then (yes)
 |s|
-:(5.1) Load "Production Facility\nDetails"screen;
+:(5.1) Load "Product Details"\nscreen;
 else (no)
-:(5.2) Load "Add Production\nFacility"screen;
+:(5.2) Load "Add Product Details"\nscreen;
 endif
 
 |u|
