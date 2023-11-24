@@ -1,0 +1,24 @@
+@startuml sales-order-view
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Sales Orders";
+
+|s|
+:(2) Load "Sales Orders" screen;
+
+|u|
+:(3) Set search and filters;
+
+|s|
+:(4) Load search and filter result;
+
+|u|
+:(5) Select item;
+
+|s|
+:(6) Load "Sales Order Details" screen;
+stop
+@enduml
