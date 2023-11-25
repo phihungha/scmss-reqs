@@ -7,12 +7,12 @@ participant Backend as b
 
 a -> f : Click "Issue Supplies"
 activate f
-f -> b : GetAll()
+f -> b : GetProductionOrders()
 activate b
 return ProductionOrderDto[]
 f --> a : ProductionOrderDto[]
 a -> f : Select item
-f -> b : Get(id)
+f -> b : GetProductionOrder(id)
 activate b
 return ProductionOrderDto
 f --> a : ProductionOrderDto
