@@ -1,0 +1,24 @@
+@startuml sales-order-view
+autonumber
+
+actor "Sales Specialist" as a
+participant UI as f
+participant Backend as b
+
+a -> f : Click "Sales Orders"
+activate f
+f -> b : GetSalesOrders()
+activate b
+return SalesOrderDto[]
+f --> a : SalesOrderDto[]
+a -> f : Set search and filters
+f -> b : GetSalesOrders(searchOpts)
+activate b
+return SalesOrderDto[]
+f --> a : SalesOrderDto[]
+a -> f : Select item
+f -> b : GetSalesOrder(id)
+activate b
+return SalesOrderDto
+return SalesOrderDto
+@enduml
