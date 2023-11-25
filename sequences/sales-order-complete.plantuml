@@ -10,7 +10,7 @@ a -> f : Click "Complete"
 f -> b : CompleteSalesOrder(id)
 activate b
 b -> b : SendInvoice()
-return SuccessMessage
-f --> a : SuccessMessage
+return SuccessMsg
+f --> a : SuccessMsg
 deactivate f
 @enduml

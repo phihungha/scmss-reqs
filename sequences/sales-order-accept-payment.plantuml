@@ -12,6 +12,6 @@ a -> f : Payment amount
 f -> b : AcceptSalesPayment(orderId, paymentAmount)
 activate b
 b -> b : SendReceipt()
-return SuccessMessage
-return SuccessMessage
+return SuccessMsg
+return SuccessMsg
 @enduml

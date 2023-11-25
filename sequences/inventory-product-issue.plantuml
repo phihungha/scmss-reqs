@@ -19,6 +19,6 @@ f --> a : SalesOrderDto
 a -> f : Click "Issue"
 f -> b : IssueProducts(salesOrderId)
 activate b
-return SuccessMessage
-return SuccessMessage
+return SuccessMsg
+return SuccessMsg
 @enduml

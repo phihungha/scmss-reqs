@@ -19,6 +19,6 @@ f --> a : ProductionOrderDto
 a -> f : Click "Issue"
 f -> b : IssueSupplies(productionOrderId)
 activate b
-return SuccessMessage
-return SuccessMessage
+return SuccessMsg
+return SuccessMsg
 @enduml

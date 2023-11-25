@@ -21,13 +21,13 @@ a -> f : Click "Receive" or "Report Problem"
 alt Receive
     f -> b : ReceiveSupplies(purchaseOrderId)
     activate b
-    return SuccessMessage
-    f --> a : SuccessMessage
+    return SuccessMsg
+    f --> a : SuccessMsg
 else Report Problem
     f -> b : ReportSuppliesReceiveProblem(purchaseOrderId, inputDto)
     activate b
-    return SuccessMessage
-    f --> a : SuccessMessage
+    return SuccessMsg
+    f --> a : SuccessMsg
     deactivate f
 end
 @enduml
