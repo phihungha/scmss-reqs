@@ -1,4 +1,4 @@
-@startuml sales-generate-report
+@startuml report-generate
 autonumber
 
 actor "Sales\nManager" as a

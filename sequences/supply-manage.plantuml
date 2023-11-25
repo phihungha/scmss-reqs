@@ -1,11 +1,11 @@
-@startuml procurement-vendor-manage
+@startuml supply-manage
 autonumber
 
 actor "Procurement\nManager" as a
 participant Screen as f
 participant Backend as b
 
-a -> f : Click "Vendors"
+a -> f : Click "Supplies"
 activate f
 f -> b : Get items
 activate b

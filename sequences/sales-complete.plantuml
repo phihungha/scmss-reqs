@@ -1,4 +1,4 @@
-@startuml sales-generate-invoice
+@startuml sales-complete
 autonumber
 
 actor "Sales\nSpecialist" as a

@@ -1,4 +1,4 @@
-@startuml sales-retailer-manage
+@startuml retailer-manage
 autonumber
 
 actor "Sales\nManager" as a

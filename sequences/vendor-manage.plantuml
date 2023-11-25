@@ -1,11 +1,11 @@
-@startuml sales-product-manage
+@startuml vendor-manage
 autonumber
 
-actor "Sales\nManager" as a
+actor "Procurement\nManager" as a
 participant Screen as f
 participant Backend as b
 
-a -> f : Click "Products"
+a -> f : Click "Vendors"
 activate f
 f -> b : Get items
 activate b
