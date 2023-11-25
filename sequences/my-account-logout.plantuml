@@ -2,14 +2,14 @@
 autonumber
 
 actor "User" as a
-participant Screen as f
+participant UI as f
 participant Backend as b
 
 activate f
 a -> f : Click "Logout"
-f -> b : Logout
+f -> b : Logout()
 activate b
-return Logout succeeds
-f -> a : Logout succeeds
-f -> f : Load Login screen
+return SuccessMsg
+f --> a : SuccessMsg
+f -> f : DisplayLoginScreen()
 @enduml
