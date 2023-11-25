@@ -7,12 +7,12 @@ participant Backend as b
 
 a -> f : Click "Products"
 activate f
-f -> b : GetAll()
+f -> b : GetProducts()
 activate b
 return ProductDto[]
 f --> a : ProductDto[]
 a -> f : Set search and filters
-f -> b : GetAll(SearchFilterOpts)
+f -> b : GetProducts(searchOpts)
 activate b
 return ProductDto[]
 f --> a : ProductDto[]
@@ -21,15 +21,15 @@ alt add
     a -> f : Click "Add"
     f -> f : OpenAddProductScreen()
     a -> f : Enter info and\nclick "Save"
-    f -> b : Create(createDto)
+    f -> b : AddProduct(createDto)
     activate b
 else update
     a -> f : Select item
-    f -> b : Get(id)
+    f -> b : GetProduct(id)
     b --> f : ProductDto
     f -> f : OpenUpdateProductScreen()
     a -> f : Enter info and\nclick "Save"
-    f -> b : Update(updateDto)
+    f -> b : UpdateProduct(updateDto)
 end
 
 b -> b : Validate(create/updateDto)

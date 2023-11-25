@@ -7,12 +7,12 @@ participant Backend as b
 
 a -> f : Click "Supplies"
 activate f
-f -> b : GetAll()
+f -> b : GetSupplies()
 activate b
 return SupplyDto[]
 f --> a : SupplyDto[]
 a -> f : Set search and filters
-f -> b : GetAll(SearchFilterOpts)
+f -> b : GetSupplies(searchOpts)
 activate b
 return SupplyDto[]
 f --> a : SupplyDto[]
@@ -21,15 +21,15 @@ alt add
     a -> f : Click "Add"
     f -> f : OpenAddSupplyScreen()
     a -> f : Enter info and\nclick "Save"
-    f -> b : Create(createDto)
+    f -> b : AddSupply(createDto)
     activate b
 else update
     a -> f : Select item
-    f -> b : Get(id)
+    f -> b : GetSupply(id)
     b --> f : SupplyDto
     f -> f : OpenUpdateSupplyScreen()
     a -> f : Enter info and\nclick "Save"
-    f -> b : Update(updateDto)
+    f -> b : UpdateSupply(updateDto)
 end
 
 b -> b : Validate(create/updateDto)

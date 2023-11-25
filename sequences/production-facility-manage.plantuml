@@ -7,12 +7,12 @@ participant Backend as b
 
 a -> f : Click "Production Facilities"
 activate f
-f -> b : GetAll()
+f -> b : GetProductionFacilities()
 activate b
 return ProductionFacilityDto[]
 f --> a : ProductionFacilityDto[]
 a -> f : Set search and filters
-f -> b : GetAll(SearchFilterOpts)
+f -> b : GetProductionFacilities(searchOpts)
 activate b
 return ProductionFacilityDto[]
 f --> a : ProductionFacilityDto[]
@@ -21,15 +21,15 @@ alt add
     a -> f : Click "Add"
     f -> f : OpenAddProductionFacilityScreen()
     a -> f : Enter info and\nclick "Save"
-    f -> b : Create(createDto)
+    f -> b : AddProductionFacility(createDto)
     activate b
 else update
     a -> f : Select item
-    f -> b : Get(id)
+    f -> b : GetProductionFacility(id)
     b --> f : ProductionFacilityDto
     f -> f : OpenUpdateProductionFacilityScreen()
     a -> f : Enter info and\nclick "Save"
-    f -> b : Update(updateDto)
+    f -> b : UpdateProductionFacility(updateDto)
 end
 
 b -> b : Validate(create/updateDto)

@@ -9,13 +9,13 @@ activate f
 a -> f : Click "Approve" or "Reject"
 
 alt Approve
-    f -> b : Approve(id)
+    f -> b : ApprovePurchaseRequisition(id)
     activate b
     b --> f : SuccessMessage
     deactivate b
     f --> a : SuccessMessage
 else Reject
-    f -> b : Reject(id)
+    f -> b : RejectPurchaseRequisition(id)
     activate b
     return SuccessMessage
     f --> a : SuccessMessage

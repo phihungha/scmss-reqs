@@ -7,12 +7,12 @@ participant Backend as b
 
 a -> f : Click "Users"
 activate f
-f -> b : GetAll()
+f -> b : GetUsers()
 activate b
 return UserDto[]
 f --> a : UserDto[]
 a -> f : Set search and filters
-f -> b : GetAll(SearchFilterOpts)
+f -> b : GetUsers(SearchFilterOpts)
 activate b
 return UserDto[]
 f --> a : UserDto[]
@@ -21,15 +21,15 @@ alt add
     a -> f : Click "Add"
     f -> f : OpenAddUserScreen()
     a -> f : Enter info and\nclick "Save"
-    f -> b : Create(createDto)
+    f -> b : AddUser(createDto)
     activate b
 else update
     a -> f : Select item
-    f -> b : Get(id)
+    f -> b : GetUser(id)
     b --> f : UserDto
     f -> f : OpenUpdateUserScreen()
     a -> f : Enter info and\nclick "Save"
-    f -> b : Update(updateDto)
+    f -> b : UpdateUser(updateDto)
 end
 
 b -> b : Validate(create/updateDto)

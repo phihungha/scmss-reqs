@@ -7,12 +7,12 @@ participant Backend as b
 
 a -> f : Click "Stock"
 activate f
-f -> b : GetAll()
+f -> b : GetStock()
 activate b
 return WarehouseItem[]
 f --> a : WarehouseItem[]
 a -> f : Set search and filters
-f -> b : GetAll(SearchFilterOpts)
+f -> b : GetStock(SearchFilterOpts)
 activate b
 return WarehouseItem[]
 f --> a : WarehouseItem[]

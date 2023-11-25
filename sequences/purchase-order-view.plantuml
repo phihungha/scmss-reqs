@@ -7,17 +7,17 @@ participant Backend as b
 
 a -> f : Click "Purchase Orders"
 activate f
-f -> b : GetAll()
+f -> b : GetPurchaseOrders()
 activate b
 return PurchaseOrderDto[]
 f --> a : PurchaseOrderDto[]
 a -> f : Set search and filters
-f -> b : GetAll(SearchFilterOpts)
+f -> b : GetPurchaseOrders(searchOpts)
 activate b
 return PurchaseOrderDto[]
 f --> a : PurchaseOrderDto[]
 a -> f : Select item
-f -> b : Get(id)
+f -> b : GetPurchaseOrder(id)
 activate b
 return PurchaseOrderDto
 return PurchaseOrderDto

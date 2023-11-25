@@ -7,17 +7,17 @@ participant Backend as b
 
 a -> f : Click "Purchase Requisitions"
 activate f
-f -> b : GetAll()
+f -> b : GetPurchaseRequisitions()
 activate b
 return PurchaseRequisitionDto[]
 f --> a : PurchaseRequisitionDto[]
 a -> f : Set search and filters
-f -> b : GetAll(SearchFilterOpts)
+f -> b : GetPurchaseRequisitions(searchOpts)
 activate b
 return PurchaseRequisitionDto[]
 f --> a : PurchaseRequisitionDto[]
 a -> f : Select item
-f -> b : Get(id)
+f -> b : GetPurchaseRequisition(id)
 activate b
 return PurchaseRequisitionDto
 return PurchaseRequisitionDto

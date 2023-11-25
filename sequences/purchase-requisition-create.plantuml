@@ -8,7 +8,7 @@ participant Backend as b
 a -> f : Click "Create"
 activate f
 a -> f : Enter info and\nclick "Save"
-f -> b : Create(createDto)
+f -> b : CreatePurchaseRequisition(createDto)
 activate b
 b -> b : Validate(createDto)
 

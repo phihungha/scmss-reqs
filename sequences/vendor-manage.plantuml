@@ -7,12 +7,12 @@ participant Backend as b
 
 a -> f : Click "Vendors"
 activate f
-f -> b : GetAll()
+f -> b : GetVendors()
 activate b
 return VendorDto[]
 f --> a : VendorDto[]
 a -> f : Set search and filters
-f -> b : GetAll(SearchFilterOpts)
+f -> b : GetVendors(searchOpts)
 activate b
 return VendorDto[]
 f --> a : VendorDto[]
@@ -21,15 +21,15 @@ alt add
     a -> f : Click "Add"
     f -> f : OpenAddVendorScreen()
     a -> f : Enter info and\nclick "Save"
-    f -> b : Create(createDto)
+    f -> b : AddVendor(createDto)
     activate b
 else update
     a -> f : Select item
-    f -> b : Get(id)
+    f -> b : GetVendor(id)
     b --> f : VendorDto
     f -> f : OpenUpdateVendorScreen()
     a -> f : Enter info and\nclick "Save"
-    f -> b : Update(updateDto)
+    f -> b : UpdateVendor(updateDto)
 end
 
 b -> b : Validate(create/updateDto)

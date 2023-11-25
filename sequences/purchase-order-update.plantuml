@@ -7,12 +7,11 @@ participant Backend as b
 
 activate f
 a -> f : Edit info and\nclick "Save"
-f -> b : Update(updateDto)
+f -> b : UpdatePurchaseOrder(updateDto)
 activate b
 b -> b : Validate(updateDto)
 
 alt validation succeeds
-    b -> b : Notify()
     b --> f : PurchaseOrderDto
     f --> a : PurchaseOrderDto
 else validation fails

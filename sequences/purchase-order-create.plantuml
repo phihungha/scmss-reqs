@@ -9,7 +9,7 @@ activate f
 a -> f : Click "Create\nPurchase Order"
 f -> f : GenerateOrderPreview()
 a -> f : Edit info and\nclick "Create"
-f -> b : Create(createDto)
+f -> b : CreatePurchaseOrder(createDto)
 activate b
 b -> b : Validate(createDto)
 
