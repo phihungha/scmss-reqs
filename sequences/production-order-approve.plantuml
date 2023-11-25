@@ -1,15 +1,24 @@
 @startuml production-order-approve
 autonumber
 
-actor "Production manager" as a
-participant Screen as f
+actor "Production Manager" as a
+participant UI as f
 participant Backend as b
 
 activate f
-a -> f : Click "Approve"
-f -> b : Approve item
-activate b
-return Approval succeeds
-f --> a : Approval succeeds
-deactivate f
+a -> f : Click "Approve" or "Reject"
+
+alt Approve
+    f -> b : ApproveProductionOrder(id)
+    activate b
+    b --> f : SuccessMsg
+    deactivate b
+    f --> a : SuccessMsg
+else Reject
+    f -> b : RejectProductionOrder(id)
+    activate b
+    return SuccessMsg
+    f --> a : SuccessMsg
+    deactivate f
+end
 @enduml

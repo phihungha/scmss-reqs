@@ -1,0 +1,24 @@
+@startuml production-order-view
+autonumber
+
+actor "Production Specialist" as a
+participant UI as f
+participant Backend as b
+
+a -> f : Click "Production Orders"
+activate f
+f -> b : GetProductionOrders()
+activate b
+return ProductionOrderDto[]
+f --> a : ProductionOrderDto[]
+a -> f : Set search and filters
+f -> b : GetProductionOrders(searchOpts)
+activate b
+return ProductionOrderDto[]
+f --> a : ProductionOrderDto[]
+a -> f : Select item
+f -> b : GetProductionOrder(id)
+activate b
+return ProductionOrderDto
+return ProductionOrderDto
+@enduml

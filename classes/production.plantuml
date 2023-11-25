@@ -1,0 +1,136 @@
+@startuml production
+left to right direction
+
+class ProductionFacility {
+    id: str
+    name: str
+    description: str
+    location: str
+    supplyItems: WarehouseSupplyItem[]
+    productItems: WarehouseProductItem[]
+    purchaseRequisitions: PurchaseRequisition[]
+    purchaseOrders: PurchaseOrder[]
+    productionOrders: ProductionOrder[]
+    salesOrders: SalesOrder[]
+    users: User[]
+}
+ProductionFacility "0..1" o-- "0..*" User
+note left: Inventory and production users\nare assigned to a ProductionFacility
+
+abstract Goods {
+    id: int
+    name: str
+    description: str
+    unit: str
+    price: money
+}
+
+class Supply {
+    vendor: Vendor
+    purchaseOrderItems: PurchaseOrderItem[]
+    purchaseRequisitionItems: PurchaseRequisitionItem[]
+}
+Goods <|-- Supply
+
+class Product {
+    productionCostItems: ProductionCostItem[]
+    productionCost: money
+    productionOrderItems: ProductionOrderItem[]
+    salesOrderItems: SalesOrderItem[]
+}
+Goods <|-- Product
+note top: productionCost = sum of totalCost of all productionCostItems
+
+class ProductionCostItem {
+    product: Product
+    supply: Supply
+    quantity: double
+    --Calculated--
+    unitCost: money
+    totalCost: money
+}
+Product "1..1" *-- "0..*" ProductionCostItem
+Supply "1..1" o-- "0..*" ProductionCostItem
+note top: unitCost is supply's price"
+
+enum ProductionOrderStatus {
+    PendingApproval
+    Approved
+    Started
+    ProductionDone
+    Completed
+    Canceled
+    Defected
+}
+
+class ProductionOrder {
+    id: int
+    items: ProductionOrderItem[]
+    totalValue: money
+    totalCost: money
+    profit: money
+    facility: ProductionFacility
+    status: ProductionOrderStatus
+    events: OrderEvent[]
+    problem: str?
+    createTime: datetime
+    startTime: datetime
+    finishTime: datetime
+    createUser: User
+    finishUser: User?
+    approveProductionManager: User?
+    updateProgress(event: OrderEvent)
+    approve()
+    start()
+    complete()
+    cancel(problem: str)
+    reportDefect(problem: str)
+}
+ProductionFacility "1..1" o-- "0..*" ProductionOrder
+User "1..1" o-- "0..*" ProductionOrder : Approve
+note top
+    totalValue = sum of totalValue of all items
+    totalCost = sum of totalCost of all items
+endnote
+
+class ProductionOrderItem {
+    order: ProductionOrder
+    product: Product
+    quantity: double
+    unit: str
+    unitPrice: money
+    unitCost: money
+    totalValue: money
+    totalCost: money
+}
+ProductionOrder "1..1" *-- "1..*" ProductionOrderItem
+Product "1..1" o-- "0..*" ProductionOrderItem
+note top
+    unitPrice = product's price
+    unitCost = product's productionCost
+    totalValue = unitPrice * quantity
+    totalCost = unitCost * quantity
+endnote
+
+enum OrderEventType {
+    Processing
+    Left
+    Arrived
+    Delivered
+    PaymentDue
+    PaymentCompleted
+    Canceled
+    Returned
+    Interrupted
+}
+
+class OrderEvent {
+    id: int
+    type: OrderEventType
+    time: datetime
+    location: str
+    note: str?
+    Order: order
+}
+ProductionOrder "1..1" *-- "1..*" OrderEvent
+@enduml

@@ -1,0 +1,24 @@
+@startuml inventory-product-issue
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Issue Products";
+
+|s|
+:(2) Load "Select Sales Order"\nscreen;
+
+|u|
+:(3) Select Sales Order;
+
+|s|
+:(4) Load "Issue Sales Products"\nscreen;
+
+|u|
+:(5) Click Issue;
+
+|s|
+:(6) Update stock and\nSales Order's status;
+stop
+@enduml

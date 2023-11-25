@@ -1,24 +1,22 @@
-@startuml Inventory
+@startuml inventory
 left to right direction
 
-:Director: as d
-
-:Inventory manager: as im
-:Inventory specialist: as is
+:Inventory Manager: as im
+:Inventory Specialist: as is
 is <|-- im
 
 rectangle Inventory {
     is -- (Manage stock)
+    (Manage stock) <|.. (Import) : <<extends>>
 
-    is -- (Goods receive)
-    (Goods receive) --> (View Purchase Order)
-    (Goods receive) --> (View Production Order)
+    is -- (Supplies receive)
+    (Supplies receive) ..> (View Purchase Order) : <<includes>>
+    is -- (Products receive)
+    (Products receive) ..> (View Production Order) : <<includes>>
 
-    is -- (Goods issue)
-    (Goods issue) --> (View Sales Order)
-
-    im -- (Manage Warehouses)
-    im -- (Generate Inventory Report)
-    d -- (Generate Inventory Report)
+    is -- (Supplies issue)
+    (Supplies issue) ..> (View Production Order) : <<includes>>
+    is -- (Products issue)
+    (Products issue) ..> (View Sales Order) : <<includes>>
 }
 @enduml

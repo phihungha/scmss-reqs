@@ -1,0 +1,15 @@
+@startuml report-generate
+autonumber
+
+actor "Director" as a
+participant UI as f
+participant Backend as b
+
+a -> f : Click "Report"
+activate f
+a -> f : Report type\nand time range
+f -> b : GenerateReport(type, timeRange)
+activate b
+return Report
+return Report
+@enduml

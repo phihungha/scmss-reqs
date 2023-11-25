@@ -1,0 +1,34 @@
+@startuml inventory-supply-receive
+autonumber
+
+actor "Inventory Specialist" as a
+participant UI as f
+participant Backend as b
+
+a -> f : Click "Receive Supplies"
+activate f
+f -> b : GetPurchaseOrders()
+activate b
+return PurchaseOrderDto[]
+f --> a : PurchaseOrderDto[]
+a -> f : Select item
+f -> b : GetPurchaseOrder(id)
+activate b
+return PurchaseOrderDto
+f --> a : PurchaseOrderDto
+a -> f : Click "Receive" or "Report Problem"
+
+alt Receive
+    f -> b : ReceiveSupplies(purchaseOrderId)
+    activate b
+    b -> b : CompletePurchaseOrder(id)
+    return SuccessMsg
+    f --> a : SuccessMsg
+else Report Problem
+    f -> b : ReportSuppliesReceiveProblem(purchaseOrderId, inputDto)
+    activate b
+    return SuccessMsg
+    f --> a : SuccessMsg
+    deactivate f
+end
+@enduml

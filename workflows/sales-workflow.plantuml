@@ -1,0 +1,34 @@
+@startuml sales-workflow
+|sales_spec|Sales Specialist
+|log_spec|Logistics Specialist
+|inv_spec|Inventory Specialist
+
+|sales_spec|
+start
+:Create Sales Order;
+
+|inv_spec|
+:Issue products for delivery;
+
+|log_spec|
+:Update delivery progress;
+
+|sales_spec|
+if (Canceled?) then (yes)
+    stop
+else (no)
+endif
+
+|sales_spec|
+if (Customer accepted?) then (no)
+    :Return order;
+    stop
+else (yes)
+endif
+
+:Generate invoice;
+:Accept payment
+and generate receipt;
+
+stop
+@enduml

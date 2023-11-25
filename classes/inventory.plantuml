@@ -1,0 +1,57 @@
+@startuml inventory
+left to right direction
+
+class ProductionFacility {
+    id: str
+    name: str
+    description: str
+    location: str
+    supplyItems: WarehouseSupplyItem[]
+    productItems: WarehouseProductItem[]
+    purchaseRequisitions: PurchaseRequisition[]
+    purchaseOrders: PurchaseOrder[]
+    productionOrders: ProductionOrder[]
+    salesOrders: SalesOrder[]
+    users: User[]
+}
+ProductionFacility "0..1" o-- "0..*" User
+note left: Inventory and production users\nare assigned to a ProductionFacility
+
+ProductionFacility "1..1" o-- "0..*" PurchaseRequisition
+ProductionFacility "1..1" o-- "0..*" PurchaseOrder
+ProductionFacility "0..1" o-- "0..*" SalesOrder
+ProductionFacility "1..1" o-- "0..*" ProductionOrder
+
+abstract InventoryItem {
+    quantity: double
+    note: str?
+    --Calculated--
+    unit: str
+    unitValue: money
+    totalValue: money
+}
+note top
+    unitValue = item's price
+    totalValue = unitValue * quantity
+endnote
+
+
+abstract WarehouseItem {
+    warehouse: ProductionFacility
+}
+InventoryItem <|-- WarehouseItem
+
+class WarehouseSupplyItem {
+    supply: Supply
+}
+WarehouseItem <|-- WarehouseSupplyItem
+ProductionFacility "1..1" *-- "0..*" WarehouseSupplyItem
+Supply "1..1" o-- "0..*" WarehouseSupplyItem
+
+class WarehouseProductItem {
+    Product: Product
+}
+WarehouseItem <|-- WarehouseProductItem
+ProductionFacility "1..1" *-- "0..*" WarehouseProductItem
+Product "1..1" o-- "0..*" WarehouseProductItem
+@enduml

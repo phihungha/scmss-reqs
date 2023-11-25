@@ -5,17 +5,15 @@
 |u|
 start
 repeat
-    :(1) Edit data;
+    :(1) Edit info;
     :(2) Click "Save";
 
     |s|
-    :(3) Validate entered data;
-    backward:(3.1) Show validation
-    error messages;
+    :(3) Validate entered info;
+    backward: (3.1.1) Show validation\nerror messages;
 repeat while (Valid?) is (no)
 ->yes;
-:(3.2) Save updated Purchase Requisition;
-:(4) Notify Finance and Production manager
-for approval;
+:(3.2.1) Save item;
+:(3.2.2) Notify relevant users;
 stop
 @enduml

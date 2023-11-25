@@ -4,10 +4,18 @@
 
 |u|
 start
-:(1) Click "Approve";
 
-|s|
-:(2) Approve Purchase Requisition;
-:(3) Notify Procurement specialists;
+if (Approved?) then (yes)
+    :(1.1.1) Click "Approve";
+    |s|
+    :(1.1.2) Approve item;
+else (no)
+    |u|
+    :(1.2.1) Click "Reject";
+    |s|
+    :(1.2.2) Reject item;
+endif
+
+:(2) Notify relevant users;
 stop
 @enduml

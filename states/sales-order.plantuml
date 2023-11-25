@@ -1,0 +1,20 @@
+@startuml sales-order
+
+[*] --> Processing : Creates
+Processing --> Canceled : Cancels
+Processing --> Delivering : Issue products
+Delivering --> Delivered : Updates progress
+Delivering --> Canceled : Cancels
+
+state check <<choice>>
+Delivered --> check
+check --> Completed : Updates progress
+check --> Returned : Returns due to problems
+Returned --> [*]
+
+Completed --> PaymentDue : Generates invoice\nfor retailer
+PaymentDue --> PaymentCompleted : Receives payment\nfrom retailer
+PaymentCompleted --> [*]
+
+Canceled --> [*]
+@enduml

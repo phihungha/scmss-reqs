@@ -1,15 +1,24 @@
 @startuml purchase-requisition-approve
 autonumber
 
-actor "Finance" as a
-participant Screen as f
+actor "Finance\nProduction Manager" as a
+participant UI as f
 participant Backend as b
 
 activate f
-a -> f : Click "Approve"
-f -> b : Approve item
-activate b
-return Approval succeeds
-f --> a : Approval succeeds
-deactivate f
+a -> f : Click "Approve" or "Reject"
+
+alt Approve
+    f -> b : ApprovePurchaseRequisition(id)
+    activate b
+    b --> f : SuccessMsg
+    deactivate b
+    f --> a : SuccessMsg
+else Reject
+    f -> b : RejectPurchaseRequisition(id)
+    activate b
+    return SuccessMsg
+    f --> a : SuccessMsg
+    deactivate f
+end
 @enduml

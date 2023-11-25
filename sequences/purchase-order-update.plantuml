@@ -1,22 +1,23 @@
 @startuml purchase-order-update
 autonumber
 
-actor "Procurement\nspecialist" as a
-participant Screen as f
+actor "Purchase Specialist" as a
+participant UI as f
 participant Backend as b
 
 activate f
-a -> f : Enter data and\nClick "Save"
-f -> b : Update item
+a -> f : Edit info and\nclick "Save"
+f -> b : UpdatePurchaseOrder(id, updateDto)
 activate b
-b -> b : Validate item
+b -> b : Validate(updateDto)
 
 alt validation succeeds
-    b --> f : Updated item
-    f --> a : Updated item
+    b -> b : UpdatePurchaseRequisitionStatus(id, status)
+    b --> f : PurchaseOrderDto
+    f --> a : PurchaseOrderDto
 else validation fails
-    return Validation failures
-    f --> a : Validation failures
+    return ValidationFailure
+    f --> a : ValidationFailure
     deactivate f
 end
 @enduml

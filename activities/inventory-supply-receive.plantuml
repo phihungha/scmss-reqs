@@ -1,0 +1,34 @@
+@startuml inventory-supply-receive
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Receive Supplies";
+
+|s|
+:(2) Load "Select Purchase Order" screen;
+
+|u|
+:(3) Select Purchase Order;
+
+|s|
+:(4) Load "Receive Purchased Supplies" screen;
+
+|u|
+:(5) Check information;
+
+if (Ok?) then (no)
+    |u|
+    :(5.1.1) Click Report Problem;
+    :(5.1.2) Enter problem info\nand click Report;
+else (yes)
+    |u|
+    :(5.2) Click Receive;
+endif
+
+|s|
+:(6) Update stock and \nPurchase Order's status;
+:(7) Notify relevant users;
+stop
+@enduml

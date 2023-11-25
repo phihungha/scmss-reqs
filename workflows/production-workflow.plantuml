@@ -1,0 +1,46 @@
+@startuml production-workflow
+|prod_planner|Production Planner
+|prod_manager|Production Manager
+|inv_spec|Inventory Specialist
+
+|prod_planner|
+start
+:Create Production Order;
+
+|prod_manager|
+if (Approved?) then (no)
+    stop
+else (yes)
+endif
+
+|prod_planner|
+:Start production;
+
+|inv_spec|
+:Issue supplies;
+
+|prod_planner|
+:Update production progress;
+
+if (Canceled?) then (yes)
+    stop
+else (no)
+endif
+
+|inv_spec|
+:Check produced products;
+
+if (Problems found?) then (yes)
+    :Report to Production Planner;
+
+    |prod_planner|
+    :Invalidate order;
+    stop
+else (no)
+endif
+
+|inv_spec|
+:Receive products;
+
+stop
+@enduml

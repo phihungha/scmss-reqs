@@ -1,24 +1,24 @@
 @startuml purchase-requisition-view
 autonumber
 
-actor "Production\nplanner" as a
-participant Screen as f
+actor "Production Planner" as a
+participant UI as f
 participant Backend as b
 
 a -> f : Click "Purchase Requisitions"
 activate f
-f -> b : Get items
+f -> b : GetPurchaseRequisitions()
 activate b
-return Items
-f --> a : Items
+return PurchaseRequisitionDto[]
+f --> a : PurchaseRequisitionDto[]
 a -> f : Set search and filters
-f -> b : Search and filter options
+f -> b : GetPurchaseRequisitions(searchOpts)
 activate b
-return Search and filter result
-f --> a : Search and filter result
+return PurchaseRequisitionDto[]
+f --> a : PurchaseRequisitionDto[]
 a -> f : Select item
-f -> b : Get item
+f -> b : GetPurchaseRequisition(id)
 activate b
-return Item
-return Item
+return PurchaseRequisitionDto
+return PurchaseRequisitionDto
 @enduml

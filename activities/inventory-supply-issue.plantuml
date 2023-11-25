@@ -1,0 +1,24 @@
+@startuml inventory-supply-issue
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Issue Supplies";
+
+|s|
+:(2) Load "Select Production Order"\nscreen;
+
+|u|
+:(3) Select Production Order;
+
+|s|
+:(4) Load "Issue Production Supplies"\nscreen;
+
+|u|
+:(5) Click Issue;
+
+|s|
+:(6) Update stock and\nProduction Order's status;
+stop
+@enduml

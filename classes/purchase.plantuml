@@ -1,0 +1,195 @@
+@startuml purchase
+left to right direction
+
+abstract Company {
+    id: int
+    name: str
+    location: str
+    description: str
+    email: str
+    phoneNumber: str
+    contactPerson: str
+}
+
+class Vendor {
+    supplies: Supply[]
+    purchaseOrders: PurchaseOrder[]
+    purchaseRequisitions: PurchaseRequisition[]
+
+}
+Company <|-- Vendor
+
+abstract Goods {
+    id: int
+    name: str
+    description: str
+    unit: str
+    price: money
+}
+
+class Supply {
+    vendor: Vendor
+    purchaseOrderItems: PurchaseOrderItem[]
+    purchaseRequisitionItems: PurchaseRequisitionItem[]
+}
+Goods <|-- Supply
+Vendor "1..1" o-- "0..*" Supply
+
+enum OrderStatus {
+    Processing
+    Delivering
+    Interrupted
+    Delivered
+    Completed
+    Canceled
+    Returned
+}
+
+enum OrderPaymentStatus {
+    Pending
+    Due
+    Completed
+}
+
+abstract Order {
+    id: int
+    subTotal: money
+    vatRate: double
+    vatAmount: money
+    totalAmount: money
+    remainingAmount: money
+    fromLocation: str?
+    toLocation: str
+    status: OrderStatus
+    paymentStatus: OrderPaymentStatus
+    events: OrderEvent[]
+    problem: str?
+    invoice: url?
+    receipt: url?
+    createTime: datetime
+    deliverTime: datetime
+    finishTime: datetime
+    createUser: User
+    finishUser: User?
+    updateProgress(event: OrderEvent)
+    complete()
+    completePayment()
+    cancel(problem: str)
+    return(problem: str)
+}
+User "1..1" o-- "0..*" Order : Create
+User "1..1" o-- "0..*" Order : Finish
+note bottom
+    subTotal = sum of totalPrice of all items
+    vatAmount = subTotal * vatRate
+    totalAmount = subTotal + vatAmount
+    deliverTime = time the status changed to Delivered
+    <b>This abstract class is for sales and purchase orders,
+    <b>not production orders
+endnote
+
+abstract OrderItem {
+    quantity: double
+    unit: str
+    unitPrice: money
+    totalPrice: money
+}
+note top
+    totalPrice = unitPrice * quantity
+    <b>This abstract class is for sales
+    <b>and purchase orders/requisitions, not production orders
+endnote
+
+enum OrderEventType {
+    Processing
+    Left
+    Arrived
+    Delivered
+    PaymentDue
+    PaymentCompleted
+    Canceled
+    Returned
+    Interrupted
+}
+
+class OrderEvent {
+    id: int
+    type: OrderEventType
+    time: datetime
+    location: str
+    note: str?
+    Order: order
+}
+Order "1..1" *-- "1..*" OrderEvent
+
+enum PurchaseRequisitionStatus {
+    PendingApproval
+    Approved
+    Purchasing
+    Completed
+    Canceled
+}
+
+class PurchaseRequisition {
+    id: int
+    subTotal: money
+    vatRate: double
+    vatAmount: money
+    totalAmount: money
+    items: PurchaseRequisitionItem[]
+    fromVendor: Vendor
+    toFacility: ProductionFacility
+    status: PurchaseRequisitionStatus
+    createTime: datetime
+    finishTime: datetime
+    createUser: User
+    approveProductionManager: User?
+    approveFinance: User?
+    order: PurchaseOrder?
+    approve()
+    cancel(problem: str)
+}
+Vendor "1..1" o-- "0..*" PurchaseRequisition
+User "0..*" o-- "1..1" PurchaseRequisition : Approve
+ProductionFacility "1..1" o-- "0..*" PurchaseRequisition
+note right
+    subTotal = sum of total price of all items
+    vatAmount = subTotal * vatRate
+    totalAmount = subTotal + vatAmount
+endnote
+
+class PurchaseRequisitionItem {
+    supply: Supply
+    requisition: Requisition
+}
+OrderItem <|-- PurchaseRequisitionItem
+PurchaseRequisition "1..1" *-- "1..*" PurchaseRequisitionItem
+Supply "1..1" o-- "0..*" PurchaseRequisitionItem
+
+class PurchaseOrder {
+    items: PurchaseOrderItem[]
+    discountAmount: money
+    fromVendor: Vendor
+    toFacility: ProductionFacility
+    requisition: PurchaseRequisition
+}
+Order <|-- PurchaseOrder
+Vendor "1..1" o-- "0..*" PurchaseOrder
+ProductionFacility "1..1" o-- "0..*" PurchaseOrder
+PurchaseRequisition "1..1" o-- "0..1" PurchaseOrder
+note right
+    discountAmount is entered manually
+    totalAmount = subTotal - discountAmount + vatAmount
+endnote
+
+class PurchaseOrderItem {
+    supply: Supply
+    order: PurchaseOrder
+    discount: money
+    netPrice: money
+}
+OrderItem <|-- PurchaseOrderItem
+PurchaseOrder "1..1" *-- "1..*" PurchaseOrderItem
+Supply "1..1" o-- "0..*" PurchaseOrderItem
+note top: discount is entered manually
+@enduml

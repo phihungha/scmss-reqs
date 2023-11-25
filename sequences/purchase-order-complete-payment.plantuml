@@ -1,17 +1,16 @@
 @startuml purchase-order-complete-payment
 autonumber
 
-actor "Procurement\nspecialist" as a
-participant Screen as f
+actor "Finance" as a
+participant UI as f
 participant Backend as b
 
 a -> f : Click "Complete payment"
 activate f
-f -> f : Display Receipt Upload dialog
-a -> f : Receipt
-f -> b : Save Receipt
+f -> f : OpenCompletePaymentDialog()
+a -> f : Receipt PDF
+f -> b : CompletePurchasePayment(orderId, receiptFile)
 activate b
-b -> b : Set payment\nas completed
-return Receipt saved\nand payment completed
-return Receipt saved\nand payment completed
+return SuccessMsg
+return SuccessMsg
 @enduml

@@ -1,23 +1,23 @@
 @startuml production-order-create
 autonumber
 
-actor "Production\nplanner" as a
-participant Screen as f
+actor "Production Planner" as a
+participant UI as f
 participant Backend as b
 
 a -> f : Click "Create"
 activate f
-a -> f : Enter data and\nClick "Save"
-f -> b : Create item
+a -> f : Enter info and\nclick "Save"
+f -> b : CreateProductionOrder(createDto)
 activate b
-b -> b : Validate item
+b -> b : Validate(createDto)
 
 alt validation succeeds
-    b -> b : Notify Production manager \nfor approval
-    b --> f : New item
-    f --> a : New item
+    b -> b : Notify()
+    b --> f : ProductionOrderDto
+    f --> a : ProductionOrderDto
 else validation fails
-    return Validation failures
-    return Validation failures
+    return ValidationFailure
+    return ValidationFailure
 end
 @enduml

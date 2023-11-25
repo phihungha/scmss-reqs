@@ -1,25 +1,20 @@
-@startuml Production
+@startuml production
 left to right direction
 
-:Production planner: as pp
-:Production manager: as pm
+:Production Planner: as pp
+:Production Manager: as pm
 pp <|-- pm
-
-:Director: as d
 
 rectangle Production {
   pp -- (View Production Order)
   pp -- (Create Production Order)
-  (View Production Order) <|-- (Update Production Order)
-  (View Production Order) <|-- (Start Production Order)
-  (View Production Order) <|-- (Complete Production Order)
-  (View Production Order) <|-- (Cancel Production Order)
+  (View Production Order) <|.. (Update Production Order) : <<extends>>
+  (View Production Order) <|.. (Update progress\nof Production Order) : <<extends>>
 
   pm -- (Approve Production Order)
-  (Approve Production Order) --> (View Production Order)
+  (Approve Production Order) ..> (View Production Order) : <<includes>>
 
-  pm -- (Manage Manufacturing Facility list)
-  pm -- (Generate Production Report)
-  d -- (Generate Production Report)
+  pm -- (Manage Production\nFacilities)
+  (Manage Production\nFacilities) <|.. (Import) : <<extends>>
 }
 @enduml

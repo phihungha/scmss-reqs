@@ -1,0 +1,25 @@
+@startuml production-order
+
+[*] --> PendingApproval : Creates
+
+state approval <<choice>>
+PendingApproval --> approval
+approval --> Rejected : Rejects
+Rejected --> [*]
+approval --> Approved : Approves
+
+Approved --> Canceled : Cancels
+Approved --> Started : Issues supplies
+
+Started --> Canceled : Cancels
+Started --> ProductionDone : Updates progress
+
+state check <<choice>>
+ProductionDone --> check
+check --> Completed : Receives products
+Completed --> [*]
+check --> Defected : Rejects due to problems
+Defected --> [*]
+
+Canceled --> [*]
+@enduml

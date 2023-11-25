@@ -7,31 +7,33 @@ start
 :(1) Click "Users";
 
 |s|
-:(2) Load corresponding list screen;
+:(2) Load "Users" screen;
 
 |u|
-:(3) Set search and filters;
+:(3) Set search\nand filters;
 
 |s|
-:(4) Load search and filter result;
+:(4) Load search\nand filter result;
 
 |u|
-:(5) Click "Add" or Select an item;
+:(5) Click "Add"\nor select an item;
 
+if (Item selected?) then (yes)
 |s|
-:(6) Load corresponding add/details screen;
+:(5.1) Load "User Details"\nscreen;
+else (no)
+:(5.2) Load "Add User"\nscreen;
+endif
 
 |u|
 repeat
-    :(7) Enter data;
-    :(8) Click "Save";
+    :(6) Enter info\nand click "Save";
 
     |s|
-    :(9) Validate entered data;
-    backward:(9.1) Show validation
-    error messages;
+    :(7) Validate entered info;
+    backward: (7.1) Show validation\nerror messages;
 repeat while (Valid?) is (no)
 ->yes;
-:(9.2) Save User;
+:(7.2) Save item;
 stop
 @enduml

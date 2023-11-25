@@ -1,0 +1,19 @@
+@startuml sales-order-accept-payment
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Accept payment";
+
+|s|
+:(2) Load "Accept Sales Payment"\ndialog;
+
+|u|
+:(3) Enter payment amount;
+
+|s|
+:(4) Accept payment;
+:(5) Generate and send\nreceipt to retailer;
+stop
+@enduml

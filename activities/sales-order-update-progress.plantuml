@@ -1,0 +1,16 @@
+@startuml sales-order-update-progress
+|u|User
+|s|System
+
+|u|
+start
+repeat
+    :(1) Add/Edit progress updates;
+    |s|
+    :(2) Validate entered info;
+    backward: (2.1) Show validation error messages;
+repeat while (Valid?) is (no)
+->yes;
+:(2.2) Save progress updates;
+stop
+@enduml

@@ -1,0 +1,34 @@
+@startuml inventory-product-receive
+autonumber
+
+actor "Inventory Specialist" as a
+participant UI as f
+participant Backend as b
+
+a -> f : Click "Receive Products"
+activate f
+f -> b : GetProductionOrders()
+activate b
+return ProductionOrderDto[]
+f --> a : ProductionOrderDto[]
+a -> f : Select item
+f -> b : GetProductionOrder(id)
+activate b
+return ProductionOrderDto
+f --> a : ProductionOrderDto
+a -> f : Click "Receive" or "Report Problem"
+
+alt Receive
+    f -> b : ReceiveProducts(productionOrderId)
+    activate b
+    b -> b : CompleteProductionOrder(id)
+    return SuccessMsg
+    f --> a : SuccessMsg
+else Report Problem
+    f -> b : ReportProductsReceiveProblem(productionOrderId, inputDto)
+    activate b
+    return SuccessMsg
+    f --> a : SuccessMsg
+    deactivate f
+end
+@enduml

@@ -1,22 +1,23 @@
 @startuml sales-order-update
 autonumber
 
-actor "Sales\nspecialist" as a
-participant Screen as f
+actor "Sales Specialist" as a
+participant UI as f
 participant Backend as b
 
 activate f
-a -> f : Enter data and\nClick "Save"
-f -> b : Update item
+a -> f : Edit info and\nclick "Save"
+f -> b : UpdateSalesOrder(id, updateDto)
 activate b
-b -> b : Validate item
+b -> b : Validate(updateDto)
 
 alt validation succeeds
-    b --> f : Updated item
-    f --> a : Updated item
+    b -> b : Notify()
+    b --> f : SalesOrderDto
+    f --> a : SalesOrderDto
 else validation fails
-    return Validation failures
-    f --> a : Validation failures
+    return ValidationFailure
+    f --> a : ValidationFailure
     deactivate f
 end
 @enduml

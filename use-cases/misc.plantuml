@@ -1,0 +1,26 @@
+@startuml misc
+
+:Admin: as ad
+:User: as u
+u <|-- ad
+
+:Director: as d
+:Purchase Manager: as pur_m
+:Production Manager: as prod_m
+:Inventory Manager: as im
+:Sales Manager: as sm
+
+rectangle Miscellaneous {
+    u -- (Login)
+    u -- (Logout)
+    u -- (View my notifications)
+
+    ad -- (Manage users)
+
+    d -- (Generate Report)
+    pur_m -- (Generate Report)
+    prod_m -- (Generate Report)
+    im -- (Generate Report)
+    sm -- (Generate Report)
+}
+@enduml

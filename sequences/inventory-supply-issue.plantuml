@@ -1,0 +1,25 @@
+@startuml inventory-supply-issue
+autonumber
+
+actor "Inventory Specialist" as a
+participant UI as f
+participant Backend as b
+
+a -> f : Click "Issue Supplies"
+activate f
+f -> b : GetProductionOrders()
+activate b
+return ProductionOrderDto[]
+f --> a : ProductionOrderDto[]
+a -> f : Select item
+f -> b : GetProductionOrder(id)
+activate b
+return ProductionOrderDto
+f --> a : ProductionOrderDto
+a -> f : Click "Issue"
+f -> b : IssueSupplies(productionOrderId)
+activate b
+b -> b : StartProductionOrder(id)
+return SuccessMsg
+return SuccessMsg
+@enduml

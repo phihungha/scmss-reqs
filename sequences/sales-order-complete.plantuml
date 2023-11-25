@@ -1,15 +1,16 @@
 @startuml sales-order-complete
 autonumber
 
-actor "Sales\nspecialist" as a
-participant Screen as f
+actor "Sales Specialist" as a
+participant UI as f
 participant Backend as b
 
 activate f
 a -> f : Click "Complete"
-f -> b : Complete item
+f -> b : CompleteSalesOrder(id)
 activate b
-return Complete succeeds
-f --> a : Complete succeeds
+b -> b : SendInvoice()
+return SuccessMsg
+f --> a : SuccessMsg
 deactivate f
 @enduml

@@ -1,0 +1,22 @@
+@startuml sales-order-update-progress
+autonumber
+
+actor "Logistic Specialist" as a
+participant UI as f
+participant Backend as b
+
+activate f
+a -> f : Add/Edit progress updates
+f -> b : Add/UpdateSalesOrderEvent(orderId, inputDto)
+activate b
+b -> b : Validate(inputDto)
+
+alt validation succeeds
+    b --> f : EventDto[]
+    f --> a : EventDto[]
+else validation fails
+    return ValidationFailure
+    f --> a : ValidationFailure
+    deactivate f
+end
+@enduml

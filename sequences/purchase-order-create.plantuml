@@ -1,25 +1,25 @@
 @startuml purchase-order-create
 autonumber
 
-actor "Finance" as a
-participant Screen as f
+actor "Purchase Specialist" as a
+participant UI as f
 participant Backend as b
 
-a -> f : Click "Create\nPurchase Order"
 activate f
-a -> a : Review information
-a -> f : Enter data and\nClick "Create"
-f -> b : Create item
+a -> f : Click "Create\nPurchase Order"
+f -> f : GenerateOrderPreview()
+a -> f : Edit info and\nclick "Create"
+f -> b : CreatePurchaseOrder(createDto)
 activate b
-b -> b : Validate item
+b -> b : Validate(createDto)
 
 alt validation succeeds
-    b -> b : Notify Production manager\nand Finance for approval
-    b -> b : Update associated\nPurchase Requisition
-    b --> f : New item
-    f --> a : New item
+    b -> b : StartPurchaseRequisitionFulfillment(id)
+    b --> f : PurchaseRequisitionDto
+    f --> a : PurchaseRequisitionDto
 else validation fails
-    return Validation failures
-    return Validation failures
+    return ValidationFailure
+    f --> a : ValidationFailure
+    deactivate f
 end
 @enduml
