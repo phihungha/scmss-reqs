@@ -12,7 +12,7 @@ activate b
 return UserDto[]
 f --> a : UserDto[]
 a -> f : Set search and filters
-f -> b : GetUsers(SearchFilterOpts)
+f -> b : GetUsers(searchOpts)
 activate b
 return UserDto[]
 f --> a : UserDto[]
@@ -29,7 +29,7 @@ else update
     b --> f : UserDto
     f -> f : OpenUpdateUserScreen()
     a -> f : Enter info and\nclick "Save"
-    f -> b : UpdateUser(updateDto)
+    f -> b : UpdateUser(id, updateDto)
 end
 
 b -> b : Validate(create/updateDto)

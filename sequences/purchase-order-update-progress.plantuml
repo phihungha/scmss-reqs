@@ -7,7 +7,7 @@ participant Backend as b
 
 activate f
 a -> f : Add/Edit progress updates
-f -> b : Add/UpdatePurchaseOrderEvent(inputDto)
+f -> b : Add/UpdatePurchaseOrderEvent(orderId, inputDto)
 activate b
 b -> b : Validate(inputDto)
 
