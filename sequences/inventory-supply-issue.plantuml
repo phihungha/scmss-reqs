@@ -19,6 +19,7 @@ f --> a : ProductionOrderDto
 a -> f : Click "Issue"
 f -> b : IssueSupplies(productionOrderId)
 activate b
+b -> b : StartProductionOrder(id)
 return SuccessMsg
 return SuccessMsg
 @enduml

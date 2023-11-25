@@ -19,6 +19,7 @@ f --> a : SalesOrderDto
 a -> f : Click "Issue"
 f -> b : IssueProducts(salesOrderId)
 activate b
+b -> b : StartSalesOrderDelivery(id)
 return SuccessMsg
 return SuccessMsg
 @enduml

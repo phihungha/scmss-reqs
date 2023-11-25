@@ -21,6 +21,7 @@ a -> f : Click "Receive" or "Report Problem"
 alt Receive
     f -> b : ReceiveProducts(productionOrderId)
     activate b
+    b -> b : CompleteProductionOrder(id)
     return SuccessMsg
     f --> a : SuccessMsg
 else Report Problem

@@ -12,6 +12,7 @@ activate b
 b -> b : Validate(updateDto)
 
 alt validation succeeds
+    b -> b : UpdatePurchaseRequisitionStatus(id, status)
     b --> f : PurchaseOrderDto
     f --> a : PurchaseOrderDto
 else validation fails

@@ -21,6 +21,7 @@ a -> f : Click "Receive" or "Report Problem"
 alt Receive
     f -> b : ReceiveSupplies(purchaseOrderId)
     activate b
+    b -> b : CompletePurchaseOrder(id)
     return SuccessMsg
     f --> a : SuccessMsg
 else Report Problem
