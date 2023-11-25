@@ -1,22 +1,23 @@
 @startuml production-order-update
 autonumber
 
-actor "Production\nPlanner" as a
-participant Screen as f
+actor "Production Planner" as a
+participant UI as f
 participant Backend as b
 
 activate f
-a -> f : Enter data and\nClick "Save"
-f -> b : Update item
+a -> f : Edit info and\nclick "Save"
+f -> b : UpdateProductionOrder(id, updateDto)
 activate b
-b -> b : Validate item
+b -> b : Validate(updateDto)
 
 alt validation succeeds
-    b --> f : Updated item
-    f --> a : Updated item
+    b -> b : Notify()
+    b --> f : ProductionOrderDto
+    f --> a : ProductionOrderDto
 else validation fails
-    return Validation failures
-    f --> a : Validation failures
+    return ValidationFailure
+    f --> a : ValidationFailure
     deactivate f
 end
 @enduml
