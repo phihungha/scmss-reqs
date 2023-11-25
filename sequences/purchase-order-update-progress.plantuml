@@ -1,23 +1,22 @@
 @startuml purchase-order-update-progress
 autonumber
 
-actor "Procurement\nSpecialist" as a
+actor "Purchase Specialist" as a
 participant Screen as f
 participant Backend as b
 
 activate f
-a -> f : Add/Edit/Delete status updates\nand Click "Save"
-f -> b : Add/Edit/Delete\nstatus updates
+a -> f : Add/Edit progress updates
+f -> b : AddEvent/UpdateEvent(inputDto)
 activate b
-b -> b : Validate status updates
+b -> b : Validate(inputDto)
 
 alt validation succeeds
-    b -> b : Update associated\nPurchase Requisition
-    b --> f : New/Edited\nstatus updates
-    f --> a : New/Edited\nstatus updates
+    b --> f : EventDto[]
+    f --> a : EventDto[]
 else validation fails
-    return Validation failures
-    f --> a : Validation failures
+    return ValidationFailure
+    f --> a : ValidationFailure
     deactivate f
 end
 @enduml

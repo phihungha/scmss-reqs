@@ -2,22 +2,22 @@
 autonumber
 
 actor "Production\nPlanner" as a
-participant Screen as f
+participant UI as f
 participant Backend as b
 
 a -> f : Click "Create"
 activate f
-a -> f : Enter data and\nClick "Save"
-f -> b : Create item
+a -> f : Enter info and\nclick "Save"
+f -> b : Create(createDto)
 activate b
-b -> b : Validate item
+b -> b : Validate(createDto)
 
 alt validation succeeds
-    b -> b : Notify Production Manager\nand Finance for approval
-    b --> f : New item
-    f --> a : New item
+    b -> b : Notify()
+    b --> f : PurchaseRequisitionDto
+    f --> a : PurchaseRequisitionDto
 else validation fails
-    return Validation failures
-    return Validation failures
+    return ValidationFailure
+    return ValidationFailure
 end
 @enduml

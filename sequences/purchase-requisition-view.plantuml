@@ -2,23 +2,23 @@
 autonumber
 
 actor "Production\nPlanner" as a
-participant Screen as f
+participant UI as f
 participant Backend as b
 
 a -> f : Click "Purchase Requisitions"
 activate f
-f -> b : Get items
+f -> b : GetAll()
 activate b
-return Items
-f --> a : Items
+return PurchaseRequisitionDto[]
+f --> a : PurchaseRequisitionDto[]
 a -> f : Set search and filters
-f -> b : Search and filter options
+f -> b : GetAll(SearchFilterOpts)
 activate b
-return Search and filter result
-f --> a : Search and filter result
+return PurchaseRequisitionDto[]
+f --> a : PurchaseRequisitionDto[]
 a -> f : Select item
-f -> b : Get item
+f -> b : Get(id)
 activate b
-return Item
-return Item
+return PurchaseRequisitionDto
+return PurchaseRequisitionDto
 @enduml

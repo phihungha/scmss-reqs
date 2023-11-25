@@ -1,24 +1,24 @@
 @startuml purchase-order-view
 autonumber
 
-actor "Procurement\specialist" as a
-participant Screen as f
+actor "Purchase Specialist" as a
+participant UI as f
 participant Backend as b
 
 a -> f : Click "Purchase Orders"
 activate f
-f -> b : Get items
+f -> b : GetAll()
 activate b
-return Items
-f --> a : Items
+return PurchaseOrderDto[]
+f --> a : PurchaseOrderDto[]
 a -> f : Set search and filters
-f -> b : Search and filter options
+f -> b : GetAll(SearchFilterOpts)
 activate b
-return Search and filter result
-f --> a : Search and filter result
+return PurchaseOrderDto[]
+f --> a : PurchaseOrderDto[]
 a -> f : Select item
-f -> b : Get item
+f -> b : Get(id)
 activate b
-return Item
-return Item
+return PurchaseOrderDto
+return PurchaseOrderDto
 @enduml

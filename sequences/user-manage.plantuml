@@ -2,44 +2,43 @@
 autonumber
 
 actor "Admin" as a
-participant Screen as f
+participant UI as f
 participant Backend as b
 
 a -> f : Click "Users"
 activate f
-f -> b : Get items
+f -> b : GetAll()
 activate b
-return Items
-f --> a : Items
+return UserDto[]
+f --> a : UserDto[]
 a -> f : Set search and filters
-f -> b : Search and filters
+f -> b : GetAll(SearchFilterOpts)
 activate b
-return Search and filter result
-f --> a : Search and filter result
+return UserDto[]
+f --> a : UserDto[]
 
 alt add
     a -> f : Click "Add"
-    f -> f : Change screen
-    a -> f : Enter data and\nClick "Save"
-    f -> b : Add item
+    f -> f : OpenAddUserScreen()
+    a -> f : Enter info and\nclick "Save"
+    f -> b : Create(createDto)
     activate b
 else update
     a -> f : Select item
-    f -> b : Get item
-    b --> f : Item
-    f -> f : Change screen
-    f --> a : Item
-    a -> f : Enter data and\nClick "Save"
-    f -> b : Update item
+    f -> b : Get(id)
+    b --> f : UserDto
+    f -> f : OpenUpdateUserScreen()
+    a -> f : Enter info and\nclick "Save"
+    f -> b : Update(updateDto)
 end
 
-b -> b : Validate item
+b -> b : Validate(create/updateDto)
 
 alt validation succeeds
-    b --> f : New/Updated item
-    f --> a : New/Updated item
+    b --> f : UserDto
+    f --> a : UserDto
 else validation fails
-    return Validation failures
-    return Validation failures
+    return ValidationFailure
+    return ValidationFailure
 end
 @enduml
