@@ -14,6 +14,6 @@ start
 
 |s|
 :(4) Accept payment;
-:(5) Generate receipt;
+:(5) Generate and send\nreceipt to retailer;
 stop
 @enduml

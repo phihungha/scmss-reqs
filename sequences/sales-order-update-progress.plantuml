@@ -1,22 +1,22 @@
 @startuml sales-order-update-progress
 autonumber
 
-actor "Logistic\nSpecialist" as a
-participant Screen as f
+actor "Logistic Specialist" as a
+participant UI as f
 participant Backend as b
 
 activate f
-a -> f : Add/Edit/Delete status updates\nand Click "Save"
-f -> b : Add/Edit/Delete\nStatus updates
+a -> f : Add/Edit progress updates
+f -> b : Add/UpdateSalesOrderEvent(orderId, inputDto)
 activate b
-b -> b : Validate Status updates
+b -> b : Validate(inputDto)
 
 alt validation succeeds
-    b --> f : New/Edited\nStatus updates
-    f --> a : New/Edited\nStatus updates
+    b --> f : EventDto[]
+    f --> a : EventDto[]
 else validation fails
-    return Validation failures
-    f --> a : Validation failures
+    return ValidationFailure
+    f --> a : ValidationFailure
     deactivate f
 end
 @enduml

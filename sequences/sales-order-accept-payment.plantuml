@@ -1,0 +1,17 @@
+@startuml sales-order-accept-payment
+autonumber
+
+actor "Finance" as a
+participant UI as f
+participant Backend as b
+
+a -> f : Click "Accept payment"
+activate f
+f -> f : OpenAcceptPaymentDialog()
+a -> f : Payment amount
+f -> b : AcceptSalesPayment(orderId, paymentAmount)
+activate b
+b -> b : SendReceipt()
+return SuccessMessage
+return SuccessMessage
+@enduml

@@ -2,12 +2,12 @@
 autonumber
 
 actor "Purchase Specialist" as a
-participant Screen as f
+participant UI as f
 participant Backend as b
 
 activate f
 a -> f : Add/Edit progress updates
-f -> b : AddEvent/UpdatePurchaseOrderEvent(inputDto)
+f -> b : Add/UpdatePurchaseOrderEvent(inputDto)
 activate b
 b -> b : Validate(inputDto)
 
