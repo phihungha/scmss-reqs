@@ -1,14 +1,14 @@
 @startuml report-generate
 autonumber
 
-actor "Sales\nManager" as a
-participant Screen as f
+actor "Director" as a
+participant UI as f
 participant Backend as b
 
-a -> f : Click "Sales Report"
+a -> f : Click "Report"
 activate f
-a -> f : Select time range
-f -> b : Generate report
+a -> f : Report type\nand time range
+f -> b : GenerateReport(type, timeRange)
 activate b
 return Report
 return Report
