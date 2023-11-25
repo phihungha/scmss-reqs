@@ -1,22 +1,33 @@
 @startuml inventory-product-receive
 autonumber
 
-actor "Inventory\nSpecialist" as a
-participant Screen as f
+actor "Inventory Specialist" as a
+participant UI as f
 participant Backend as b
 
-a -> f : Click "Create Goods Received Order"
+a -> f : Click "Receive Products"
 activate f
-a -> f : Enter data and\nClick "Save"
-f -> b : Create item
+f -> b : GetProductionOrders()
 activate b
-b -> b : Validate item
+return ProductionOrderDto[]
+f --> a : ProductionOrderDto[]
+a -> f : Select item
+f -> b : GetProductionOrder(id)
+activate b
+return ProductionOrderDto
+f --> a : ProductionOrderDto
+a -> f : Click "Receive" or "Report Problem"
 
-alt validation succeeds
-    b --> f : New item
-    f --> a : New item
-else validation fails
-    return Validation failures
-    return Validation failures
+alt Receive
+    f -> b : ReceiveProducts(productionOrderId)
+    activate b
+    return SuccessMessage
+    f --> a : SuccessMessage
+else Report Problem
+    f -> b : ReportProductsReceiveProblem(productionOrderId, inputDto)
+    activate b
+    return SuccessMessage
+    f --> a : SuccessMessage
+    deactivate f
 end
 @enduml

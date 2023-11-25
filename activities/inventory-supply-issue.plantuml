@@ -4,31 +4,21 @@
 
 |u|
 start
-:(1) Click "Create";
+:(1) Click "Issue Supplies";
 
 |s|
-:(2) Load "Select Production Order" screen;
+:(2) Load "Select Production Order"\nscreen;
 
 |u|
 :(3) Select Production Order;
 
 |s|
-:(4) Load "Issue Production Supplies" screen;
+:(4) Load "Issue Production Supplies"\nscreen;
 
 |u|
-:(5) Check information;
-
-if (Ok?) then (no)
-    |u|
-    :(5.1.1) Click Report Problem;
-    :(5.1.2) Enter problem info\nand click Report;
-else (yes)
-    |u|
-    :(5.2) Click Issue;
-endif
+:(5) Click Issue;
 
 |s|
 :(6) Update stock and\nProduction Order's status;
-:(7) Notify relevant users;
 stop
 @enduml

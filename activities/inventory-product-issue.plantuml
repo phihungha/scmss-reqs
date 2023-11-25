@@ -4,7 +4,7 @@
 
 |u|
 start
-:(1) Click "Create";
+:(1) Click "Issue Products";
 
 |s|
 :(2) Load "Select Sales Order"\nscreen;
@@ -16,19 +16,9 @@ start
 :(4) Load "Issue Sales Products"\nscreen;
 
 |u|
-:(5) Check information;
-
-if (Ok?) then (no)
-    |u|
-    :(5.1.1) Click Report Problem;
-    :(5.1.2) Enter problem info\nand click Report;
-else (yes)
-    |u|
-    :(5.2) Click Issue;
-endif
+:(5) Click Issue;
 
 |s|
 :(6) Update stock and\nSales Order's status;
-:(7) Notify relevant users;
 stop
 @enduml

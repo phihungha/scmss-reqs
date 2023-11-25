@@ -1,22 +1,24 @@
 @startuml inventory-product-issue
 autonumber
 
-actor "Inventory\nSpecialist" as a
-participant Screen as f
+actor "Inventory Specialist" as a
+participant UI as f
 participant Backend as b
 
-a -> f : Click "Create Goods issue note"
+a -> f : Click "Issue Products"
 activate f
-a -> f : Enter data and\nClick "Save"
-f -> b : Create item
+f -> b : GetAll()
 activate b
-b -> b : Validate item
-
-alt validation succeeds
-    b --> f : New item
-    f --> a : New item
-else validation fails
-    return Validation failures
-    return Validation failures
-end
+return SalesOrderDto[]
+f --> a : SalesOrderDto[]
+a -> f : Select item
+f -> b : Get(id)
+activate b
+return SalesOrderDto
+f --> a : SalesOrderDto
+a -> f : Click "Issue"
+f -> b : IssueProducts(salesOrderId)
+activate b
+return SuccessMessage
+return SuccessMessage
 @enduml

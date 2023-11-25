@@ -1,15 +1,24 @@
 @startuml inventory-supply-issue
 autonumber
 
-actor "Production\nPlanner" as a
-participant Screen as f
+actor "Inventory Specialist" as a
+participant UI as f
 participant Backend as b
 
+a -> f : Click "Issue Supplies"
 activate f
-a -> f : Click "Start"
-f -> b : Start order
+f -> b : GetAll()
 activate b
-return Start succeeds
-f --> a : Start succeeds
-deactivate f
+return ProductionOrderDto[]
+f --> a : ProductionOrderDto[]
+a -> f : Select item
+f -> b : Get(id)
+activate b
+return ProductionOrderDto
+f --> a : ProductionOrderDto
+a -> f : Click "Issue"
+f -> b : IssueSupplies(productionOrderId)
+activate b
+return SuccessMessage
+return SuccessMessage
 @enduml

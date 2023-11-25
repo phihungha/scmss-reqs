@@ -1,45 +1,30 @@
 @startuml inventory-stock-manage
 autonumber
 
-actor "Inventory\nManager" as a
-participant Screen as f
+actor "Inventory Manager" as a
+participant UI as f
 participant Backend as b
 
 a -> f : Click "Stock"
 activate f
-f -> b : Get items
+f -> b : GetAll()
 activate b
-return Items
-f --> a : Items
+return WarehouseItem[]
+f --> a : WarehouseItem[]
 a -> f : Set search and filters
-f -> b : Search and filters
+f -> b : GetAll(SearchFilterOpts)
 activate b
-return Search and filter result
-f --> a : Search and filter result
-
-alt add
-    a -> f : Click "Add"
-    f -> f : Change screen
-    a -> f : Enter data and\nClick "Save"
-    f -> b : Add item
-    activate b
-else update
-    a -> f : Select item
-    f -> b : Get item
-    b --> f : Item
-    f -> f : Change screen
-    f --> a : Item
-    a -> f : Enter data and\nClick "Save"
-    f -> b : Update item
-end
-
-b -> b : Validate item
-
+return WarehouseItem[]
+f --> a : WarehouseItem[]
+a --> f : Add/Edit/Delete stock items
+f --> b : UpdateStock(inputDto)
+activate b
+b -> b : Validate(inputDto)
 alt validation succeeds
-    b --> f : New/Updated item
-    f --> a : New/Updated item
+    b --> f : WarehouseItem[]
+    f --> a : WarehouseItem[]
 else validation fails
-    return Validation failures
-    return Validation failures
+    return ValidationFailure
+    return ValidationFailure
 end
 @enduml
