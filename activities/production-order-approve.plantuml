@@ -7,12 +7,17 @@ start
 :(1) Click "Approve" or "Reject";
 if (Click) then (Approve)
     |s|
-    :(1.1) Approve item;
+    :(1.1.1) Load "Approve Production\nOrder" dialog;
+    |u|
+    :(1.1.2) Click "Confirm";
 else (Reject)
     |s|
-    :(1.2) Reject item;
+    :(1.2.1) Load "Reject Production Order\nRejection" dialog;
+    |u|
+    :(1.2.2) Enter problem info\nand Click "Confirm";
 endif
-
-:(2) Notify relevant users;
+|s|
+:(2) Save item;
+:(3) Notify relevant users;
 stop
 @enduml
