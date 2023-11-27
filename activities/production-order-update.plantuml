@@ -5,15 +5,13 @@
 |u|
 start
 repeat
-    :(1) Edit info;
-    :(2) Click "Save";
-
+    :(1) Edit info and click\n"Update" or "Cancel";
     |s|
-    :(3) Validate entered info;
-    backward: (3.1.1) Show validation\nerror messages;
+    :(2) Validate entered info;
+    backward: (2.1.1) Show validation\nerror messages;
 repeat while (Valid?) is (no)
 ->yes;
-:(3.2.1) Save item;
-:(3.2.2) Notify relevant users;
+:(2.2.1) Save item;
+:(2.2.2) Notify relevant users;
 stop
 @enduml

@@ -5,7 +5,7 @@
 |u|
 start
 repeat
-    :(1) Edit info and click "Save";
+    :(1) Edit info and click\n"Update" or "Cancel";
     |s|
     :(2) Validate entered info;
     backward: (2.1.1) Show validation error messages;
