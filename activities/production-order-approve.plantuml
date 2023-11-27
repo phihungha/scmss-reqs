@@ -4,16 +4,13 @@
 
 |u|
 start
-
-if (Approved?) then (yes)
-    :(1.1.1) Click "Approve";
+:(1) Click "Approve" or "Reject";
+if (Click) then (Approve)
     |s|
-    :(1.1.2) Approve item;
-else (no)
-    |u|
-    :(1.2.1) Click "Reject";
+    :(1.1) Approve item;
+else (Reject)
     |s|
-    :(1.2.2) Reject item;
+    :(1.2) Reject item;
 endif
 
 :(2) Notify relevant users;
