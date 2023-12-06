@@ -15,6 +15,5 @@ rectangle Production {
   (Approve Production Order) ..> (View Production Order) : <<includes>>
 
   pm -- (Manage Production\nFacilities)
-  (Manage Production\nFacilities) <|.. (Import) : <<extends>>
 }
 @enduml
