@@ -11,7 +11,7 @@ a -> f : Click "Approve" or "Reject"
 alt Approve
     f -> f : OpenApproveDialog()
     a -> f : Click "Ok"
-    f -> b : ApproveProductionOrder(id)
+    f -> b : ApprovePurchaseRequisition(id)
     activate b
     b --> f : SuccessMsg
     deactivate b
@@ -19,7 +19,7 @@ alt Approve
 else Reject
     f -> f : OpenRejectDialog()
     a -> f : Enter problem info\nand click "Confirm"
-    f -> b : RejectProductionOrder(id, ProblemDto)
+    f -> b : RejectPurchaseRequisition(id, ProblemDto)
     activate b
     return SuccessMsg
     f --> a : SuccessMsg
