@@ -22,6 +22,8 @@ alt Receive
     f -> b : ReceiveSupplies(purchaseOrderId)
     activate b
     b -> b : CompletePurchaseOrder(id)
+    b -> b : UpdateStock(newStock)
+    b -> b : CompletePurchaseRequisition(id, status)
     return SuccessMsg
     f --> a : SuccessMsg
 else Report Problem

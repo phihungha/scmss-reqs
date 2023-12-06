@@ -28,7 +28,9 @@ else (yes)
 endif
 
 |s|
-:(6) Update stock and \nPurchase Order's status;
-:(7) Notify relevant users;
+:(6) Update stock;
+:(7) Update status of Purchase Order;
+:(8) Update status of associated\nPurchase Requisition;
+:(9) Notify relevant users;
 stop
 @enduml
