@@ -8,10 +8,10 @@ repeat
     :(1) Edit info and click\n"Update" or "Cancel";
     |s|
     :(2) Validate entered info;
-    backward: (2.1) Show validation\nerror messages;
+    backward: (2.1.1) Show validation\nerror messages;
 repeat while (Valid?) is (no)
 ->yes;
-:(2.2) Save item;
-:(2.3) Notify relevant users;
+:(2.2.1) Save item;
+:(2.2.2) Notify relevant users;
 stop
 @enduml
