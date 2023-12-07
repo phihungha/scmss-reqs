@@ -24,11 +24,14 @@ alt Receive
     b -> b : CompletePurchaseOrder(id)
     b -> b : UpdateStock(newStock)
     b -> b : CompletePurchaseRequisition(id, status)
+    b -> b : Notify()
     return SuccessMsg
     f --> a : SuccessMsg
 else Report Problem
-    f -> b : ReportSuppliesReceiveProblem(purchaseOrderId, inputDto)
+    f -> b : ReturnSupplies(purchaseOrderId, inputDto)
     activate b
+    b -> b : DelayPurchaseRequisition(requisitionId)
+    b -> b : Notify()
     return SuccessMsg
     f --> a : SuccessMsg
     deactivate f
