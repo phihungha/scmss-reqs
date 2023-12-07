@@ -13,6 +13,7 @@ b -> b : Validate(updateDto)
 
 alt validation succeeds
     b -> b : UpdatePurchaseRequisitionStatus(id, status)
+    b -> b : Notify()
     b --> f : PurchaseOrderDto
     f --> a : PurchaseOrderDto
 else validation fails
