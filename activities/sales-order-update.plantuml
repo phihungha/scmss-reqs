@@ -12,5 +12,6 @@ repeat
 repeat while (Valid?) is (no)
 ->yes;
 :(2.2) Save item;
+:(2.3) Notify relevant users;
 stop
 @enduml
