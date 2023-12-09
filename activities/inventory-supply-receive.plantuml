@@ -21,7 +21,12 @@ start
 if (Ok?) then (no)
     |u|
     :(5.1.1) Click Report Problem;
-    :(5.1.2) Enter problem info\nand click Report;
+
+    |s|
+    :(5.1.2) Load "Report problem" dialog;
+
+    |u|
+    :(5.1.3) Enter problem info\nand click Report;
 else (yes)
     |u|
     :(5.2) Click Receive;
