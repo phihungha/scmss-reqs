@@ -25,7 +25,10 @@ abstract Goods {
 }
 
 class Product {
-    productionCostItems: ProductionCostItem[]
+    netWeight: money
+    supplyCostItems: ProductionSupplyCostItem[]
+    supplyCost: money
+    laborCost: money
     productionCost: money
     productionOrderItems: ProductionOrderItem[]
     salesOrderItems: SalesOrderItem[]

@@ -11,5 +11,8 @@ start
 
 |u|
 :(3) Read notifications;
+
+|s|
+:(4) Save notification read states;
 stop
 @enduml

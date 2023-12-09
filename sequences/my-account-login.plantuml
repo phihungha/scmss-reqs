@@ -14,7 +14,7 @@ activate b
 alt authentication succeeds
     b --> f : User
     f --> a : SuccessMsg
-    f -> f : DisplayHomepageScreen()
+    f -> f : DisplayHomeScreen()
 else authentication fails
     return AuthFailureMsg
     f --> a : AuthFailureMsg

@@ -16,17 +16,24 @@ f -> b : GetPurchaseOrder(id)
 activate b
 return PurchaseOrderDto
 f --> a : PurchaseOrderDto
-a -> f : Click "Receive" or "Report Problem"
+a -> f : Click "Receive"\nor "Report Problem"
 
 alt Receive
     f -> b : ReceiveSupplies(purchaseOrderId)
     activate b
     b -> b : CompletePurchaseOrder(id)
+    b -> b : UpdateStock(newStock)
+    b -> b : CompletePurchaseRequisition(id)
+    b -> b : Notify()
     return SuccessMsg
     f --> a : SuccessMsg
 else Report Problem
-    f -> b : ReportSuppliesReceiveProblem(purchaseOrderId, inputDto)
+    f -> f : LoadReportProblemDialog()
+    a -> f : Enter problem\nthen click "Report"
+    f -> b : ReturnSupplies(purchaseOrderId, inputDto)
     activate b
+    b -> b : DelayPurchaseRequisition(requisitionId)
+    b -> b : Notify()
     return SuccessMsg
     f --> a : SuccessMsg
     deactivate f

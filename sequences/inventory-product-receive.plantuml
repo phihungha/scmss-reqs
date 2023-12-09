@@ -16,17 +16,22 @@ f -> b : GetProductionOrder(id)
 activate b
 return ProductionOrderDto
 f --> a : ProductionOrderDto
-a -> f : Click "Receive" or "Report Problem"
+a -> f : Click "Receive"\nor "Report Problem"
 
 alt Receive
     f -> b : ReceiveProducts(productionOrderId)
     activate b
     b -> b : CompleteProductionOrder(id)
+    b -> b : UpdateStock(newStock)
+    b -> b : Notify()
     return SuccessMsg
     f --> a : SuccessMsg
 else Report Problem
-    f -> b : ReportProductsReceiveProblem(productionOrderId, inputDto)
+    f -> f : LoadReportProblemDialog()
+    a -> f : Enter problem\nthen click "Report"
+    f -> b : ReturnProducts(productionOrderId, inputDto)
     activate b
+    b -> b : Notify()
     return SuccessMsg
     f --> a : SuccessMsg
     deactivate f

@@ -16,11 +16,12 @@ rectangle Miscellaneous {
     u -- (View my notifications)
 
     ad -- (Manage users)
+    ad -- (Manage Configuration)
 
-    d -- (Generate Report)
-    pur_m -- (Generate Report)
-    prod_m -- (Generate Report)
-    im -- (Generate Report)
-    sm -- (Generate Report)
+    d -- (Generate Reports)
+    pur_m -- (Generate Reports)
+    prod_m -- (Generate Reports)
+    im -- (Generate Reports)
+    sm -- (Generate Reports)
 }
 @enduml

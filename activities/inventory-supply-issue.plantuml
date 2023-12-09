@@ -19,6 +19,8 @@ start
 :(5) Click Issue;
 
 |s|
-:(6) Update stock and\nProduction Order's status;
+:(6) Update stock;
+:(7) Update status of Production Order;
+:(8) Notify relevant users;
 stop
 @enduml

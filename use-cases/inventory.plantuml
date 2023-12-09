@@ -7,16 +7,9 @@ is <|-- im
 
 rectangle Inventory {
     is -- (Manage stock)
-    (Manage stock) <|.. (Import) : <<extends>>
-
     is -- (Supplies receive)
-    (Supplies receive) ..> (View Purchase Order) : <<includes>>
     is -- (Products receive)
-    (Products receive) ..> (View Production Order) : <<includes>>
-
     is -- (Supplies issue)
-    (Supplies issue) ..> (View Production Order) : <<includes>>
     is -- (Products issue)
-    (Products issue) ..> (View Sales Order) : <<includes>>
 }
 @enduml

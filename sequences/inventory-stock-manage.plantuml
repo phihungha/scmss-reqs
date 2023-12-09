@@ -16,7 +16,7 @@ f -> b : GetStock(SearchFilterOpts)
 activate b
 return WarehouseItem[]
 f --> a : WarehouseItem[]
-a --> f : Add/Edit/Delete stock items
+a --> f : Edit stock items
 f --> b : UpdateStock(inputDto)
 activate b
 b -> b : Validate(inputDto)

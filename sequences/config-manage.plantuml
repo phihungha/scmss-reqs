@@ -1,0 +1,26 @@
+@startuml config-manage
+autonumber
+
+actor "Admin" as a
+participant UI as f
+participant Backend as b
+
+a -> f : Click "Config"
+activate f
+f -> b : Config()
+activate b
+return ConfigDto
+f --> a : ConfigDto
+
+a -> f : Edit config and\nclick "Save"
+f -> b : UpdateConfig(configDto)
+b -> b : Validate(create/updateDto)
+alt validation succeeds
+    b --> f : ConfigDto
+    f --> a : ConfigDto
+else validation fails
+    b --> f : ValidationFailure
+    return ValidationFailure
+end
+
+@enduml
