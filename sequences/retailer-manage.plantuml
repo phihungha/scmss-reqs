@@ -7,12 +7,12 @@ participant Backend as b
 
 a -> f : Click "Retailers"
 activate f
-f -> b : GetAll()
+f -> b : GetRetailers()
 activate b
 return RetailerDto[]
 f --> a : RetailerDto[]
 a -> f : Set search and filters
-f -> b : GetAll(SearchFilterOpts)
+f -> b : GetRetailers(SearchFilterOpts)
 activate b
 return RetailerDto[]
 f --> a : RetailerDto[]
@@ -21,15 +21,15 @@ alt add
     a -> f : Click "Add"
     f -> f : OpenAddRetailerScreen()
     a -> f : Enter info and\nclick "Save"
-    f -> b : Create(createDto)
+    f -> b : AddRetailer(createDto)
     activate b
 else update
     a -> f : Select item
-    f -> b : Get(id)
+    f -> b : GetRetailer(id)
     b --> f : RetailerDto
     f -> f : OpenUpdateRetailerScreen()
     a -> f : Enter info and\nclick "Save"
-    f -> b : Update(id, updateDto)
+    f -> b : UpdateRetailer(id, updateDto)
 end
 
 b -> b : Validate(create/updateDto)
