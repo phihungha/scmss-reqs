@@ -11,4 +11,8 @@ f -> b : GetNotifications()
 activate b
 return Notification[]
 f --> a : Notification[]
+
+a -> f : Read notifications
+f -> b : MarkNoticesAsRead(ids)
+activate b
 @enduml
