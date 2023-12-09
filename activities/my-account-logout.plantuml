@@ -8,6 +8,6 @@ start
 
 |s|
 :(2) Log current user out;
-:(3) Load login screen;
+:(3) Load "Login" screen;
 stop
 @enduml
