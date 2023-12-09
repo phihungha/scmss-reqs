@@ -10,10 +10,9 @@ start
 :(2) Load "Reports" screen;
 
 |u|
-:(3) Select report type\nand time range;
-:(4) Click "Generate";
+:(3) Select report type\nand time range\nthen click "Generate";
 
 |s|
-:(5) Generate report;
+:(4) Generate report;
 stop
 @enduml
