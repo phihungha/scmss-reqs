@@ -11,12 +11,14 @@ start
 
 |prod_manager|
 if (Approved?) then (no)
+    :Report problem;
     stop
 else (yes)
 endif
 
 |fin|
 if (Approved?) then (no)
+    :Report problems;
     stop
 else (yes)
 endif
@@ -25,6 +27,7 @@ endif
 :Create Purchase Order;
 :Update delivery progress;
 if (Canceled?) then (yes)
+    :Report problems;
     stop
 else (no)
 endif
@@ -32,19 +35,19 @@ endif
 |inv_spec|
 :Check received supplies;
 if (Problems found?) then (yes)
-    :Report to Procurement;
-
-    |pur_spec|
-    :Return order;
+    :Report problems\nand return order;
     stop
 else (no)
 endif
 
 |inv_spec|
-:Receive supplies;
+:Receive supplies\nand complete order;
+
+|pur_spec|
+:Attach invoice\nfrom vendor;
 
 |fin|
-:Complete payment;
+:Complete payment\nto vendor;
 
 stop
 @enduml

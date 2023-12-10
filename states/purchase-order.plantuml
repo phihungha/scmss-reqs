@@ -2,8 +2,8 @@
 
 [*] --> Processing : Creates
 Processing --> Canceled : Cancels
-Processing --> Delivering : Updates progress
-Delivering --> Delivered : Updates progress
+Processing --> Delivering : Updates progress as "Delivering"
+Delivering --> Delivered : Updates progress as "Delivered"
 Delivering --> Canceled : Cancels
 
 state check <<choice>>
@@ -13,7 +13,7 @@ check --> Returned : Returns due to problems
 Returned --> [*]
 
 Completed --> PaymentDue : Attaches invoice\nfrom vendor
-PaymentDue --> PaymentCompleted : Completes payment\nto vendor
+PaymentDue --> PaymentCompleted : Completes all due\namount to vendor
 PaymentCompleted --> [*]
 
 Canceled --> [*]
