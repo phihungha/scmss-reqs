@@ -14,8 +14,8 @@ class ProductionFacility {
     salesOrders: SalesOrder[]
     users: User[]
 }
-ProductionFacility "0..1" o-- "0..*" User
 note left: Inventory and production users\nare assigned to a ProductionFacility
+ProductionFacility "0..1" o-- "0..*" User
 
 abstract Goods {
     id: int
@@ -41,11 +41,11 @@ class Product {
     productionOrderItems: ProductionOrderItem[]
     salesOrderItems: SalesOrderItem[]
 }
-Goods <|-- Product
 note top
     supplyCost = sum of ProductionSupplyCostItem.totalCost in supplyCostItems
     productionCost = laborCost + supplyCost
 endnote
+Goods <|-- Product
 
 class ProductionSupplyCostItem {
     product: Product
@@ -55,9 +55,9 @@ class ProductionSupplyCostItem {
     unitCost: money
     totalCost: money
 }
+note top: unitCost is supply's price
 Product "1..1" *-- "0..*" ProductionSupplyCostItem
 Supply "1..1" o-- "0..*" ProductionSupplyCostItem
-note top: unitCost is supply's price
 
 enum ProductionOrderStatus {
     PendingApproval
@@ -93,12 +93,12 @@ class ProductionOrder {
     cancel(problem: str)
     reportDefect(problem: str)
 }
-ProductionFacility "1..1" o-- "0..*" ProductionOrder
-User "1..1" o-- "0..*" ProductionOrder : Approve
 note top
     totalValue = sum of totalValue of all items
     totalCost = sum of totalCost of all items
 endnote
+ProductionFacility "1..1" o-- "0..*" ProductionOrder
+User "1..1" o-- "0..*" ProductionOrder : Approve
 
 class ProductionOrderItem {
     order: ProductionOrder
@@ -110,14 +110,14 @@ class ProductionOrderItem {
     totalValue: money
     totalCost: money
 }
-ProductionOrder "1..1" *-- "1..*" ProductionOrderItem
-Product "1..1" o-- "0..*" ProductionOrderItem
 note top
     unitPrice = product's price
     unitCost = product's productionCost
     totalValue = unitPrice * quantity
     totalCost = unitCost * quantity
 endnote
+ProductionOrder "1..1" *-- "1..*" ProductionOrderItem
+Product "1..1" o-- "0..*" ProductionOrderItem
 
 enum ProductionOrderEventType {
     PendingApproval
