@@ -3,7 +3,7 @@ autonumber
 
 actor "User" as a
 participant UI as f
-participant Backend as b
+participant System as b
 
 activate f
 a -> f : Click "Notifications"

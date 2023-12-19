@@ -3,7 +3,7 @@ autonumber
 
 actor "Finance" as a
 participant UI as f
-participant Backend as b
+participant System as b
 participant RetailerMailServer as c
 
 a -> f : Click "Accept payment"

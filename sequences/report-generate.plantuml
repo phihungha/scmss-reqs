@@ -3,7 +3,7 @@ autonumber
 
 actor "Director" as a
 participant UI as f
-participant Backend as b
+participant System as b
 
 a -> f : Click "Report"
 activate f

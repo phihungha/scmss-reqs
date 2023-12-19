@@ -3,7 +3,7 @@ autonumber
 
 actor "Production Planner" as a
 participant UI as f
-participant Backend as b
+participant System as b
 
 a -> f : Click "Purchase Requisitions"
 activate f

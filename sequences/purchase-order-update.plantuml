@@ -3,7 +3,7 @@ autonumber
 
 actor "Purchase Specialist" as a
 participant UI as f
-participant Backend as b
+participant System as b
 
 activate f
 a -> f : Edit info and\nclick "Save"
