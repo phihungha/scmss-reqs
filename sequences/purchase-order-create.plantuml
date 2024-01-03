@@ -14,7 +14,7 @@ activate b
 b -> b : Validate(input)
 
 alt validation succeeds
-    b -> b : StartPurchaseRequisitionFulfillment(id)
+    b -> b : StartPurchaseRequisitionFulfillment()
     b --> f : PurchaseOrderDto
     f --> a : PurchaseOrderDto
 else validation fails

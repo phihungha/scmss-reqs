@@ -29,7 +29,7 @@ alt Receive
 else Report Problem
     f -> f : LoadReportProblemDialog()
     a -> f : Enter problem\nthen click "Report"
-    f -> b : ReturnProducts(productionOrderId, inputDto)
+    f -> b : ReturnProducts(productionOrderId, input)
     activate b
     b -> b : Notify()
     return SuccessMsg

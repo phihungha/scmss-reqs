@@ -11,6 +11,7 @@ f -> f : OpenCompletePaymentDialog()
 a -> f : Receipt PDF
 f -> b : CompletePurchasePayment(orderId, receiptFile)
 activate b
+b -> b : Notify()
 return SuccessMsg
 return SuccessMsg
 @enduml

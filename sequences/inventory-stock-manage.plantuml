@@ -17,9 +17,9 @@ activate b
 return WarehouseItem[]
 f --> a : WarehouseItem[]
 a --> f : Edit stock items
-f --> b : UpdateStock(inputDto)
+f --> b : UpdateStock(input)
 activate b
-b -> b : Validate(inputDto)
+b -> b : Validate(input)
 alt validation succeeds
     b --> f : WarehouseItem[]
     f --> a : WarehouseItem[]

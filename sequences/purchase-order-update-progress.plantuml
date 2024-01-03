@@ -7,9 +7,9 @@ participant System as b
 
 activate f
 a -> f : Add/Edit progress updates
-f -> b : Add/UpdatePurchaseOrderEvent(orderId, inputDto)
+f -> b : Add/UpdatePurchaseOrderEvent(orderId, input)
 activate b
-b -> b : Validate(inputDto)
+b -> b : Validate(input)
 
 alt validation succeeds
     b --> f : EventDto[]

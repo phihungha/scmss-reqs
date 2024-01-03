@@ -20,7 +20,7 @@ alt Complete order
 else Return order
     a -> f : Enter problem\nthen click "Return"
     f -> f : LoadReturnOrderDialog()
-    f -> b : ReturnOrder(id, inputDto)
+    f -> b : ReturnOrder(id, input)
     activate b
     return SuccessMsg
     f --> a : SuccessMsg
