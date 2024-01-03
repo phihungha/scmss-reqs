@@ -8,9 +8,9 @@ participant System as b
 a -> f : Click "Create"
 activate f
 a -> f : Enter info and\nclick "Save"
-f -> b : CreateSalesOrder(createDto)
+f -> b : CreateSalesOrder(input)
 activate b
-b -> b : Validate(createDto)
+b -> b : Validate(input)
 
 alt validation succeeds
     b -> b : Notify()

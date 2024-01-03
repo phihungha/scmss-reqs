@@ -21,7 +21,7 @@ alt add
     a -> f : Click "Add"
     f -> f : OpenAddSupplyScreen()
     a -> f : Enter info and\nclick "Save"
-    f -> b : AddSupply(createDto)
+    f -> b : AddSupply(input)
     activate b
 else update
     a -> f : Select item
@@ -29,10 +29,10 @@ else update
     b --> f : SupplyDto
     f -> f : OpenUpdateSupplyScreen()
     a -> f : Enter info and\nclick "Save"
-    f -> b : UpdateSupply(id, updateDto)
+    f -> b : UpdateSupply(id, input)
 end
 
-b -> b : Validate(create/updateDto)
+b -> b : Validate(create/input)
 
 alt validation succeeds
     b --> f : SupplyDto

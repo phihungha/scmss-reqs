@@ -18,6 +18,7 @@ repeat
 repeat while (Valid?) is (no)
 ->yes;
 :(4.2.1) Save item;
-:(4.2.2) Notify relevant users;
+:(4.2.2) Load "Purchase Requisition Details"\nscreen for created item;
+:(4.2.3) Notify relevant users;
 stop
 @enduml

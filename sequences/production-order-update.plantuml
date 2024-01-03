@@ -7,9 +7,9 @@ participant System as b
 
 activate f
 a -> f : Edit info and\nclick "Save"
-f -> b : UpdateProductionOrder(id, updateDto)
+f -> b : UpdateProductionOrder(id, input)
 activate b
-b -> b : Validate(updateDto)
+b -> b : Validate(input)
 
 alt validation succeeds
     b -> b : Notify()

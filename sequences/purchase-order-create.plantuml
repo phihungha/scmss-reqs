@@ -9,14 +9,14 @@ activate f
 a -> f : Click "Create\nPurchase Order"
 f -> f : GenerateOrderPreview()
 a -> f : Edit info and\nclick "Create"
-f -> b : CreatePurchaseOrder(createDto)
+f -> b : CreatePurchaseOrder(input)
 activate b
-b -> b : Validate(createDto)
+b -> b : Validate(input)
 
 alt validation succeeds
     b -> b : StartPurchaseRequisitionFulfillment(id)
-    b --> f : PurchaseRequisitionDto
-    f --> a : PurchaseRequisitionDto
+    b --> f : PurchaseOrderDto
+    f --> a : PurchaseOrderDto
 else validation fails
     return ValidationFailure
     f --> a : ValidationFailure
