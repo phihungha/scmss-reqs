@@ -20,21 +20,21 @@ start
 
 if (Ok?) then (no)
     |u|
-    :(5.1.1) Click Report Problem;
+    :(5.1.1) Click "Report Problem";
 
     |s|
     :(5.1.2) Load "Report problem" dialog;
 
     |u|
-    :(5.1.3) Enter problem info\nand click Report;
+    :(5.1.3) Enter problem info\nand click "Report";
 else (yes)
     |u|
-    :(5.2) Click Receive;
+    :(5.2) Click "Receive";
 endif
 
 |s|
-:(6) Update stock;
-:(7) Update status of Production Order;
+:(6) Update status of Production Order;
+:(7) Update stock;
 :(8) Notify relevant users;
 stop
 @enduml

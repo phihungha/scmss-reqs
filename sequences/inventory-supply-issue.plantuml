@@ -19,8 +19,7 @@ f --> a : ProductionOrderDto
 a -> f : Click "Issue"
 f -> b : IssueSupplies(productionOrderId)
 activate b
-b -> b : StartProductionOrder(id)
-b -> b : UpdateStock(newStock)
+b -> b : UpdateStock()
 b -> b : Notify()
 return SuccessMsg
 return SuccessMsg

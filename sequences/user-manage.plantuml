@@ -32,7 +32,7 @@ else update
     f -> b : UpdateUser(id, input)
 end
 
-b -> b : Validate(create/input)
+b -> b : Validate(input)
 
 alt validation succeeds
     b --> f : UserDto

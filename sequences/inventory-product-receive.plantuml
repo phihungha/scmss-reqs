@@ -21,9 +21,8 @@ a -> f : Click "Receive"\nor "Report Problem"
 alt Receive
     f -> b : ReceiveProducts(productionOrderId)
     activate b
-    b -> b : CompleteProductionOrder(id)
-    b -> b : UpdateStock(newStock)
-    b -> b : Notify()
+    b -> b : UpdateStock()
+    b -> b : NotifyComplete()
     return SuccessMsg
     f --> a : SuccessMsg
 else Report Problem
@@ -31,7 +30,7 @@ else Report Problem
     a -> f : Enter problem\nthen click "Report"
     f -> b : ReturnProducts(productionOrderId, input)
     activate b
-    b -> b : Notify()
+    b -> b : NotifyReturn()
     return SuccessMsg
     f --> a : SuccessMsg
     deactivate f

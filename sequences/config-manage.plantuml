@@ -14,7 +14,7 @@ f --> a : ConfigDto
 
 a -> f : Edit config and\nclick "Save"
 f -> b : UpdateConfig(configDto)
-b -> b : Validate(create/input)
+b -> b : Validate(input)
 alt validation succeeds
     b --> f : ConfigDto
     f --> a : ConfigDto
