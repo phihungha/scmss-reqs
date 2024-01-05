@@ -10,10 +10,10 @@ start
 :(2) Load "Receipt Upload" dialog;
 
 |u|
-:(3) Upload receipt;
+:(3) Enter pay amount,\nupload receipt receipt, and click\n"PO Complete Payment Ok Btn";
 
 |s|
-:(4) Save receipt and mark\nPurchase Order's payment\nas completed;
+:(4) Save receipt and payment;
 :(5) Notify relevant users;
 stop
 @enduml
