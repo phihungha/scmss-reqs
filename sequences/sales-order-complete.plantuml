@@ -13,9 +13,9 @@ a -> f : Click "Complete"\nor "Return"
 alt Complete order
     f -> b : CompleteSalesOrder(id)
     activate b
-    b -> b : GenerateInvoice()
+    b -> b : SendInvoice()
     b -> c : Invoice
-    b --> f : SuccessMsg
+    return : SuccessMsg
     f --> a : SuccessMsg
 else Return order
     a -> f : Enter problem\nthen click "Return"

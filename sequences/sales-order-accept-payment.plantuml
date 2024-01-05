@@ -10,9 +10,9 @@ a -> f : Click "Accept payment"
 activate f
 f -> f : OpenAcceptPaymentDialog()
 a -> f : Payment amount
-f -> b : AcceptSalesPayment(orderId, paymentAmount)
+f -> b : AcceptSalesPayment(orderId, payAmount)
 activate b
-b -> b : GenerateReceipt()
+b -> b : SendReceipt()
 b -> c : Receipt
 b -> b : Notify()
 return SuccessMsg

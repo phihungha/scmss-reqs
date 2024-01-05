@@ -6,7 +6,7 @@
 start
 if (Return order?) then (yes)
     |u|
-    :(1.1.1) Click Return;
+    :(1.1.1) Click "Return";
 
     |s|
     :(1.1.2) Load "Return order" dialog;
