@@ -4,7 +4,7 @@
 
 |u|
 start
-:(1) Click "Issue Products";
+:(1) Click "Products Issue Nav Btn";
 
 |s|
 :(2) Load "Select Sales Order"\nscreen;
@@ -16,7 +16,7 @@ start
 :(4) Load "Issue Sales Products"\nscreen;
 
 |u|
-:(5) Click "Issue";
+:(5) Click "Products Issue Btn";
 
 |s|
 :(6) Update status of Sales Order;

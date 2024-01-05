@@ -4,7 +4,7 @@
 
 |u|
 start
-:(1) Click "Stock";
+:(1) Click "Stock Nav Btn";
 
 |s|
 :(2) Load "Stock" screen;
@@ -17,7 +17,7 @@ start
 
 |u|
 repeat
-    :(5) Edit stock data\nand click Save;
+    :(5) Edit stock data\nand click "Stock Save Btn";
 
     |s|
     :(6) Validate entered data;

@@ -4,10 +4,10 @@
 
 |u|
 start
-:(1) Click "Complete Payment";
+:(1) Click "PO Complete Payment Btn";
 
 |s|
-:(2) Load Receipt Upload dialog;
+:(2) Load "Receipt Upload" dialog;
 
 |u|
 :(3) Upload receipt;

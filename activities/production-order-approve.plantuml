@@ -4,17 +4,17 @@
 
 |u|
 start
-:(1) Click "Approve" or "Reject";
+:(1) Click "PDO Approve Btn" or "PDO Reject Btn";
 if (Click) then (Approve)
     |s|
     :(1.1.1) Load "Approve Production\nOrder" dialog;
     |u|
-    :(1.1.2) Click "Confirm";
+    :(1.1.2) Click "PDO Approve Ok Btn";
 else (Reject)
     |s|
     :(1.2.1) Load "Reject Production\nOrder" dialog;
     |u|
-    :(1.2.2) Enter problem info\nand Click "Confirm";
+    :(1.2.2) Enter problem info\nand Click "PDO Reject Ok Btn";
 endif
 |s|
 :(2) Save item;

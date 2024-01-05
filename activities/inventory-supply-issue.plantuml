@@ -4,7 +4,7 @@
 
 |u|
 start
-:(1) Click "Issue Supplies";
+:(1) Click "Supplies Issue Nav Btn";
 
 |s|
 :(2) Load "Select Production Order"\nscreen;
@@ -16,7 +16,7 @@ start
 :(4) Load "Issue Production Supplies"\nscreen;
 
 |u|
-:(5) Click "Issue";
+:(5) Click "Supplies Issue Btn";
 
 |s|
 :(6) Update status of Production Order;

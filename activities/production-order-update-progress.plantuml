@@ -5,7 +5,7 @@
 |u|
 start
 repeat
-    :(1) Add/Edit progress updates;
+    :(1) Enter info and\nclick "PDO Progress Add Ok Btn"\nor "PDO Progress Edit Ok Btn";
     |s|
     :(2) Validate entered info;
     backward: (2.1) Show validation error messages;

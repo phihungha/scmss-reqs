@@ -4,7 +4,7 @@
 
 |u|
 start
-:(1) Click "Retailers";
+:(1) Click "Retailers Nav Btn";
 
 |s|
 :(2) Load "Retailers" screen;
@@ -16,7 +16,7 @@ start
 :(4) Load search\nand filter result;
 
 |u|
-:(5) Click "Add"\nor select an item;
+:(5) Click "Retailer Add Btn"\nor select an item;
 
 if (Item selected?) then (yes)
 |s|
@@ -27,7 +27,7 @@ endif
 
 |u|
 repeat
-    :(6) Enter info\nand click "Save";
+    :(6) Enter info\nand click "Retailer Save Btn";
 
     |s|
     :(7) Validate entered info;
