@@ -7,13 +7,13 @@ start
 :(1) Click "Products Issue Nav Btn";
 
 |s|
-:(2) Load "Select Sales Order"\nscreen;
+:(2) Load "Issue Products"\nscreen;
 
 |u|
 :(3) Select Sales Order;
 
 |s|
-:(4) Load "Issue Sales Products"\nscreen;
+:(4) Load "Issue Products Details"\nscreen;
 
 |u|
 :(5) Click "Products Issue Btn";

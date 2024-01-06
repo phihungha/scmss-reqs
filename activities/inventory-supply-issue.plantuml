@@ -7,13 +7,13 @@ start
 :(1) Click "Supplies Issue Nav Btn";
 
 |s|
-:(2) Load "Select Production Order"\nscreen;
+:(2) Load "Issue Supplies"\nscreen;
 
 |u|
 :(3) Select Production Order;
 
 |s|
-:(4) Load "Issue Production Supplies"\nscreen;
+:(4) Load "Issue Supplies Details"\nscreen;
 
 |u|
 :(5) Click "Supplies Issue Btn";

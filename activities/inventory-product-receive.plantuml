@@ -7,13 +7,13 @@ start
 :(1) Click "Products Receive Nav Btn";
 
 |s|
-:(2) Load "Select Production Order" screen;
+:(2) Load "Receive Products" screen;
 
 |u|
 :(3) Select Production Order;
 
 |s|
-:(4) Load "Receive Produced Products" screen;
+:(4) Load "Receive Products Details" screen;
 
 |u|
 :(5) Check information;
@@ -23,10 +23,10 @@ if (Ok?) then (no)
     :(5.1.1) Click "Products Return Btn";
 
     |s|
-    :(5.1.2) Load "Report problem" dialog;
+    :(5.1.2) Load "Return" dialog;
 
     |u|
-    :(5.1.3) Enter problem info\nand click "Report Ok Btn";
+    :(5.1.3) Enter problem info\nand click "Return Ok Btn";
 else (yes)
     |u|
     :(5.2) Click "Products Receive Btn";

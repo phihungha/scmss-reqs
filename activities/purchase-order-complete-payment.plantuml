@@ -7,7 +7,7 @@ start
 :(1) Click "PO Complete Payment Btn";
 
 |s|
-:(2) Load "Receipt Upload" dialog;
+:(2) Load "Complete\nPurchase Payment" dialog;
 
 |u|
 :(3) Enter pay amount,\nupload receipt receipt, and click\n"PO Complete Payment Ok Btn";
