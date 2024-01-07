@@ -9,7 +9,7 @@ if (Return order?) then (yes)
     :(1.1.1) Click "SO\nReturn Btn";
 
     |s|
-    :(1.1.2) Load\n"Return"dialog;
+    :(1.1.2) Load "Return" dialog;
 
     |u|
     :(1.1.3) Enter problem info\nand click "Return Ok Btn";

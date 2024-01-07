@@ -15,6 +15,7 @@ b -> b : Validate(input)
 alt validation succeeds
     b -> b : Notify()
     b --> f : PurchaseRequisitionDto
+    f -> f : LoadScreen\n("Purchase Requisition Details")
     f --> a : PurchaseRequisitionDto
 else validation fails
     return ValidationFailure

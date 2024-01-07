@@ -19,5 +19,6 @@ repeat while (Valid?) is (no)
 ->yes;
 :(4.2.1) Save item;
 :(4.2.2) Notify relevant users;
+:(4.2.3) Load "Production Order Details"\nscreen for the new item;
 stop
 @enduml

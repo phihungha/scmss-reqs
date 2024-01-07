@@ -5,7 +5,7 @@ actor "Inventory Manager" as a
 participant UI as f
 participant System as b
 
-a -> f : Click "Stock\nNav Btn"
+a -> f : Click "Stock Nav Btn"
 activate f
 f -> b : GetStock()
 activate b

@@ -15,6 +15,7 @@ b -> b : Validate(input)
 
 alt validation succeeds
     b --> f : PurchaseOrderDto
+    f -> f : LoadScreen\n("Purchase Order Details")
     f --> a : PurchaseOrderDto
 else validation fails
     return ValidationFailure

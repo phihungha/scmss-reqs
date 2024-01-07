@@ -15,6 +15,7 @@ b -> b : Validate(input)
 alt validation succeeds
     b -> b : Notify()
     b --> f : SalesOrderDto
+    f -> f : LoadScreen\n("Sales Order Details")
     f --> a : SalesOrderDto
 else validation fails
     return ValidationFailure

@@ -23,5 +23,5 @@ activate b
 b -> b : UpdateStock()
 b -> b : Notify()
 return SuccessMsg
-return SuccessMsg
+f --> a : SuccessMsg
 @enduml

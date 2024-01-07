@@ -34,6 +34,5 @@ else Clicked = "Supplies Return Btn"
     b -> b : NotifyReturn()
     return SuccessMsg
     f --> a : SuccessMsg
-    deactivate f
 end
 @enduml

@@ -27,7 +27,7 @@ endif
 
 |u|
 repeat
-    :(6) Enter info\nand click "Retailer Save Btn";
+    :(6) Enter info and click\n"Retailer Save Btn";
 
     |s|
     :(7) Validate entered info;

@@ -8,7 +8,6 @@ participant RetailerMailServer as c
 
 a -> f : Click "SO Accept\nPayment Btn"
 activate f
-f -> f : LoadDialog\n("Accept Sales Payment")
 a -> f : Payment amount
 f -> b : AcceptSalesPayment\n(orderId, payAmount)
 activate b

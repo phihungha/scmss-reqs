@@ -20,5 +20,6 @@ repeat
 repeat while (Valid?) is (no)
 ->yes;
 :(5.2.1) Save item;
+:(5.2.2) Load "Purchase Order Details"\nscreen for the new item;
 stop
 @enduml

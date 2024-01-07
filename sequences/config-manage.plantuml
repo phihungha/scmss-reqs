@@ -7,7 +7,7 @@ participant System as b
 
 a -> f : Click "Config\nNav Btn"
 activate f
-f -> b : Config()
+f -> b : GetConfig()
 activate b
 return ConfigDto
 f --> a : ConfigDto

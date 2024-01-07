@@ -7,7 +7,6 @@ participant System as b
 
 a -> f : Click "PO Complete\nPayment Btn"
 activate f
-f -> f : LoadDialog\n("Complete purchase payment")
 a -> f : Enter amount and\nupload receipt PDF file
 f -> b : CompletePurchasePayment\n(orderId, input)
 activate b
