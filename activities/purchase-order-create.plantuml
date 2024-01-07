@@ -20,6 +20,5 @@ repeat
 repeat while (Valid?) is (no)
 ->yes;
 :(5.2.1) Save item;
-:(5.2.2) Update status of\nassociated Purchase Requisition;
 stop
 @enduml

@@ -35,7 +35,6 @@ endif
 |s|
 :(6) Update status of Purchase Order;
 :(7) Update stock;
-:(8) Update status of associated\nPurchase Requisition;
-:(9) Notify relevant users;
+:(8) Notify relevant users;
 stop
 @enduml
