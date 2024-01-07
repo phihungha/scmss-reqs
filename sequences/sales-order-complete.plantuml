@@ -8,22 +8,21 @@ participant RetailerMailServer as c
 
 activate f
 
-a -> f : Click "Complete"\nor "Return"
+a -> f : Click complete buttons
 
-alt Complete order
+alt Clicked = "SO Complete Btn"
     f -> b : CompleteSalesOrder(id)
     activate b
     b -> b : SendInvoice()
-    b -> c : Invoice
+    b -> c : InvoiceEmail
     return : SuccessMsg
     f --> a : SuccessMsg
-else Return order
-    a -> f : Enter problem\nthen click "Return"
-    f -> f : LoadReturnOrderDialog()
-    f -> b : ReturnOrder(id, input)
+else Clicked = "SO Return Btn"
+    f -> f : LoadDialog("Return")
+    a -> f : Enter problem and\nclick "Return Ok Btn"
+    f -> b : ReturnSalesOrder\n(id, input)
     activate b
     return SuccessMsg
     f --> a : SuccessMsg
-    deactivate f
 end
 @enduml

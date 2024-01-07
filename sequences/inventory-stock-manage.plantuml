@@ -5,24 +5,24 @@ actor "Inventory Manager" as a
 participant UI as f
 participant System as b
 
-a -> f : Click "Stock"
+a -> f : Click "Stock\nNav Btn"
 activate f
 f -> b : GetStock()
 activate b
-return WarehouseItem[]
-f --> a : WarehouseItem[]
+return WarehouseItemDto[]
+f --> a : WarehouseItemDto[]
 a -> f : Set search and filters
 f -> b : GetStock(SearchFilterOpts)
 activate b
-return WarehouseItem[]
-f --> a : WarehouseItem[]
-a --> f : Edit stock items
+return WarehouseItemDto[]
+f --> a : WarehouseItemDto[]
+a --> f : Edit stock items and\nclick "Stock Save Btn"
 f --> b : UpdateStock(input)
 activate b
 b -> b : Validate(input)
 alt validation succeeds
-    b --> f : WarehouseItem[]
-    f --> a : WarehouseItem[]
+    b --> f : WarehouseItemDto[]
+    f --> a : WarehouseItemDto[]
 else validation fails
     return ValidationFailure
     return ValidationFailure

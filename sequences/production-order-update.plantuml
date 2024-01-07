@@ -6,8 +6,16 @@ participant UI as f
 participant System as b
 
 activate f
-a -> f : Edit info and\nclick "Save"
-f -> b : UpdateProductionOrder(id, input)
+
+alt Update
+    a -> f : Edit info and\nclick "PDO Update Btn"
+else Cancel
+    a -> f : Click "PDO Cancel Btn"
+    f -> f : LoadDialog("Cancel")
+    a -> f : Enter problem and\nclick "Cancel Ok Btn"
+end
+
+f -> b : UpdateProductionOrder\n(id, input)
 activate b
 b -> b : Validate(input)
 
@@ -18,6 +26,5 @@ alt validation succeeds
 else validation fails
     return ValidationFailure
     f --> a : ValidationFailure
-    deactivate f
 end
 @enduml

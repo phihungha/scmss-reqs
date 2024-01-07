@@ -6,11 +6,11 @@ participant UI as f
 participant System as b
 
 activate f
-a -> f : Click "Notifications"
+a -> f : Click "Notifications\nNav Btn"
 f -> b : GetNotifications()
 activate b
-return Notification[]
-f --> a : Notification[]
+return NotificationDto[]
+f --> a : NotificationDto[]
 
 a -> f : Read notifications
 f -> b : MarkNoticesAsRead(ids)

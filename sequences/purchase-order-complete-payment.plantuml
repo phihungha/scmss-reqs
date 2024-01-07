@@ -5,11 +5,11 @@ actor "Finance" as a
 participant UI as f
 participant System as b
 
-a -> f : Click "Complete payment"
+a -> f : Click "PO Complete\nPayment Btn"
 activate f
-f -> f : OpenCompletePaymentDialog()
-a -> f : Receipt PDF
-f -> b : CompletePurchasePayment(orderId, input)
+f -> f : LoadDialog\n("Complete purchase payment")
+a -> f : Enter amount and\nupload receipt PDF file
+f -> b : CompletePurchasePayment\n(orderId, input)
 activate b
 b -> b : Notify()
 return SuccessMsg

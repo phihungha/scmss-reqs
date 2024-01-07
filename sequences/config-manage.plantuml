@@ -5,15 +5,15 @@ actor "Admin" as a
 participant UI as f
 participant System as b
 
-a -> f : Click "Config"
+a -> f : Click "Config\nNav Btn"
 activate f
 f -> b : Config()
 activate b
 return ConfigDto
 f --> a : ConfigDto
 
-a -> f : Edit config and\nclick "Save"
-f -> b : UpdateConfig(configDto)
+a -> f : Edit config and click\n"Config Save Btn"
+f -> b : UpdateConfig(input)
 b -> b : Validate(input)
 alt validation succeeds
     b --> f : ConfigDto

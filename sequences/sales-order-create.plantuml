@@ -5,10 +5,10 @@ actor "Sales Specialist" as a
 participant UI as f
 participant System as b
 
-a -> f : Click "Create"
+a -> f : Click "SO Create Btn"
 activate f
-a -> f : Enter info and\nclick "Save"
-f -> b : CreateSalesOrder(input)
+a -> f : Enter info and click\n"SO Create Ok Btn"
+f -> b : CreateSalesOrder\n(input)
 activate b
 b -> b : Validate(input)
 

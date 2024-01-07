@@ -6,15 +6,14 @@ participant UI as f
 participant System as b
 
 activate f
-a -> f : Click "Create\nPurchase Order"
-f -> f : GenerateOrderPreview()
-a -> f : Edit info and\nclick "Create"
-f -> b : CreatePurchaseOrder(input)
+a -> f : Click "PO Create Btn"
+f -> f : LoadScreen\n("Create Purchase Order")
+a -> f : Edit info and click\n"PO Create Ok Btn"
+f -> b : CreatePurchaseOrder\n(input)
 activate b
 b -> b : Validate(input)
 
 alt validation succeeds
-    b -> b : StartPurchaseRequisitionFulfillment()
     b --> f : PurchaseOrderDto
     f --> a : PurchaseOrderDto
 else validation fails

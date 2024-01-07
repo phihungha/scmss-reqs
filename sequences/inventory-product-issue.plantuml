@@ -5,19 +5,20 @@ actor "Inventory Specialist" as a
 participant UI as f
 participant System as b
 
-a -> f : Click "Issue Products"
+a -> f : Click "Products\nIssue Nav Btn"
 activate f
 f -> b : GetSalesOrders()
 activate b
 return SalesOrderDto[]
 f --> a : SalesOrderDto[]
 a -> f : Select item
+f -> f : LoadScreen\n("Issue Products Details")
 f -> b : GetSalesOrder(id)
 activate b
 return SalesOrderDto
 f --> a : SalesOrderDto
-a -> f : Click "Issue"
-f -> b : IssueProducts(salesOrderId)
+a -> f : Click "Products\nIssue Btn"
+f -> b : IssueProducts\n(salesOrderId)
 activate b
 b -> b : UpdateStock()
 b -> b : Notify()

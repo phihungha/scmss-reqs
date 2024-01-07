@@ -5,31 +5,31 @@ actor "Admin" as a
 participant UI as f
 participant System as b
 
-a -> f : Click "Users"
+a -> f : Click "Users Nav Btn"
 activate f
 f -> b : GetUsers()
 activate b
 return UserDto[]
 f --> a : UserDto[]
 a -> f : Set search and filters
-f -> b : GetUsers(searchOpts)
+f -> b : GetUsers\n(searchOpts)
 activate b
 return UserDto[]
 f --> a : UserDto[]
 
 alt add
-    a -> f : Click "Add"
-    f -> f : OpenAddUserScreen()
-    a -> f : Enter info and\nclick "Save"
+    a -> f : Click "User Add Btn"
+    f -> f : LoadScreen\n("Add User")
+    a -> f : Enter info and click\n"User Save Btn"
     f -> b : AddUser(input)
     activate b
 else update
     a -> f : Select item
+    f -> f : LoadScreen\n("User Details")
     f -> b : GetUser(id)
     b --> f : UserDto
-    f -> f : OpenUpdateUserScreen()
-    a -> f : Enter info and\nclick "Save"
-    f -> b : UpdateUser(id, input)
+    a -> f : Enter info and click\n"User Save Btn"
+    f -> b : UpdateUser\n(id, input)
 end
 
 b -> b : Validate(input)

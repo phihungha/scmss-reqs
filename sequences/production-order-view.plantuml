@@ -5,20 +5,21 @@ actor "Production Specialist" as a
 participant UI as f
 participant System as b
 
-a -> f : Click "Production Orders"
+a -> f : Click "Production\nOrders Nav Btn"
 activate f
 f -> b : GetProductionOrders()
 activate b
 return ProductionOrderDto[]
 f --> a : ProductionOrderDto[]
 a -> f : Set search and filters
-f -> b : GetProductionOrders(searchOpts)
+f -> b : GetProductionOrders\n(searchOpts)
 activate b
 return ProductionOrderDto[]
 f --> a : ProductionOrderDto[]
 a -> f : Select item
+f -> f : LoadScreen\n("Production Order Details")
 f -> b : GetProductionOrder(id)
 activate b
 return ProductionOrderDto
-return ProductionOrderDto
+f --> a : ProductionOrderDto
 @enduml

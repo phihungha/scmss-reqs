@@ -5,31 +5,31 @@ actor "Production Manager" as a
 participant UI as f
 participant System as b
 
-a -> f : Click "Production Facilities"
+a -> f : Click "Production\nFacilities Nav Btn"
 activate f
-f -> b : GetProductionFacilities()
+f -> b : GetFacilities()
 activate b
 return ProductionFacilityDto[]
 f --> a : ProductionFacilityDto[]
 a -> f : Set search and filters
-f -> b : GetProductionFacilities(searchOpts)
+f -> b : GetFacilities\n(searchOpts)
 activate b
 return ProductionFacilityDto[]
 f --> a : ProductionFacilityDto[]
 
 alt add
-    a -> f : Click "Add"
-    f -> f : OpenAddProductionFacilityScreen()
-    a -> f : Enter info and\nclick "Save"
-    f -> b : AddProductionFacility(input)
+    a -> f : Click "Facility Add Btn"
+    f -> f : LoadScreen\n("Add Production Facility")
+    a -> f : Enter info and click\n"Facility Save Btn"
+    f -> b : AddFacility(input)
     activate b
 else update
     a -> f : Select item
-    f -> b : GetProductionFacility(id)
+    f -> f : LoadScreen\n("Production Facility Details")
+    f -> b : GetFacility(id)
     b --> f : ProductionFacilityDto
-    f -> f : OpenUpdateProductionFacilityScreen()
-    a -> f : Enter info and\nclick "Save"
-    f -> b : UpdateProductionFacility(id, input)
+    a -> f : Enter info and click\n"Facility Save Btn"
+    f -> b : UpdateFacility\n(id, input)
 end
 
 b -> b : Validate(input)

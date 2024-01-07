@@ -5,10 +5,10 @@ actor "Production Planner" as a
 participant UI as f
 participant System as b
 
-a -> f : Click "Create"
+a -> f : Click "PDO Create Btn"
 activate f
-a -> f : Enter info and\nclick "Save"
-f -> b : CreateProductionOrder(input)
+a -> f : Enter info and click\n"PDO Create Ok Btn"
+f -> b : CreateProductionOrder\n(input)
 activate b
 b -> b : Validate(input)
 

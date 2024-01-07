@@ -6,19 +6,25 @@ participant UI as f
 participant System as b
 
 activate f
-a -> f : Edit info and\nclick "Save"
-f -> b : UpdatePurchaseOrder(id, input)
+
+alt Update
+    a -> f : Edit info and\nclick "PO Update Btn"
+else Cancel
+    a -> f : Click "PO Cancel Btn"
+    f -> f : LoadDialog("Cancel")
+    a -> f : Enter problem and\nclick "Cancel Ok Btn"
+end
+
+f -> b : UpdatePurchaseOrder\n(id, input)
 activate b
 b -> b : Validate(input)
 
 alt validation succeeds
-    b -> b : UpdatePurchaseRequisitionStatus()
     b -> b : Notify()
     b --> f : PurchaseOrderDto
     f --> a : PurchaseOrderDto
 else validation fails
     return ValidationFailure
     f --> a : ValidationFailure
-    deactivate f
 end
 @enduml

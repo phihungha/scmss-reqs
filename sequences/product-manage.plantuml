@@ -5,31 +5,31 @@ actor "Sales Manager\nProduction Manager" as a
 participant UI as f
 participant System as b
 
-a -> f : Click "Products"
+a -> f : Click "Products Nav Btn"
 activate f
 f -> b : GetProducts()
 activate b
 return ProductDto[]
 f --> a : ProductDto[]
 a -> f : Set search and filters
-f -> b : GetProducts(searchOpts)
+f -> b : GetProducts\n(searchOpts)
 activate b
 return ProductDto[]
 f --> a : ProductDto[]
 
 alt add
-    a -> f : Click "Add"
-    f -> f : OpenAddProductScreen()
-    a -> f : Enter info and\nclick "Save"
+    a -> f : Click "Product Add Btn"
+    f -> f : LoadScreen\n("Add Product")
+    a -> f : Enter info and click\n"Product Save Btn"
     f -> b : AddProduct(input)
     activate b
 else update
     a -> f : Select item
+    f -> f : LoadScreen\n("Product Details")
     f -> b : GetProduct(id)
     b --> f : ProductDto
-    f -> f : OpenUpdateProductScreen()
-    a -> f : Enter info and\nclick "Save"
-    f -> b : UpdateProduct(id, input)
+    a -> f : Enter info and click\n"Product Save Btn"
+    f -> b : UpdateProduct\n(id, input)
 end
 
 b -> b : Validate(input)

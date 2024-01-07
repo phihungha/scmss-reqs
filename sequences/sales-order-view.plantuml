@@ -5,20 +5,21 @@ actor "Sales Specialist" as a
 participant UI as f
 participant System as b
 
-a -> f : Click "Sales Orders"
+a -> f : Click "Sales Orders\nNav Btn"
 activate f
 f -> b : GetSalesOrders()
 activate b
 return SalesOrderDto[]
 f --> a : SalesOrderDto[]
 a -> f : Set search and filters
-f -> b : GetSalesOrders(searchOpts)
+f -> b : GetSalesOrders\n(searchOpts)
 activate b
 return SalesOrderDto[]
 f --> a : SalesOrderDto[]
 a -> f : Select item
+f -> f : LoadScreen\n("Sales Order Details")
 f -> b : GetSalesOrder(id)
 activate b
 return SalesOrderDto
-return SalesOrderDto
+f --> a : SalesOrderDto
 @enduml

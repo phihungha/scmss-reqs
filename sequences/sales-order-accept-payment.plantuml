@@ -6,14 +6,14 @@ participant UI as f
 participant System as b
 participant RetailerMailServer as c
 
-a -> f : Click "Accept payment"
+a -> f : Click "SO Accept\nPayment Btn"
 activate f
-f -> f : OpenAcceptPaymentDialog()
+f -> f : LoadDialog\n("Accept Sales Payment")
 a -> f : Payment amount
-f -> b : AcceptSalesPayment(orderId, payAmount)
+f -> b : AcceptSalesPayment\n(orderId, payAmount)
 activate b
 b -> b : SendReceipt()
-b -> c : Receipt
+b -> c : ReceiptEmail
 b -> b : Notify()
 return SuccessMsg
 return SuccessMsg

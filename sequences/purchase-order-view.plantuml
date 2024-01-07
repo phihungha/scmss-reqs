@@ -5,20 +5,21 @@ actor "Purchase Specialist" as a
 participant UI as f
 participant System as b
 
-a -> f : Click "Purchase Orders"
+a -> f : Click "Purchase\nOrders Nav Btn"
 activate f
 f -> b : GetPurchaseOrders()
 activate b
 return PurchaseOrderDto[]
 f --> a : PurchaseOrderDto[]
 a -> f : Set search and filters
-f -> b : GetPurchaseOrders(searchOpts)
+f -> b : GetPurchaseOrders\n(searchOpts)
 activate b
 return PurchaseOrderDto[]
 f --> a : PurchaseOrderDto[]
 a -> f : Select item
+f -> f : LoadScreen\n("Purchase Order Details")
 f -> b : GetPurchaseOrder(id)
 activate b
 return PurchaseOrderDto
-return PurchaseOrderDto
+f --> a : PurchaseOrderDto
 @enduml

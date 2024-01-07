@@ -5,11 +5,11 @@ actor "Director" as a
 participant UI as f
 participant System as b
 
-a -> f : Click "Report"
+a -> f : Click "Reports Nav Btn"
 activate f
-a -> f : Report type\nand time range
-f -> b : GenerateReport(type, timeRange)
+a -> f : Enter report type\nand time range then click\n"Report Generate Btn"
+f -> b : GenerateReport\n(type, startMonth, endMonth)
 activate b
-return Report
-return Report
+return ReportDto
+return ReportDto
 @enduml

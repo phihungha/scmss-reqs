@@ -5,20 +5,21 @@ actor "Production Planner" as a
 participant UI as f
 participant System as b
 
-a -> f : Click "Purchase Requisitions"
+a -> f : Click "Purchase\nRequisitions Nav Btn"
 activate f
 f -> b : GetPurchaseRequisitions()
 activate b
 return PurchaseRequisitionDto[]
 f --> a : PurchaseRequisitionDto[]
 a -> f : Set search and filters
-f -> b : GetPurchaseRequisitions(searchOpts)
+f -> b : GetPurchaseRequisitions\n(searchOpts)
 activate b
 return PurchaseRequisitionDto[]
 f --> a : PurchaseRequisitionDto[]
 a -> f : Select item
+f -> f : LoadScreen ("Purchase\nRequisition Details")
 f -> b : GetPurchaseRequisition(id)
 activate b
 return PurchaseRequisitionDto
-return PurchaseRequisitionDto
+f --> a : PurchaseRequisitionDto
 @enduml

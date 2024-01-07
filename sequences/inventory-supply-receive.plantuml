@@ -5,33 +5,32 @@ actor "Inventory Specialist" as a
 participant UI as f
 participant System as b
 
-a -> f : Click "Receive Supplies"
+a -> f : Click "Supplies\nReceive Nav Btn"
 activate f
 f -> b : GetPurchaseOrders()
 activate b
 return PurchaseOrderDto[]
 f --> a : PurchaseOrderDto[]
 a -> f : Select item
+f -> f : LoadScreen\n("Receive Supplies Details")
 f -> b : GetPurchaseOrder(id)
 activate b
 return PurchaseOrderDto
 f --> a : PurchaseOrderDto
-a -> f : Click "Receive"\nor "Report Problem"
+a -> f : Click buttons
 
-alt Receive
-    f -> b : ReceiveSupplies(purchaseOrderId)
+alt Clicked = "Supplies Receive Btn"
+    f -> b : ReceiveSupplies\n(purchaseOrderId)
     activate b
     b -> b : UpdateStock()
-    b -> b : CompletePurchaseRequisition()
     b -> b : NotifyComplete()
     return SuccessMsg
     f --> a : SuccessMsg
-else Report Problem
-    f -> f : LoadReportProblemDialog()
-    a -> f : Enter problem\nthen click "Report"
-    f -> b : ReturnSupplies(purchaseOrderId, input)
+else Clicked = "Supplies Return Btn"
+    f -> f : LoadDialog("Return")
+    a -> f : Enter problem then\nclick "Return Ok Btn"
+    f -> b : ReturnSupplies\n(purchaseOrderId, input)
     activate b
-    b -> b : DelayPurchaseRequisition()
     b -> b : NotifyReturn()
     return SuccessMsg
     f --> a : SuccessMsg

@@ -6,17 +6,27 @@ participant UI as f
 participant System as b
 
 activate f
-a -> f : Add/Edit progress updates
-f -> b : Add/UpdateProductionOrderEvent(orderId, input)
+a -> f : Click progress buttons
+
+alt Clicked = "PDO Progress Add Btn"
+    f -> f : LoadDialog\n("Add Progress Update")
+    a -> f : Enter info and click\n"Progress Add Ok Btn"
+    f -> b : AddProductionOrderEvent\n(orderId, input)
+    activate b
+else Clicked = "PDO Progress Edit Btn"\non an Event item
+    f -> f : SetEventEditMode(True)
+    a -> f : Enter info and click\n"Progress Edit Ok Btn"
+    f -> b : UpdateProductionOrderEvent\n(orderId, id, input)
+end
+
 activate b
 b -> b : Validate(input)
 
 alt validation succeeds
-    b --> f : EventDto[]
-    f --> a : EventDto[]
+    b --> f : ProductionOrderEventDto
+    f --> a : ProductionOrderEventDto
 else validation fails
     return ValidationFailure
     f --> a : ValidationFailure
-    deactivate f
 end
 @enduml

@@ -1,22 +1,32 @@
 @startuml sales-order-update-progress
 autonumber
 
-actor "Logistic Specialist" as a
+actor "Logistics Specialist" as a
 participant UI as f
 participant System as b
 
 activate f
-a -> f : Add/Edit progress updates
-f -> b : Add/UpdateSalesOrderEvent(orderId, input)
+a -> f : Click progress buttons
+
+alt Clicked = "SO Progress Add Btn"
+    f -> f : LoadDialog\n("Add Progress Update")
+    a -> f : Enter info and click\n"Progress Add Ok Btn"
+    f -> b : AddSalesOrderEvent\n(orderId, input)
+    activate b
+else Clicked = "SO Progress Edit Btn"\non an Event item
+    f -> f : SetEventEditMode(True)
+    a -> f : Enter info and click\n"Progress Edit Ok Btn"
+    f -> b : UpdateSalesOrderEvent\n(orderId, id, input)
+end
+
 activate b
 b -> b : Validate(input)
 
 alt validation succeeds
-    b --> f : EventDto[]
-    f --> a : EventDto[]
+    b --> f : TransOrderEventDto
+    f --> a : TransOrderEventDto
 else validation fails
     return ValidationFailure
     f --> a : ValidationFailure
-    deactivate f
 end
 @enduml
