@@ -1,14 +1,11 @@
 @startuml misc
+left to right direction
 
 :Admin: as ad
 :User: as u
 u <|-- ad
 
 :Director: as d
-:Purchase Manager: as pur_m
-:Production Manager: as prod_m
-:Inventory Manager: as im
-:Sales Manager: as sm
 
 rectangle Miscellaneous {
     u -- (Login)
@@ -19,9 +16,5 @@ rectangle Miscellaneous {
     ad -- (Manage Configuration)
 
     d -- (Generate Reports)
-    pur_m -- (Generate Reports)
-    prod_m -- (Generate Reports)
-    im -- (Generate Reports)
-    sm -- (Generate Reports)
 }
 @enduml
