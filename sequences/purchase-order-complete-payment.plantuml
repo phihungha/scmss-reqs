@@ -11,7 +11,7 @@ activate f
 a -> f : Enter amount and\nupload receipt PDF file
 f -> b : CompletePurchasePayment\n(orderId, input)
 activate b
-b -> d : Update\n("PurchaseOrders", item)
+b -> d : Update\n("PurchaseOrders", id, item)
 activate d
 return PurchaseOrder
 b -> b : Notify()

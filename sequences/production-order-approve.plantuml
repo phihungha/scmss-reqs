@@ -13,7 +13,7 @@ alt Clicked = "PDO Approve Btn"
     a -> f : Click "Approve Ok Btn"
     f -> b : ApproveProductionOrder\n(id)
     activate b
-    b -> d : Update\n("ProductionOrders", item)
+    b -> d : Update\n("ProductionOrders", id, item)
     activate d
     return ProductionOrder
     b -> b : NotifyApproval()
@@ -25,7 +25,7 @@ else Clicked = "PDO Reject Btn"
     a -> f : Enter problem info and\nclick "Reject Ok Btn"
     f -> b : RejectProductionOrder\n(id, input)
     activate b
-    b -> d : Update\n("ProductionOrders", item)
+    b -> d : Update\n("ProductionOrders", id, item)
     activate d
     return ProductionOrder
     b -> b : NotifyRejection()

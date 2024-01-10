@@ -19,7 +19,7 @@ f --> a : NotificationDto[]
 a -> f : Read notifications
 f -> b : MarkNoticesAsRead(ids)
 activate b
-b -> d : Update("Notifications", item)
+b -> d : Update("Notifications", id, item)
 activate d
 return Notification[]
 return NotificationDto[]

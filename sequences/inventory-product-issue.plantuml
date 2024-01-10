@@ -27,7 +27,7 @@ f --> a : SalesOrderDto
 a -> f : Click "Products\nIssue Btn"
 f -> b : IssueProducts\n(salesOrderId)
 activate b
-b -> d : Update("SalesOrders", item)
+b -> d : Update("SalesOrders", id, item)
 activate d
 return SalesOrder
 b -> b : UpdateStock()

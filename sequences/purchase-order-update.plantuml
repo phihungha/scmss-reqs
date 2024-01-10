@@ -21,7 +21,10 @@ activate b
 b -> b : Validate(input)
 
 alt validation succeeds
-    b -> d : Update\n("PurchaseOrders", item)
+    b -> d : Update\n("PurchaseRequisitions", id, item)
+    activate d
+    return PurchaseRequisition
+    b -> d : Update\n("PurchaseOrders", id, item)
     activate d
     return PurchaseOrder
     b -> b : Notify()

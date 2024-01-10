@@ -14,7 +14,7 @@ alt Clicked = "PR Approve Btn"
     a -> f : Click "Approve Ok Btn"
     f -> b : ApprovePurchaseRequisition\n(id)
     activate b
-    b -> d : Update\n("PurchaseRequisitions", item)
+    b -> d : Update\n("PurchaseRequisitions", id, item)
     activate d
     return PurchaseRequisition
     b -> b : NotifyApproval()
@@ -26,7 +26,7 @@ else Clicked = "PR Reject Btn"
     a -> f : Enter problem info and\nclick "Reject Ok Btn"
     f -> b : RejectPurchaseRequisition\n(id, input)
     activate b
-    b -> d : Update\n("PurchaseRequisitions", item)
+    b -> d : Update\n("PurchaseRequisitions", id, item)
     activate d
     return PurchaseRequisition
     b -> b : NotifyRejection()

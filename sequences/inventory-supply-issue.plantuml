@@ -27,7 +27,7 @@ f --> a : ProductionOrderDto
 a -> f : Click "Supplies\nIssue Btn"
 f -> b : IssueSupplies\n(productionOrderId)
 activate b
-b -> d : Update("ProductionOrders", item)
+b -> d : Update("ProductionOrders", id, item)
 activate d
 return ProductionOrder
 b -> b : UpdateStock()

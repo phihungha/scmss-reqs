@@ -51,7 +51,7 @@ end
 b -> b : Validate(input)
 
 alt validation succeeds
-    b -> d : Upsert("Products", item)
+    b -> d : Upsert("Products", id?, item)
     activate d
     return Product
     b --> f : ProductDto

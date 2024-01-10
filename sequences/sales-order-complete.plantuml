@@ -13,7 +13,7 @@ a -> f : Click complete buttons
 alt Clicked = "SO Complete Btn"
     f -> b : CompleteSalesOrder(id)
     activate b
-    b -> d : Update\n("SalesOrders", item)
+    b -> d : Update\n("SalesOrders", id, item)
     activate d
     return SalesOrder
     b -> b : SendInvoice()
@@ -24,7 +24,7 @@ else Clicked = "SO Return Btn"
     a -> f : Enter problem and\nclick "Return Ok Btn"
     f -> b : ReturnSalesOrder\n(id, input)
     activate b
-    b -> d : Update\n("SalesOrders", item)
+    b -> d : Update\n("SalesOrders", id, item)
     activate d
     return SalesOrder
     return SuccessMsg
