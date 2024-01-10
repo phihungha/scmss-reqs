@@ -30,6 +30,12 @@ alt add
     a -> f : Enter info and click\n"Product Save Btn"
     f -> b : AddProduct(input)
     activate b
+    b -> d : Get("ProductionFacilities")
+    activate d
+    return ProductionFacility
+    b -> d : Insert\n("WarehouseProductItems", items)
+    activate d
+    return WarehouseProductItem[]
 else update
     a -> f : Select item
     f -> f : LoadScreen\n("Product Details")

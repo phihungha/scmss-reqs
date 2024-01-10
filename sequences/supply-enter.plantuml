@@ -30,6 +30,12 @@ alt add
     a -> f : Enter info and click\n"Supply Save Btn"
     f -> b : AddSupply(input)
     activate b
+    b -> d : Get("ProductionFacilities")
+    activate d
+    return ProductionFacility
+    b -> d : Insert\n("WarehouseSupplyItems", items)
+    activate d
+    return WarehouseSupplyItem[]
 else update
     a -> f : Select item
     f -> f : LoadScreen\n("Supply Details")
