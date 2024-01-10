@@ -32,6 +32,9 @@ alt Clicked = "Supplies Receive Btn"
     b -> d : Update("PurchaseOrders", id, item)
     activate d
     return PurchaseOrder
+    b -> d : GetMany\n("WarehouseSupplyItems", query)
+    activate d
+    return WarehouseSupplyItem[]
     b -> b : UpdateStock()
     b -> d : Update\n("WarehouseSupplyItems", items)
     activate d

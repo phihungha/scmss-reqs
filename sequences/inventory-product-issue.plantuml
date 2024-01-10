@@ -30,6 +30,9 @@ activate b
 b -> d : Update("SalesOrders", id, item)
 activate d
 return SalesOrder
+b -> d : GetMany\n("WarehouseProductItems", query)
+activate d
+return WarehouseProductItem[]
 b -> b : UpdateStock()
 b -> d : Update\n("WarehouseProductItems", items)
 activate d
