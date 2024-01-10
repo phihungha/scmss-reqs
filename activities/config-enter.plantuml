@@ -1,4 +1,4 @@
-@startuml config-manage
+@startuml config-enter
 |u|User
 |s|System
 

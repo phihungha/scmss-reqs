@@ -1,4 +1,4 @@
-@startuml user-manage
+@startuml user-enter
 |u|User
 |s|System
 

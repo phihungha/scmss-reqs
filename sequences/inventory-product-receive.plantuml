@@ -4,17 +4,24 @@ autonumber
 actor "Inventory Specialist" as a
 participant UI as f
 participant System as b
+participant Database as d
 
 a -> f : Click "Products\nReceive Nav Btn"
 activate f
 f -> b : GetProductionOrders()
 activate b
+b -> d : GetMany("ProductionOrders", query)
+activate d
+return ProductionOrder[]
 return ProductionOrderDto[]
 f --> a : ProductionOrderDto[]
 a -> f : Select item
 f -> f : LoadScreen\n("Receive Products Details")
 f -> b : GetProductionOrder(id)
 activate b
+b -> d : Get("ProductionOrders", id)
+activate d
+return ProductionOrder
 return ProductionOrderDto
 f --> a : ProductionOrderDto
 a -> f : Click buttons
@@ -22,7 +29,13 @@ a -> f : Click buttons
 alt Clicked = "Products Receive Btn"
     f -> b : ReceiveProducts\n(productionOrderId)
     activate b
+    b -> d : Update("ProductionOrders", input)
+    activate d
+    return ProductionOrder
     b -> b : UpdateStock()
+    b -> d : Update\n("WarehouseProductItems", input)
+    activate d
+    return WarehouseProductItem[]
     b -> b : NotifyComplete()
     return SuccessMsg
     f --> a : SuccessMsg
@@ -31,6 +44,9 @@ else Clicked = "Products Return Btn"
     a -> f : Enter problem\nthen click "Return Ok Btn"
     f -> b : ReturnProducts\n(productionOrderId, input)
     activate b
+    b -> d : Update("ProductionOrders", input)
+    activate d
+    return ProductionOrder
     b -> b : NotifyReturn()
     return SuccessMsg
     f --> a : SuccessMsg

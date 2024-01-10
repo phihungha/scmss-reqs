@@ -1,13 +1,13 @@
-@startuml vendor-manage
+@startuml supply-enter
 |u|User
 |s|System
 
 |u|
 start
-:(1) Click "Vendors Nav Btn";
+:(1) Click "Supplies Nav Btn";
 
 |s|
-:(2) Load "Vendors" screen;
+:(2) Load "Supplies" screen;
 
 |u|
 :(3) Set search\nand filters;
@@ -16,18 +16,18 @@ start
 :(4) Load search\nand filter result;
 
 |u|
-:(5) Click "Vendor Add Btn"\nor select an item;
+:(5) Click "Supply Add Btn"\nor select an item;
 
 if (Item selected?) then (yes)
 |s|
-:(5.1) Load "Vendor Details"\nscreen;
+:(5.1) Load "Supply Details"\nscreen;
 else (no)
-:(5.2) Load "Add Vendor"\nscreen;
+:(5.2) Load "Add Supply"\nscreen;
 endif
 
 |u|
 repeat
-    :(6) Enter info\nand click "Vendor Save Btn";
+    :(6) Enter info\nand click "Supply Save Btn";
 
     |s|
     :(7) Validate entered info;

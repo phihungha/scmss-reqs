@@ -4,15 +4,24 @@ autonumber
 actor "User" as a
 participant UI as f
 participant System as b
+participant Database as d
 
 activate f
 a -> f : Click "Notifications\nNav Btn"
 f -> b : GetNotifications()
 activate b
+b -> d : GetMany("Notifications", query)
+activate d
+return Notification[]
 return NotificationDto[]
 f --> a : NotificationDto[]
 
 a -> f : Read notifications
 f -> b : MarkNoticesAsRead(ids)
 activate b
+b -> d : Update("Notifications", input)
+activate d
+return Notification[]
+return NotificationDto[]
+f --> a : NotificationDto[]
 @enduml

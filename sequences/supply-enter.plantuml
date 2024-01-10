@@ -1,19 +1,26 @@
-@startuml supply-manage
+@startuml supply-enter
 autonumber
 
 actor "Purchase Manager" as a
 participant UI as f
 participant System as b
+participant Database as d
 
 a -> f : Click "Supplies Nav Btn"
 activate f
 f -> b : GetSupplies()
 activate b
+b -> d : GetMany("Supplies")
+activate d
+return Supply[]
 return SupplyDto[]
 f --> a : SupplyDto[]
 a -> f : Set search and filters
 f -> b : GetSupplies\n(searchOpts)
 activate b
+b -> d : GetMany("Supplies", query)
+activate d
+return Supply[]
 return SupplyDto[]
 f --> a : SupplyDto[]
 
@@ -27,6 +34,9 @@ else update
     a -> f : Select item
     f -> f : LoadScreen\n("Supply Details")
     f -> b : GetSupply(id)
+    b -> d : Get("Supplies", id)
+    activate d
+    return Supply
     b --> f : SupplyDto
     a -> f : Enter info and click\n"Supply Save Btn"
     f -> b : UpdateSupply\n(id, input)
@@ -35,6 +45,9 @@ end
 b -> b : Validate(input)
 
 alt validation succeeds
+    b -> d : Upsert("Supplies", input)
+    activate d
+    return Supply
     b --> f : SupplyDto
     f --> a : SupplyDto
 else validation fails

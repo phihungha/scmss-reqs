@@ -1,19 +1,26 @@
-@startuml product-manage
+@startuml product-enter
 autonumber
 
 actor "Sales Manager\nProduction Manager" as a
 participant UI as f
 participant System as b
+participant Database as d
 
 a -> f : Click "Products Nav Btn"
 activate f
 f -> b : GetProducts()
 activate b
+b -> d : GetMany("Products")
+activate d
+return Product[]
 return ProductDto[]
 f --> a : ProductDto[]
 a -> f : Set search and filters
 f -> b : GetProducts\n(searchOpts)
 activate b
+b -> d : GetMany("Products", query)
+activate d
+return Product[]
 return ProductDto[]
 f --> a : ProductDto[]
 
@@ -27,6 +34,9 @@ else update
     a -> f : Select item
     f -> f : LoadScreen\n("Product Details")
     f -> b : GetProduct(id)
+    b -> d : Get("Products", id)
+    activate d
+    return Product
     b --> f : ProductDto
     a -> f : Enter info and click\n"Product Save Btn"
     f -> b : UpdateProduct\n(id, input)
@@ -35,6 +45,9 @@ end
 b -> b : Validate(input)
 
 alt validation succeeds
+    b -> d : Upsert("Products", input)
+    activate d
+    return Product
     b --> f : ProductDto
     f --> a : ProductDto
 else validation fails

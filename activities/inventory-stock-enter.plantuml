@@ -1,4 +1,4 @@
-@startuml inventory-stock-manage
+@startuml inventory-stock-enter
 |u|User
 |s|System
 

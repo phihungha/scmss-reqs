@@ -1,19 +1,26 @@
-@startuml user-manage
+@startuml user-enter
 autonumber
 
 actor "Admin" as a
 participant UI as f
 participant System as b
+participant Database as d
 
 a -> f : Click "Users Nav Btn"
 activate f
 f -> b : GetUsers()
 activate b
+b -> d : GetMany("Users")
+activate d
+return User[]
 return UserDto[]
 f --> a : UserDto[]
 a -> f : Set search and filters
 f -> b : GetUsers\n(searchOpts)
 activate b
+b -> d : GetMany("Users", query)
+activate d
+return User[]
 return UserDto[]
 f --> a : UserDto[]
 
@@ -27,6 +34,9 @@ else update
     a -> f : Select item
     f -> f : LoadScreen\n("User Details")
     f -> b : GetUser(id)
+    b -> d : Get("Users", id)
+    activate d
+    return User
     b --> f : UserDto
     a -> f : Enter info and click\n"User Save Btn"
     f -> b : UpdateUser\n(id, input)
@@ -35,6 +45,9 @@ end
 b -> b : Validate(input)
 
 alt validation succeeds
+    b -> d : Upsert("Users", input)
+    activate d
+    return User
     b --> f : UserDto
     f --> a : UserDto
 else validation fails

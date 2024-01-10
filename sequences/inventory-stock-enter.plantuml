@@ -1,19 +1,26 @@
-@startuml inventory-stock-manage
+@startuml inventory-stock-enter
 autonumber
 
 actor "Inventory Manager" as a
 participant UI as f
 participant System as b
+participant Database as d
 
 a -> f : Click "Stock Nav Btn"
 activate f
 f -> b : GetStock()
 activate b
+b -> d : GetMany("WarehouseItems", query)
+activate d
+return WarehouseItem[]
 return WarehouseItemDto[]
 f --> a : WarehouseItemDto[]
 a -> f : Set search and filters
 f -> b : GetStock(SearchFilterOpts)
 activate b
+b -> d : GetMany("WarehouseItems", query)
+activate d
+return WarehouseItem[]
 return WarehouseItemDto[]
 f --> a : WarehouseItemDto[]
 a --> f : Edit stock items and\nclick "Stock Save Btn"
@@ -21,6 +28,9 @@ f --> b : UpdateStock(input)
 activate b
 b -> b : Validate(input)
 alt validation succeeds
+    b -> d : Update("WarehouseItems", input)
+    activate d
+    return WarehouseItem[]
     b --> f : WarehouseItemDto[]
     f --> a : WarehouseItemDto[]
 else validation fails

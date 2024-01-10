@@ -4,11 +4,15 @@ autonumber
 actor "User" as a
 participant UI as f
 participant System as b
+participant Database as d
 
 activate f
 a -> f : Enter login credentials\nand click "Login Btn"
 f -> b : Login(input)
 activate b
+b -> d : Get("Users", username)
+activate d
+return User
 
 alt succeeds
     b --> f : UserDto

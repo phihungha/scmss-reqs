@@ -1,13 +1,13 @@
-@startuml product-manage
+@startuml retailer-enter
 |u|User
 |s|System
 
 |u|
 start
-:(1) Click "Products Nav Btn";
+:(1) Click "Retailers Nav Btn";
 
 |s|
-:(2) Load "Products" screen;
+:(2) Load "Retailers" screen;
 
 |u|
 :(3) Set search\nand filters;
@@ -16,18 +16,18 @@ start
 :(4) Load search\nand filter result;
 
 |u|
-:(5) Click "Product Add Btn"\nor select an item;
+:(5) Click "Retailer Add Btn"\nor select an item;
 
 if (Item selected?) then (yes)
 |s|
-:(5.1) Load "Product Details"\nscreen;
+:(5.1) Load "Retailer Details"\nscreen;
 else (no)
-:(5.2) Load "Add Product"\nscreen;
+:(5.2) Load "Add Retailer"\nscreen;
 endif
 
 |u|
 repeat
-    :(6) Enter info\nand click "Product Save Btn";
+    :(6) Enter info and click\n"Retailer Save Btn";
 
     |s|
     :(7) Validate entered info;

@@ -12,8 +12,8 @@ rectangle Miscellaneous {
     u -- (Logout)
     u -- (View my notifications)
 
-    ad -- (Manage users)
-    ad -- (Manage Configuration)
+    ad -- (Enter users)
+    ad -- (Enter Configuration)
 
     d -- (Generate Reports)
 }

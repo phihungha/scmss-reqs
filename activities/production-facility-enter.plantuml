@@ -1,13 +1,13 @@
-@startuml retailer-manage
+@startuml production-facility-enter
 |u|User
 |s|System
 
 |u|
 start
-:(1) Click "Retailers Nav Btn";
+:(1) Click "Production Facilities Nav Btn";
 
 |s|
-:(2) Load "Retailers" screen;
+:(2) Load "Production Facilities"\nscreen;
 
 |u|
 :(3) Set search\nand filters;
@@ -16,18 +16,18 @@ start
 :(4) Load search\nand filter result;
 
 |u|
-:(5) Click "Retailer Add Btn"\nor select an item;
+:(5) Click "Facility Add Btn"\nor select an item;
 
 if (Item selected?) then (yes)
 |s|
-:(5.1) Load "Retailer Details"\nscreen;
+:(5.1) Load "Production Facility\nDetails" screen;
 else (no)
-:(5.2) Load "Add Retailer"\nscreen;
+:(5.2) Load "Add Production\nFacility" screen;
 endif
 
 |u|
 repeat
-    :(6) Enter info and click\n"Retailer Save Btn";
+    :(6) Enter info\nand click "Facility Save Btn";
 
     |s|
     :(7) Validate entered info;

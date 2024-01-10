@@ -4,23 +4,36 @@ autonumber
 actor "Inventory Specialist" as a
 participant UI as f
 participant System as b
+participant Database as d
 
 a -> f : Click "Products\nIssue Nav Btn"
 activate f
 f -> b : GetSalesOrders()
 activate b
+b -> d : GetMany("SalesOrders", query)
+activate d
+return SalesOrder[]
 return SalesOrderDto[]
 f --> a : SalesOrderDto[]
 a -> f : Select item
 f -> f : LoadScreen\n("Issue Products Details")
 f -> b : GetSalesOrder(id)
 activate b
+b -> d : Get("SalesOrders", id)
+activate d
+return SalesOrder
 return SalesOrderDto
 f --> a : SalesOrderDto
 a -> f : Click "Products\nIssue Btn"
 f -> b : IssueProducts\n(salesOrderId)
 activate b
+b -> d : Update("SalesOrders", input)
+activate d
+return SalesOrder
 b -> b : UpdateStock()
+b -> d : Update\n("WarehouseProductItems", input)
+activate d
+return WarehouseProductItem[]
 b -> b : Notify()
 return SuccessMsg
 f --> a : SuccessMsg

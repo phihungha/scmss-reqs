@@ -19,8 +19,8 @@ rectangle Sales {
     (View Sales Order) <|.. (Complete Sales Order) : <<extends>>
     (View Sales Order) <|.. (Accept payment\nof Sales Order) : <<extends>>
 
-    pm -- (Manage Products)
-    sm -- (Manage Products)
-    sm -- (Manage Retailers)
+    pm -- (Enter Products)
+    sm -- (Enter Products)
+    sm -- (Enter Retailers)
 }
 @enduml

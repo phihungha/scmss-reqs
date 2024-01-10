@@ -1,21 +1,28 @@
-@startuml production-facility-manage
+@startuml production-facility-enter
 autonumber
 
 actor "Production Manager" as a
 participant UI as f
 participant System as b
+participant Database as d
 
-a -> f : Click "Production\nFacilities Nav Btn"
+a -> f : Click "Facilities Nav Btn"
 activate f
 f -> b : GetFacilities()
 activate b
-return ProductionFacilityDto[]
-f --> a : ProductionFacilityDto[]
+b -> d : GetMany("Facilities")
+activate d
+return Facility[]
+return FacilityDto[]
+f --> a : FacilityDto[]
 a -> f : Set search and filters
 f -> b : GetFacilities\n(searchOpts)
 activate b
-return ProductionFacilityDto[]
-f --> a : ProductionFacilityDto[]
+b -> d : GetMany("Facilities", query)
+activate d
+return Facility[]
+return FacilityDto[]
+f --> a : FacilityDto[]
 
 alt add
     a -> f : Click "Facility Add Btn"
@@ -27,7 +34,10 @@ else update
     a -> f : Select item
     f -> f : LoadScreen\n("Production Facility Details")
     f -> b : GetFacility(id)
-    b --> f : ProductionFacilityDto
+    b -> d : Get("Facilities", id)
+    activate d
+    return Facility
+    b --> f : FacilityDto
     a -> f : Enter info and click\n"Facility Save Btn"
     f -> b : UpdateFacility\n(id, input)
 end
@@ -35,8 +45,11 @@ end
 b -> b : Validate(input)
 
 alt validation succeeds
-    b --> f : ProductionFacilityDto
-    f --> a : ProductionFacilityDto
+    b -> d : Upsert("Facilities", input)
+    activate d
+    return Facility
+    b --> f : FacilityDto
+    f --> a : FacilityDto
 else validation fails
     return ValidationFailure
     return ValidationFailure
