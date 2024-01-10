@@ -45,7 +45,7 @@ end
 b -> b : Validate(input)
 
 alt validation succeeds
-    b -> d : Upsert("Supplies", input)
+    b -> d : Upsert("Supplies", item)
     activate d
     return Supply
     b --> f : SupplyDto

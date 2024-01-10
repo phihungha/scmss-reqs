@@ -45,7 +45,7 @@ end
 b -> b : Validate(input)
 
 alt validation succeeds
-    b -> d : Upsert("Users", input)
+    b -> d : Upsert("Users", item)
     activate d
     return User
     b --> f : UserDto

@@ -27,11 +27,11 @@ f --> a : ProductionOrderDto
 a -> f : Click "Supplies\nIssue Btn"
 f -> b : IssueSupplies\n(productionOrderId)
 activate b
-b -> d : Update("ProductionOrders", input)
+b -> d : Update("ProductionOrders", item)
 activate d
 return ProductionOrder
 b -> b : UpdateStock()
-b -> d : Update\n("WarehouseSupplyItems", input)
+b -> d : Update\n("WarehouseSupplyItems", items)
 activate d
 return WarehouseSupplyItem[]
 b -> b : Notify()

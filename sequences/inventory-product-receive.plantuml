@@ -29,11 +29,11 @@ a -> f : Click buttons
 alt Clicked = "Products Receive Btn"
     f -> b : ReceiveProducts\n(productionOrderId)
     activate b
-    b -> d : Update("ProductionOrders", input)
+    b -> d : Update("ProductionOrders", item)
     activate d
     return ProductionOrder
     b -> b : UpdateStock()
-    b -> d : Update\n("WarehouseProductItems", input)
+    b -> d : Update\n("WarehouseProductItems", items)
     activate d
     return WarehouseProductItem[]
     b -> b : NotifyComplete()
@@ -44,7 +44,7 @@ else Clicked = "Products Return Btn"
     a -> f : Enter problem\nthen click "Return Ok Btn"
     f -> b : ReturnProducts\n(productionOrderId, input)
     activate b
-    b -> d : Update("ProductionOrders", input)
+    b -> d : Update("ProductionOrders", item)
     activate d
     return ProductionOrder
     b -> b : NotifyReturn()
