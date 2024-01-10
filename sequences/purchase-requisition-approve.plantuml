@@ -4,6 +4,7 @@ autonumber
 actor "Finance\nProduction Manager" as a
 participant UI as f
 participant System as b
+participant Database as d
 
 activate f
 a -> f : Click "PR Approve Btn"\nor "PR Reject Btn"
@@ -13,6 +14,9 @@ alt Clicked = "PR Approve Btn"
     a -> f : Click "Approve Ok Btn"
     f -> b : ApprovePurchaseRequisition\n(id)
     activate b
+    b -> d : Update\n("PurchaseRequisitions", item)
+    activate d
+    return PurchaseRequisition
     b -> b : NotifyApproval()
     b --> f : SuccessMsg
     deactivate b
@@ -22,6 +26,9 @@ else Clicked = "PR Reject Btn"
     a -> f : Enter problem info and\nclick "Reject Ok Btn"
     f -> b : RejectPurchaseRequisition\n(id, input)
     activate b
+    b -> d : Update\n("PurchaseRequisitions", item)
+    activate d
+    return PurchaseRequisition
     b -> b : NotifyRejection()
     return SuccessMsg
     f --> a : SuccessMsg

@@ -4,6 +4,7 @@ autonumber
 actor "Production Planner" as a
 participant UI as f
 participant System as b
+participant Database as d
 
 a -> f : Click "PDO Create Btn"
 activate f
@@ -13,6 +14,9 @@ activate b
 b -> b : Validate(input)
 
 alt validation succeeds
+    b -> d : Insert\n("ProductionOrders", item)
+    activate d
+    return ProductionOrder
     b -> b : Notify()
     b --> f : ProductionOrderDto
     f -> f : LoadScreen\n("Production Order Details")

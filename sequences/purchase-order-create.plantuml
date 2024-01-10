@@ -4,6 +4,7 @@ autonumber
 actor "Purchase Specialist" as a
 participant UI as f
 participant System as b
+participant Database as d
 
 activate f
 a -> f : Click "PO Create Btn"
@@ -14,6 +15,9 @@ activate b
 b -> b : Validate(input)
 
 alt validation succeeds
+    b -> d : Insert\n("PurchaseOrders", item)
+    activate d
+    return PurchaseOrder
     b --> f : PurchaseOrderDto
     f -> f : LoadScreen\n("Purchase Order Details")
     f --> a : PurchaseOrderDto

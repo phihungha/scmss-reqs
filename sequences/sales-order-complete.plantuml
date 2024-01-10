@@ -4,7 +4,7 @@ autonumber
 actor "Sales Specialist" as a
 participant UI as f
 participant System as b
-participant RetailerMailServer as c
+participant Database as d
 
 activate f
 
@@ -13,8 +13,10 @@ a -> f : Click complete buttons
 alt Clicked = "SO Complete Btn"
     f -> b : CompleteSalesOrder(id)
     activate b
+    b -> d : Update\n("SalesOrders", item)
+    activate d
+    return SalesOrder
     b -> b : SendInvoice()
-    b -> c : InvoiceEmail
     return : SuccessMsg
     f --> a : SuccessMsg
 else Clicked = "SO Return Btn"
@@ -22,6 +24,9 @@ else Clicked = "SO Return Btn"
     a -> f : Enter problem and\nclick "Return Ok Btn"
     f -> b : ReturnSalesOrder\n(id, input)
     activate b
+    b -> d : Update\n("SalesOrders", item)
+    activate d
+    return SalesOrder
     return SuccessMsg
     f --> a : SuccessMsg
 end

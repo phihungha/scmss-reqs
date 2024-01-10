@@ -4,15 +4,17 @@ autonumber
 actor "Finance" as a
 participant UI as f
 participant System as b
-participant RetailerMailServer as c
+participant Database as d
 
 a -> f : Click "SO Accept\nPayment Btn"
 activate f
 a -> f : Payment amount
 f -> b : AcceptSalesPayment\n(orderId, payAmount)
 activate b
+b -> d : Update\n("SalesOrders", item)
+activate d
+return SalesOrder
 b -> b : SendReceipt()
-b -> c : ReceiptEmail
 b -> b : Notify()
 return SuccessMsg
 return SuccessMsg

@@ -4,6 +4,7 @@ autonumber
 actor "Purchase Specialist" as a
 participant UI as f
 participant System as b
+participant Database as d
 
 activate f
 a -> f : Click progress buttons
@@ -23,6 +24,9 @@ activate b
 b -> b : Validate(input)
 
 alt validation succeeds
+    b -> d : Upsert\n("PurchaseOrderEvents", item)
+    activate d
+    return TransOrderEvent
     b --> f : TransOrderEventDto
     f --> a : TransOrderEventDto
 else validation fails

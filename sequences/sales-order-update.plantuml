@@ -4,6 +4,7 @@ autonumber
 actor "Sales Specialist" as a
 participant UI as f
 participant System as b
+participant Database as d
 
 activate f
 
@@ -20,6 +21,9 @@ activate b
 b -> b : Validate(input)
 
 alt validation succeeds
+    b -> d : Update\n("SalesOrders", item)
+    activate d
+    return SalesOrder
     b -> b : Notify()
     b --> f : SalesOrderDto
     f --> a : SalesOrderDto

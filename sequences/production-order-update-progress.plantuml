@@ -4,6 +4,7 @@ autonumber
 actor "Production Planner" as a
 participant UI as f
 participant System as b
+participant Database as d
 
 activate f
 a -> f : Click progress buttons
@@ -23,6 +24,9 @@ activate b
 b -> b : Validate(input)
 
 alt validation succeeds
+    b -> d : Upsert\n("ProductionOrderEvents", item)
+    activate d
+    return ProductionOrderEvent
     b --> f : ProductionOrderEventDto
     f --> a : ProductionOrderEventDto
 else validation fails

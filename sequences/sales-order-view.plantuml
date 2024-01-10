@@ -4,11 +4,15 @@ autonumber
 actor "Sales Specialist" as a
 participant UI as f
 participant System as b
+participant Database as d
 
 a -> f : Click "Sales Orders\nNav Btn"
 activate f
 f -> b : GetSalesOrders()
 activate b
+b -> d : GetMany\n("SalesOrders", query)
+activate d
+return SalesOrder[]
 return SalesOrderDto[]
 f --> a : SalesOrderDto[]
 a -> f : Set search and filters
@@ -20,6 +24,9 @@ a -> f : Select item
 f -> f : LoadScreen\n("Sales Order Details")
 f -> b : GetSalesOrder(id)
 activate b
+b -> d : Get\n("SalesOrders", id)
+activate d
+return SalesOrder
 return SalesOrderDto
 f --> a : SalesOrderDto
 @enduml

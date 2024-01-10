@@ -4,6 +4,7 @@ autonumber
 actor "Production Planner" as a
 participant UI as f
 participant System as b
+participant Database as d
 
 activate f
 
@@ -20,6 +21,9 @@ activate b
 b -> b : Validate(input)
 
 alt validation succeeds
+    b -> d : Update\n("ProductionOrders", item)
+    activate d
+    return ProductionOrder
     b -> b : Notify()
     b --> f : ProductionOrderDto
     f --> a : ProductionOrderDto

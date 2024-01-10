@@ -4,12 +4,16 @@ autonumber
 actor "Finance" as a
 participant UI as f
 participant System as b
+participant Database as d
 
 a -> f : Click "PO Complete\nPayment Btn"
 activate f
 a -> f : Enter amount and\nupload receipt PDF file
 f -> b : CompletePurchasePayment\n(orderId, input)
 activate b
+b -> d : Update\n("PurchaseOrders", item)
+activate d
+return PurchaseOrder
 b -> b : Notify()
 return SuccessMsg
 return SuccessMsg
