@@ -24,9 +24,12 @@ activate b
 b -> b : Validate(input)
 
 alt validation succeeds
-    b -> d : Upsert\n("PurchaseOrderEvents", item)
+    b -> d : Upsert\n("PurchaseOrderEvents", id?, item)
     activate d
     return TransOrderEvent
+    b -> d : Update\n("PurchaseOrders", id, item)
+    activate d
+    return PurchaseOrder
     b --> f : TransOrderEventDto
     f --> a : TransOrderEventDto
 else validation fails
