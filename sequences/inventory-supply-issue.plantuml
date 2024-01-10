@@ -34,10 +34,16 @@ b -> d : GetMany\n("WarehouseSupplyItems", query)
 activate d
 return WarehouseSupplyItem[]
 b -> b : UpdateStock()
-b -> d : Update\n("WarehouseSupplyItems", items)
-activate d
-return WarehouseSupplyItem[]
-b -> b : Notify()
-return SuccessMsg
-f --> a : SuccessMsg
+
+alt Out of stock
+    b --> f : OutOfStockMsg
+    f --> a : OutOfStockMsg
+else
+    b -> d : Update\n("WarehouseSupplyItems", items)
+    activate d
+    return WarehouseSupplyItem[]
+    b -> b : Notify()
+    return SuccessMsg
+    f --> a : SuccessMsg
+end
 @enduml
