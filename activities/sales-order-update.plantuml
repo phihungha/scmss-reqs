@@ -5,7 +5,14 @@
 |u|
 start
 repeat
-    :(1) Edit info and click\n"Update" or "Cancel";
+    :(1) Edit info and click\n"SO Update Btn"\nor "SO Cancel Btn";
+    |s|
+    if ("Cancel?") then (yes)
+        :(1.1.1) Load "Cancel" dialog;
+        |u|
+        :(1.1.2) Enter problem info\nand click "Cancel Ok Btn";
+    else (no)
+    endif
     |s|
     :(2) Validate entered info;
     backward: (2.1.1) Show validation\nerror messages;

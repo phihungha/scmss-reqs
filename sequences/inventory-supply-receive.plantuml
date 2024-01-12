@@ -3,39 +3,55 @@ autonumber
 
 actor "Inventory Specialist" as a
 participant UI as f
-participant Backend as b
+participant System as b
+participant Database as d
 
-a -> f : Click "Receive Supplies"
+a -> f : Click "Supplies\nReceive Nav Btn"
 activate f
 f -> b : GetPurchaseOrders()
 activate b
+b -> d : GetMany("PurchaseOrders", query)
+activate d
+return PurchaseOrder[]
 return PurchaseOrderDto[]
 f --> a : PurchaseOrderDto[]
 a -> f : Select item
+f -> f : LoadScreen\n("Receive Supplies Details")
 f -> b : GetPurchaseOrder(id)
 activate b
+b -> d : Get("PurchaseOrders", id)
+activate d
+return PurchaseOrder
 return PurchaseOrderDto
 f --> a : PurchaseOrderDto
-a -> f : Click "Receive"\nor "Report Problem"
+a -> f : Click buttons
 
-alt Receive
-    f -> b : ReceiveSupplies(purchaseOrderId)
+alt Clicked = "Supplies Receive Btn"
+    f -> b : ReceiveSupplies\n(productionOrderId)
     activate b
-    b -> b : CompletePurchaseOrder(id)
-    b -> b : UpdateStock(newStock)
-    b -> b : CompletePurchaseRequisition(id)
-    b -> b : Notify()
+    b -> d : Update("PurchaseOrders", id, item)
+    activate d
+    return PurchaseOrder
+    b -> d : GetMany\n("WarehouseSupplyItems", query)
+    activate d
+    return WarehouseSupplyItem[]
+    b -> b : UpdateStock()
+    b -> d : Update\n("WarehouseSupplyItems", items)
+    activate d
+    return WarehouseSupplyItem[]
+    b -> b : NotifyComplete()
     return SuccessMsg
     f --> a : SuccessMsg
-else Report Problem
-    f -> f : LoadReportProblemDialog()
-    a -> f : Enter problem\nthen click "Report"
-    f -> b : ReturnSupplies(purchaseOrderId, inputDto)
+else Clicked = "Supplies Return Btn"
+    f -> f : LoadDialog("Return")
+    a -> f : Enter problem\nthen click "Return Ok Btn"
+    f -> b : ReturnSupplies\n(productionOrderId, input)
     activate b
-    b -> b : DelayPurchaseRequisition(requisitionId)
-    b -> b : Notify()
+    b -> d : Update("PurchaseOrders", id, item)
+    activate d
+    return PurchaseOrder
+    b -> b : NotifyReturn()
     return SuccessMsg
     f --> a : SuccessMsg
-    deactivate f
 end
 @enduml

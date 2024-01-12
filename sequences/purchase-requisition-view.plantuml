@@ -3,22 +3,30 @@ autonumber
 
 actor "Production Planner" as a
 participant UI as f
-participant Backend as b
+participant System as b
+participant Database as d
 
-a -> f : Click "Purchase Requisitions"
+a -> f : Click "Purchase\nRequisitions Nav Btn"
 activate f
 f -> b : GetPurchaseRequisitions()
 activate b
+b -> d : GetMany\n("PurchaseRequisitions", query)
+activate d
+return PurchaseRequisition[]
 return PurchaseRequisitionDto[]
 f --> a : PurchaseRequisitionDto[]
 a -> f : Set search and filters
-f -> b : GetPurchaseRequisitions(searchOpts)
+f -> b : GetPurchaseRequisitions\n(searchOpts)
 activate b
 return PurchaseRequisitionDto[]
 f --> a : PurchaseRequisitionDto[]
 a -> f : Select item
+f -> f : LoadScreen ("Purchase\nRequisition Details")
 f -> b : GetPurchaseRequisition(id)
 activate b
+b -> d : Get\n("PurchaseRequisitions", id)
+activate d
+return PurchaseRequisition
 return PurchaseRequisitionDto
-return PurchaseRequisitionDto
+f --> a : PurchaseRequisitionDto
 @enduml

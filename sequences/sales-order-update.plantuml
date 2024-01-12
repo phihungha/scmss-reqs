@@ -3,21 +3,32 @@ autonumber
 
 actor "Sales Specialist" as a
 participant UI as f
-participant Backend as b
+participant System as b
+participant Database as d
 
 activate f
-a -> f : Edit info and\nclick "Save"
-f -> b : UpdateSalesOrder(id, updateDto)
+
+alt Update
+    a -> f : Edit info and\nclick "SO Update Btn"
+else Cancel
+    a -> f : Click "SO Cancel Btn"
+    f -> f : LoadDialog("Cancel")
+    a -> f : Enter problem and\nclick "Cancel Ok Btn"
+end
+
+f -> b : UpdateSalesOrder\n(id, input)
 activate b
-b -> b : Validate(updateDto)
+b -> b : Validate(input)
 
 alt validation succeeds
+    b -> d : Update\n("SalesOrders", id, item)
+    activate d
+    return SalesOrder
     b -> b : Notify()
     b --> f : SalesOrderDto
     f --> a : SalesOrderDto
 else validation fails
     return ValidationFailure
     f --> a : ValidationFailure
-    deactivate f
 end
 @enduml

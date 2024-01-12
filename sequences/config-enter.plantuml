@@ -1,0 +1,35 @@
+@startuml config-enter
+autonumber
+
+actor "Admin" as a
+participant UI as f
+participant System as b
+participant Database as d
+
+a -> f : Click "Config\nNav Btn"
+activate f
+f -> b : GetConfig()
+activate b
+b -> d : Get("Config")
+activate d
+return Config
+return ConfigDto
+f --> a : ConfigDto
+
+a -> f : Edit config and click\n"Config Save Btn"
+f -> b : UpdateConfig(input)
+activate b
+b -> b : Validate(input)
+alt validation succeeds
+    b -> d : Update\n("Config", input)
+    activate d
+    d --> b : Config
+    deactivate d
+    b --> f : ConfigDto
+    f --> a : ConfigDto
+else validation fails
+    b --> f : ValidationFailure
+    return ValidationFailure
+end
+
+@enduml

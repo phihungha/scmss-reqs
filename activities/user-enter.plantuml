@@ -1,0 +1,39 @@
+@startuml user-enter
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Users Nav Btn";
+
+|s|
+:(2) Load "Users" screen;
+
+|u|
+:(3) Set search\nand filters;
+
+|s|
+:(4) Load search\nand filter result;
+
+|u|
+:(5) Click "User Add Btn"\nor select an item;
+
+if (Item selected?) then (yes)
+|s|
+:(5.1) Load "User Details"\nscreen;
+else (no)
+:(5.2) Load "Add User"\nscreen;
+endif
+
+|u|
+repeat
+    :(6) Enter info\nand click "User Save Btn";
+
+    |s|
+    :(7) Validate entered info;
+    backward: (7.1) Show validation\nerror messages;
+repeat while (Valid?) is (no)
+->yes;
+:(7.2) Save item;
+stop
+@enduml

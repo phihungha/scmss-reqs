@@ -6,7 +6,7 @@
 start
 repeat
     :(1) Enter login credential;
-    :(2) Click "Login";
+    :(2) Click "Login Btn";
     |s|
     :(3) Check login credential;
     backward:(3.1) Show error messages;

@@ -77,8 +77,6 @@ abstract Order {
     cancel(problem: str)
     return(problem: str)
 }
-User "1..1" o-- "0..*" Order : Create
-User "1..1" o-- "0..*" Order : Finish
 note bottom
     subTotal = sum of totalPrice of all items
     vatAmount = subTotal * vatRate
@@ -87,6 +85,8 @@ note bottom
     <b>This abstract class is for sales and purchase orders,
     <b>not production orders
 endnote
+User "1..1" o-- "0..*" Order : Create
+User "1..1" o-- "0..*" Order : Finish
 
 abstract OrderItem {
     quantity: double
@@ -152,14 +152,14 @@ class PurchaseRequisition {
     reject(problem: str)
     cancel(problem: str)
 }
-Vendor "1..1" o-- "0..*" PurchaseRequisition
-User "0..*" o-- "1..1" PurchaseRequisition : Approve
-ProductionFacility "1..1" o-- "0..*" PurchaseRequisition
 note right
     subTotal = sum of total price of all items
     vatAmount = subTotal * vatRate
     totalAmount = subTotal + vatAmount
 endnote
+Vendor "1..1" o-- "0..*" PurchaseRequisition
+User "0..*" o-- "1..1" PurchaseRequisition : Approve
+ProductionFacility "1..1" o-- "0..*" PurchaseRequisition
 
 class PurchaseRequisitionItem {
     supply: Supply
@@ -171,19 +171,23 @@ Supply "1..1" o-- "0..*" PurchaseRequisitionItem
 
 class PurchaseOrder {
     items: PurchaseOrderItem[]
+    discountSubtotal: money
+    additionalDiscount: money
     discountAmount: money
     fromVendor: Vendor
     toFacility: ProductionFacility
     requisition: PurchaseRequisition
 }
+note right
+    discountSubtotal = Sum of discount of all items
+    additionalDiscount is entered manually
+    discountAmount = discountSubtotal + additionalDiscount
+    totalAmount = subTotal - discountAmount + vatAmount
+endnote
 Order <|-- PurchaseOrder
 Vendor "1..1" o-- "0..*" PurchaseOrder
 ProductionFacility "1..1" o-- "0..*" PurchaseOrder
 PurchaseRequisition "1..1" o-- "0..1" PurchaseOrder
-note right
-    discountAmount is entered manually
-    totalAmount = subTotal - discountAmount + vatAmount
-endnote
 
 class PurchaseOrderItem {
     supply: Supply
@@ -191,8 +195,11 @@ class PurchaseOrderItem {
     discount: money
     netPrice: money
 }
+note top
+    discount is entered manually
+    netPrice = totalPrice - discount
+endnote
 OrderItem <|-- PurchaseOrderItem
 PurchaseOrder "1..1" *-- "1..*" PurchaseOrderItem
 Supply "1..1" o-- "0..*" PurchaseOrderItem
-note top: discount is entered manually
 @enduml

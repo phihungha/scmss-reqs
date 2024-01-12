@@ -3,18 +3,23 @@ autonumber
 
 actor "Sales Specialist" as a
 participant UI as f
-participant Backend as b
+participant System as b
+participant Database as d
 
-a -> f : Click "Create"
+a -> f : Click "SO Create Btn"
 activate f
-a -> f : Enter info and\nclick "Save"
-f -> b : CreateSalesOrder(createDto)
+a -> f : Enter info and click\n"SO Create Ok Btn"
+f -> b : CreateSalesOrder\n(input)
 activate b
-b -> b : Validate(createDto)
+b -> b : Validate(input)
 
 alt validation succeeds
+    b -> d : Insert\n("SalesOrders", item)
+    activate d
+    return SalesOrder
     b -> b : Notify()
     b --> f : SalesOrderDto
+    f -> f : LoadScreen\n("Sales Order Details")
     f --> a : SalesOrderDto
 else validation fails
     return ValidationFailure

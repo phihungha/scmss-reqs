@@ -5,7 +5,17 @@
 |u|
 start
 repeat
-    :(1) Add/Edit progress updates;
+    if (Clicked?) then (PO Progress Add Btn)
+        |s|
+        :(1.1.1) Load "Add\nProgress Update" dialog;
+        |u|
+        :(1.1.2) Enter info and click\n"Progress Add Ok Btn";
+    else (PO Progress Edit Btn\non a progress item)
+        |s|
+        :(1.2.1) Switch item\nto edit mode;
+        |u|
+        :(1.2.2) Enter info and click\n"Progress Edit Ok Btn";
+    endif
     |s|
     :(2) Validate entered info;
     backward: (2.1) Show validation\nerror messages;

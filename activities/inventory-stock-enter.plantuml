@@ -1,0 +1,29 @@
+@startuml inventory-stock-enter
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Stock Nav Btn";
+
+|s|
+:(2) Load "Stock" screen;
+
+|u|
+:(3) Set search and filters;
+
+|s|
+:(4) Load search and filter result;
+
+|u|
+repeat
+    :(5) Edit stock data\nand click "Stock Save Btn";
+
+    |s|
+    :(6) Validate entered data;
+    backward: (6.1) Show validation\nerror messages;
+repeat while (Valid?) is (no)
+->yes;
+:(6.2) Update stock data;
+stop
+@enduml

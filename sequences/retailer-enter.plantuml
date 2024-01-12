@@ -1,0 +1,57 @@
+@startuml retailer-enter
+autonumber
+
+actor "Sales Manager" as a
+participant UI as f
+participant System as b
+participant Database as d
+
+a -> f : Click "Retailers Nav Btn"
+activate f
+f -> b : GetRetailers()
+activate b
+b -> d : GetMany("Retailers")
+activate d
+return Retailer[]
+return RetailerDto[]
+f --> a : RetailerDto[]
+a -> f : Set search and filters
+f -> b : GetRetailers\n(searchOpts)
+activate b
+b -> d : GetMany("Retailers", query)
+activate d
+return Retailer[]
+return RetailerDto[]
+f --> a : RetailerDto[]
+
+alt add
+    a -> f : Click "Retailer Add Btn"
+    f -> f : LoadScreen\n("Add Retailer")
+    a -> f : Enter info and click\n"Retailer Save Btn"
+    f -> b : AddRetailer(input)
+    activate b
+else update
+    a -> f : Select item
+    f -> f : LoadScreen\n("Retailer Details")
+    f -> b : GetRetailer(id)
+    b -> d : Get("Retailers", id)
+    activate d
+    return Retailer
+    b --> f : RetailerDto
+    a -> f : Enter info and click\n"Retailer Save Btn"
+    f -> b : UpdateRetailer\n(id, input)
+end
+
+b -> b : Validate(input)
+
+alt validation succeeds
+    b -> d : Upsert("Retailers", id?, item)
+    activate d
+    return Retailer
+    b --> f : RetailerDto
+    f --> a : RetailerDto
+else validation fails
+    return ValidationFailure
+    return ValidationFailure
+end
+@enduml

@@ -4,23 +4,23 @@
 
 |u|
 start
-:(1) Click "Issue Supplies";
+:(1) Click "Supplies Issue Nav Btn";
 
 |s|
-:(2) Load "Select Production Order"\nscreen;
+:(2) Load "Issue Supplies"\nscreen;
 
 |u|
 :(3) Select Production Order;
 
 |s|
-:(4) Load "Issue Production Supplies"\nscreen;
+:(4) Load "Issue Supplies Details"\nscreen;
 
 |u|
-:(5) Click Issue;
+:(5) Click "Supplies Issue Btn";
 
 |s|
-:(6) Update stock;
-:(7) Update status of Production Order;
+:(6) Update status of Production Order;
+:(7) Update stock;
 :(8) Notify relevant users;
 stop
 @enduml

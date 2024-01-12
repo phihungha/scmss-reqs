@@ -3,21 +3,35 @@ autonumber
 
 actor "Production Planner" as a
 participant UI as f
-participant Backend as b
+participant System as b
+participant Database as d
 
 activate f
-a -> f : Edit info and\nclick "Save"
-f -> b : UpdatePurchaseRequisition(id, updateDto)
+
+alt Update
+    a -> f : Edit info and\nclick "PR Update Btn"
+else Cancel
+    a -> f : Click "PR Cancel Btn"
+    f -> f : LoadDialog("Cancel")
+    a -> f : Enter problem and\nclick "Cancel Ok Btn"
+end
+
+f -> b : UpdatePurchaseRequisition\n(id, input)
 activate b
-b -> b : Validate(updateDto)
+b -> b : Validate(input)
 
 alt validation succeeds
+    b -> d : Get("PurchaseRequisitions", id)
+    activate d
+    return PurchaseRequisition
+    b -> d : Update\n("PurchaseRequisitions", id, item)
+    activate d
+    return PurchaseRequisition
     b -> b : Notify()
     b --> f : PurchaseRequisitionDto
     f --> a : PurchaseRequisitionDto
 else validation fails
     return ValidationFailure
     f --> a : ValidationFailure
-    deactivate f
 end
 @enduml

@@ -3,17 +3,16 @@
 [*] --> Processing : Creates
 Processing --> Canceled : Cancels
 Processing --> Delivering : Issue products
-Delivering --> Delivered : Updates progress
+Delivering --> Delivered : Updates progress as "Delivered"
 Delivering --> Canceled : Cancels
 
 state check <<choice>>
 Delivered --> check
-check --> Completed : Updates progress
+check --> PaymentDue : Completes
 check --> Returned : Returns due to problems
 Returned --> [*]
 
-Completed --> PaymentDue : Generates invoice\nfor retailer
-PaymentDue --> PaymentCompleted : Receives payment\nfrom retailer
+PaymentDue --> PaymentCompleted : Accepts all due\namount from retailer
 PaymentCompleted --> [*]
 
 Canceled --> [*]

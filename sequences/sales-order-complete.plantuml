@@ -3,27 +3,31 @@ autonumber
 
 actor "Sales Specialist" as a
 participant UI as f
-participant Backend as b
-participant RetailerMailServer as c
+participant System as b
+participant Database as d
 
 activate f
 
-a -> f : Click "Complete"\nor "Return"
+a -> f : Click complete buttons
 
-alt Complete order
+alt Clicked = "SO Complete Btn"
     f -> b : CompleteSalesOrder(id)
     activate b
-    b -> b : GenerateInvoice()
-    b -> c : Invoice
-    b --> f : SuccessMsg
+    b -> d : Update\n("SalesOrders", id, item)
+    activate d
+    return SalesOrder
+    b -> b : SendInvoice()
+    return : SuccessMsg
     f --> a : SuccessMsg
-else Return order
-    a -> f : Enter problem\nthen click "Return"
-    f -> f : LoadReturnOrderDialog()
-    f -> b : ReturnOrder(id, inputDto)
+else Clicked = "SO Return Btn"
+    f -> f : LoadDialog("Return")
+    a -> f : Enter problem and\nclick "Return Ok Btn"
+    f -> b : ReturnSalesOrder\n(id, input)
     activate b
+    b -> d : Update\n("SalesOrders", id, item)
+    activate d
+    return SalesOrder
     return SuccessMsg
     f --> a : SuccessMsg
-    deactivate f
 end
 @enduml

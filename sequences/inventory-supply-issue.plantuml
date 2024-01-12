@@ -3,25 +3,47 @@ autonumber
 
 actor "Inventory Specialist" as a
 participant UI as f
-participant Backend as b
+participant System as b
+participant Database as d
 
-a -> f : Click "Issue Supplies"
+a -> f : Click "Supplies\nIssue Nav Btn"
 activate f
 f -> b : GetProductionOrders()
 activate b
+b -> d : GetMany("ProductionOrders", query)
+activate d
+return SalesOrder[]
 return ProductionOrderDto[]
 f --> a : ProductionOrderDto[]
 a -> f : Select item
+f -> f : LoadScreen\n("Issue Supplies Details")
 f -> b : GetProductionOrder(id)
 activate b
+b -> d : Get("ProductionOrders", id)
+activate d
+return ProductionOrder
 return ProductionOrderDto
 f --> a : ProductionOrderDto
-a -> f : Click "Issue"
-f -> b : IssueSupplies(productionOrderId)
+a -> f : Click "Supplies\nIssue Btn"
+f -> b : IssueSupplies\n(productionOrderId)
 activate b
-b -> b : StartProductionOrder(id)
-b -> b : UpdateStock(newStock)
-b -> b : Notify()
-return SuccessMsg
-return SuccessMsg
+b -> d : Update("ProductionOrders", id, item)
+activate d
+return ProductionOrder
+b -> d : GetMany\n("WarehouseSupplyItems", query)
+activate d
+return WarehouseSupplyItem[]
+b -> b : UpdateStock()
+
+alt Out of stock
+    b --> f : OutOfStockMsg
+    f --> a : OutOfStockMsg
+else
+    b -> d : Update\n("WarehouseSupplyItems", items)
+    activate d
+    return WarehouseSupplyItem[]
+    b -> b : Notify()
+    return SuccessMsg
+    f --> a : SuccessMsg
+end
 @enduml

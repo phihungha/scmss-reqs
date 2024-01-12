@@ -4,14 +4,14 @@
 
 |u|
 start
-:(1) Click "Create";
+:(1) Click "PDO Create Btn";
 
 |s|
 :(2) Load "Create Production Order" screen;
 
 |u|
 repeat
-    :(3) Enter info and click "Save";
+    :(3) Enter info and click "PDO Create Ok Btn";
     |s|
     :(4) Validate entered info;
     backward: (4.1.1) Show validation\nerror messages;
@@ -19,5 +19,6 @@ repeat while (Valid?) is (no)
 ->yes;
 :(4.2.1) Save item;
 :(4.2.2) Notify relevant users;
+:(4.2.3) Load "Production Order Details"\nscreen for the new item;
 stop
 @enduml

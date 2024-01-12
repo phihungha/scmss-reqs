@@ -3,21 +3,32 @@ autonumber
 
 actor "Production Planner" as a
 participant UI as f
-participant Backend as b
+participant System as b
+participant Database as d
 
 activate f
-a -> f : Edit info and\nclick "Save"
-f -> b : UpdateProductionOrder(id, updateDto)
+
+alt Update
+    a -> f : Edit info and\nclick "PDO Update Btn"
+else Cancel
+    a -> f : Click "PDO Cancel Btn"
+    f -> f : LoadDialog("Cancel")
+    a -> f : Enter problem and\nclick "Cancel Ok Btn"
+end
+
+f -> b : UpdateProductionOrder\n(id, input)
 activate b
-b -> b : Validate(updateDto)
+b -> b : Validate(input)
 
 alt validation succeeds
+    b -> d : Update\n("ProductionOrders", id, item)
+    activate d
+    return ProductionOrder
     b -> b : Notify()
     b --> f : ProductionOrderDto
     f --> a : ProductionOrderDto
 else validation fails
     return ValidationFailure
     f --> a : ValidationFailure
-    deactivate f
 end
 @enduml

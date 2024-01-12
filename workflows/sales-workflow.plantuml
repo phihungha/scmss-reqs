@@ -2,33 +2,37 @@
 |sales_spec|Sales Specialist
 |log_spec|Logistics Specialist
 |inv_spec|Inventory Specialist
+|fin|Finance
 
 |sales_spec|
 start
 :Create Sales Order;
 
 |inv_spec|
-:Issue products for delivery;
+:Issue products\nfor delivery;
 
 |log_spec|
 :Update delivery progress;
 
 |sales_spec|
 if (Canceled?) then (yes)
+    :Report problems;
     stop
 else (no)
 endif
 
 |sales_spec|
 if (Customer accepted?) then (no)
-    :Return order;
+    :Report problems\n and return order;
     stop
 else (yes)
 endif
 
-:Generate invoice;
-:Accept payment
-and generate receipt;
+:Complete order;
+:Send invoice\nto retailer;
+
+|fin|
+:Accept payment\nfrom retailer;
 
 stop
 @enduml

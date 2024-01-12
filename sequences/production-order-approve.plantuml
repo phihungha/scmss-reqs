@@ -3,24 +3,32 @@ autonumber
 
 actor "Production Manager" as a
 participant UI as f
-participant Backend as b
+participant System as b
 
 activate f
-a -> f : Click "Approve" or "Reject"
+a -> f : Click "PDO Approve Btn"\nor "PDO Reject Btn"
 
-alt Approve
-    f -> f : OpenApproveDialog()
-    a -> f : Click "Ok"
-    f -> b : ApproveProductionOrder(id)
+alt Clicked = "PDO Approve Btn"
+    f -> f : LoadDialog("Approve")
+    a -> f : Click "Approve Ok Btn"
+    f -> b : ApproveProductionOrder\n(id)
     activate b
+    b -> d : Update\n("ProductionOrders", id, item)
+    activate d
+    return ProductionOrder
+    b -> b : NotifyApproval()
     b --> f : SuccessMsg
     deactivate b
     f --> a : SuccessMsg
-else Reject
-    f -> f : OpenRejectDialog()
-    a -> f : Enter problem info\nand click "Confirm"
-    f -> b : RejectProductionOrder(id, ProblemDto)
+else Clicked = "PDO Reject Btn"
+    f -> f : LoadDialog("Reject")
+    a -> f : Enter problem info and\nclick "Reject Ok Btn"
+    f -> b : RejectProductionOrder\n(id, input)
     activate b
+    b -> d : Update\n("ProductionOrders", id, item)
+    activate d
+    return ProductionOrder
+    b -> b : NotifyRejection()
     return SuccessMsg
     f --> a : SuccessMsg
     deactivate f

@@ -3,18 +3,23 @@ autonumber
 
 actor "Production Planner" as a
 participant UI as f
-participant Backend as b
+participant System as b
+participant Database as d
 
-a -> f : Click "Create"
+a -> f : Click "PR Create Btn"
 activate f
-a -> f : Enter info and\nclick "Save"
-f -> b : CreatePurchaseRequisition(createDto)
+a -> f : Enter info and click\n"PR Create Ok Btn"
+f -> b : CreatePurchaseRequisition\n(input)
 activate b
-b -> b : Validate(createDto)
+b -> b : Validate(input)
 
 alt validation succeeds
+    b -> d : Insert\n("PurchaseRequisitions", item)
+    activate d
+    return PurchaseRequisition
     b -> b : Notify()
     b --> f : PurchaseRequisitionDto
+    f -> f : LoadScreen\n("Purchase Requisition Details")
     f --> a : PurchaseRequisitionDto
 else validation fails
     return ValidationFailure

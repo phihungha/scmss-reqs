@@ -3,20 +3,27 @@ autonumber
 
 actor "Purchase Specialist" as a
 participant UI as f
-participant Backend as b
+participant System as b
+participant Database as d
 
 activate f
-a -> f : Click "Create\nPurchase Order"
-f -> f : GenerateOrderPreview()
-a -> f : Edit info and\nclick "Create"
-f -> b : CreatePurchaseOrder(createDto)
+a -> f : Click "PO Create Btn"
+f -> f : LoadScreen\n("Create Purchase Order")
+a -> f : Edit info and click\n"PO Create Ok Btn"
+f -> b : CreatePurchaseOrder\n(input)
 activate b
-b -> b : Validate(createDto)
+b -> b : Validate(input)
 
 alt validation succeeds
-    b -> b : StartPurchaseRequisitionFulfillment(id)
-    b --> f : PurchaseRequisitionDto
-    f --> a : PurchaseRequisitionDto
+    b -> d : Update("PurchaseRequisitions", id, item)
+    activate d
+    return PurchaseRequisition
+    b -> d : Insert\n("PurchaseOrders", item)
+    activate d
+    return PurchaseOrder
+    b --> f : PurchaseOrderDto
+    f -> f : LoadScreen\n("Purchase Order Details")
+    f --> a : PurchaseOrderDto
 else validation fails
     return ValidationFailure
     f --> a : ValidationFailure

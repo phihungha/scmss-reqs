@@ -4,16 +4,16 @@
 
 |u|
 start
-:(1) Click "Accept payment";
+:(1) Click "SO Accept Payment Btn";
 
 |s|
 :(2) Load "Accept Sales Payment"\ndialog;
 
 |u|
-:(3) Enter payment amount;
+:(3) Enter pay amount and\nclick "SO Accept Payment Ok Btn";
 
 |s|
-:(4) Accept payment;
+:(4) Save payment;
 :(5) Generate and send\nreceipt to retailer;
 :(6) Notify relevant users;
 stop

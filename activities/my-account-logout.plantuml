@@ -4,7 +4,7 @@
 
 |u|
 start
-:(1) Click "Logout";
+:(1) Click "Logout Btn";
 
 |s|
 :(2) Log current user out;

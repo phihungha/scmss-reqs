@@ -6,7 +6,7 @@ left to right direction
 is <|-- im
 
 rectangle Inventory {
-    is -- (Manage stock)
+    is -- (Enter stock)
     is -- (Supplies receive)
     is -- (Products receive)
     is -- (Supplies issue)

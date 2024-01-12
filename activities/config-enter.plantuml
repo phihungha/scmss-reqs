@@ -1,0 +1,23 @@
+@startuml config-enter
+|u|User
+|s|System
+
+|u|
+start
+:(1) Click "Config Nav Btn";
+
+|s|
+:(2) Load "Configuration" screen;
+
+|u|
+repeat
+    :(3) Edit config\nand click "Config Save Btn";
+
+    |s|
+    :(4) Validate config;
+    backward: (4.1) Show validation\nerror messages;
+repeat while (Valid?) is (no)
+->yes;
+:(4.2) Save config;
+stop
+@enduml

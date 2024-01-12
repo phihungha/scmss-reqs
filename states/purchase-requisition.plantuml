@@ -9,10 +9,12 @@ approval --> Rejected : Rejects
 Rejected --> [*]
 approval --> Approved : Approves
 
-Approved --> Purchasing : Create Purchase Order
-Purchasing --> Canceled : Cancel Purchase Order
-Purchasing --> Completed : Complete Purchase Order
+Approved --> Purchasing : Creates Purchase Order
+Purchasing --> Delayed : Cancels or returns\nPurchase Order
+Purchasing --> Completed : Completes Purchase Order
 Completed --> [*]
+Delayed --> Purchasing : Creates Purchase Order
+Delayed --> Canceled : Cancels
 
 Canceled --> [*]
 @enduml

@@ -4,23 +4,23 @@
 
 |u|
 start
-:(1) Click "Issue Products";
+:(1) Click "Products Issue Nav Btn";
 
 |s|
-:(2) Load "Select Sales Order"\nscreen;
+:(2) Load "Issue Products"\nscreen;
 
 |u|
 :(3) Select Sales Order;
 
 |s|
-:(4) Load "Issue Sales Products"\nscreen;
+:(4) Load "Issue Products Details"\nscreen;
 
 |u|
-:(5) Click Issue;
+:(5) Click "Products Issue Btn";
 
 |s|
-:(6) Update stock;
-:(7) Update status of Sales Order;
+:(6) Update status of Sales Order;
+:(7) Update stock;
 :(8) Notify relevant users;
 stop
 @enduml

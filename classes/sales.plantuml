@@ -34,7 +34,6 @@ class Product {
     salesOrderItems: SalesOrderItem[]
 }
 Goods <|-- Product
-note bottom: productionCost = sum of totalCost of all productionCostItems
 
 enum OrderStatus {
     Processing
@@ -77,8 +76,6 @@ abstract Order {
     cancel(problem: str)
     return(problem: str)
 }
-User "1..1" o-- "0..*" Order : Create
-User "1..1" o-- "0..*" Order : Finish
 note bottom
     subTotal = sum of totalPrice of all items
     vatAmount = subTotal * vatRate
@@ -87,6 +84,8 @@ note bottom
     <b>This abstract class is for sales and purchase orders,
     <b>not production orders
 endnote
+User "1..1" o-- "0..*" Order : Create
+User "1..1" o-- "0..*" Order : Finish
 
 abstract OrderItem {
     quantity: double

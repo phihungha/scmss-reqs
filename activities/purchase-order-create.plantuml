@@ -4,7 +4,7 @@
 
 |u|
 start
-:(1) Click "Create Purchase Order";
+:(1) Click "PO Create Btn";
 
 |s|
 :(2) Load "Create Purchase Order"\nscreen;
@@ -12,7 +12,7 @@ start
 |u|
 :(3) Review info;
 repeat
-    :(4) Edit info\nand click "Save";
+    :(4) Edit info\nand click "PO Create Ok Btn";
 
     |s|
     :(5) Validate entered info;
@@ -20,6 +20,6 @@ repeat
 repeat while (Valid?) is (no)
 ->yes;
 :(5.2.1) Save item;
-:(5.2.2) Update status of\nassociated Purchase Requisition;
+:(5.2.2) Load "Purchase Order Details"\nscreen for the new item;
 stop
 @enduml

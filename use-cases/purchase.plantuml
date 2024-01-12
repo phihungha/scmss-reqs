@@ -27,7 +27,7 @@ rectangle Purchase {
     f -- (Complete payment\nof Purchase Order)
     (Complete payment\nof Purchase Order) ..> (View Purchase Order) : <<includes>>
 
-    pm -- (Manage Vendors)
-    pm -- (Manage Supplies)
+    pm -- (Enter Vendors)
+    pm -- (Enter Supplies)
 }
 @enduml
